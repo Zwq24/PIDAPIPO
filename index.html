@@ -34,9 +34,21 @@
     <p class="subtitle">Friday 28th March Chocolate, Events, Loves, News</p>
   </header>
 
-  <!-- 内容区 -->
+  <!-- 图片切换区域 -->
+  <div id="page-container">
+    <!-- 图片由JS动态渲染于此 -->
+  </div>
+
+  <!-- 图片分页组件 -->
+  <nav class="pagination">
+    <button class="page-btn" data-page="0">1</button>
+    <button class="page-btn active" data-page="1">2</button> <!-- 默认第二张，索引为1 -->
+    <button class="page-btn" data-page="2">3</button>
+    <button class="page-btn" data-page="3">4</button>
+  </nav>
+
+  <!-- 固定正文内容区 -->
   <main class="content">
-    <!-- 品牌和产品介绍文字，可根据需要拆分为多个段落 -->
     <section class="intro">
       <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
       <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
@@ -45,32 +57,6 @@
       <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
       <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
     </section>
-
-    <!-- 分页内容区，每一页一个section，初始只显示第2页 -->
-    <section class="page-content" data-page="1" style="display:none;">
-      <p>这是第1页的内容。</p>
-    </section>
-    <section class="page-content" data-page="2" style="display:block;">
-      <p>这是第2页的内容。</p>
-    </section>
-    <section class="page-content" data-page="3" style="display:none;">
-      <p>这是第3页的内容。</p>
-    </section>
-    <section class="page-content" data-page="4" style="display:none;">
-      <p>这是第4页的内容。</p>
-    </section>
-
-    <!-- 分页组件 -->
-    <nav class="pagination">
-      <!-- 页码按钮，当前页高亮 -->
-      <button class="page-btn" data-page="1">1</button>
-      <button class="page-btn active" data-page="2">2</button>
-      <button class="page-btn" data-page="3">3</button>
-      <button class="page-btn" data-page="4">4</button>
-    </nav>
-
-    <!-- 分页切换脚本，详细中文注释 -->
-    <script src="main.js"></script>
   </main>
 
   <!-- 底部社交媒体区 -->
@@ -86,5 +72,8 @@
       PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.
     </div>
   </footer>
+
+  <!-- 分页切换脚本 -->
+  <script src="main.js"></script>
 </body>
 </html> 
