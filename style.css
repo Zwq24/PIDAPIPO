@@ -1,0 +1,151 @@
+/* 全局基础样式 */
+body {
+  margin: 0;
+  padding: 0;
+  background: #EAE4DD; /* 主背景色 */
+  font-family: 'Poppins', 'Abhaya Libre', Arial, sans-serif; /* 主字体 */
+  color: #000; /* 主文字色 */
+}
+
+/* 顶部导航栏样式 */
+.navbar {
+  display: flex; /* 使用Flex布局 */
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 48px;
+  background: #fff; /* 导航栏背景色 */
+  border-radius: 60px; /* 圆角 */
+  margin: 32px auto 24px auto;
+  max-width: 1106px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.nav-menu {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-menu li {
+  font-size: 24px;
+  font-family: 'Poppins', Arial, sans-serif;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.nav-menu li:hover {
+  color: #EAE4DD;
+  background: #000;
+  border-radius: 12px;
+  padding: 4px 12px;
+}
+.nav-icons {
+  display: flex;
+  gap: 16px;
+  font-size: 24px;
+}
+
+/* 主视觉区样式 */
+.hero {
+  text-align: center;
+  margin: 48px 0 24px 0;
+}
+.hero h1 {
+  font-size: 48px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+.subtitle {
+  font-size: 32px;
+  font-family: 'Abhaya Libre', serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* 内容区样式 */
+.content {
+  max-width: 1106px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.intro p {
+  font-size: 24px;
+  font-family: 'Abhaya Libre', serif;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+/* 底部社交媒体区样式 */
+.footer {
+  margin: 48px 0 0 0;
+  padding: 32px 0 16px 0;
+  background: transparent;
+  text-align: center;
+}
+.social-media {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+.acknowledgement {
+  font-size: 16px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 600;
+  color: #000;
+  margin-top: 16px;
+}
+
+/* 响应式设计：适配移动端 */
+@media (max-width: 768px) {
+  .navbar, .content {
+    max-width: 98vw;
+    padding: 12px;
+  }
+  .nav-menu {
+    gap: 12px;
+  }
+  .hero h1 {
+    font-size: 32px;
+  }
+  .subtitle, .intro p {
+    font-size: 18px;
+  }
+}
+
+/* 分页组件样式 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 78px; /* 与Figma间距一致 */
+  margin: 40px 0 0 0;
+}
+.page-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #000;
+  font-size: 24px;
+  font-family: 'Abhaya Libre Medium', 'Abhaya Libre', serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.page-btn.active {
+  background: #000;
+  color: #fff;
+}
+.page-btn:hover:not(.active) {
+  background: #EAE4DD;
+} 
