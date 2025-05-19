@@ -30,3 +30,5 @@ This project is the official website homepage for the Pidapipo brand. The page d
 ## 6. Future Optimization Suggestions
 - Add mobile responsiveness to enhance user experience.
 - More pages and functionalities can be added based on actual needs.
+
+## test
