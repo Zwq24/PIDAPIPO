@@ -107,31 +107,35 @@ function toggleWishlistProduct(productId) {
 
 /**
  * Renders the products in the wishlist on the wishlist page.
+ * Also calculates and renders subtotal and total.
  */
 function renderWishlistPage() {
   const container = document.querySelector('#wishlist-page-content .wishlist-items-container');
-  // The empty message is now part of the container's responsibility or handled by CSS :empty selector
+  const subtotalEl = document.getElementById('wishlist-subtotal');
+  const totalEl = document.getElementById('wishlist-total');
   
-  if (!container) {
-    console.error('Wishlist items container not found!');
+  if (!container || !subtotalEl || !totalEl) {
+    console.error('Wishlist items container or summary elements not found!');
     return;
   }
   container.innerHTML = ''; // Clear previous items
+  let currentSubtotal = 0;
 
   if (wishlistItems.length === 0) {
     container.innerHTML = '<p class="wishlist-empty-message">Your wishlist is currently empty.</p>';
+    subtotalEl.textContent = '$0.00';
+    totalEl.textContent = '$0.00';
     // Ensure heart icons are updated to empty if wishlist becomes empty
     updateAllWishlistIcons();
     return;
   }
 
   wishlistItems.forEach(productId => {
-    // Ensure productsData is available globally or passed appropriately
     const product = productsData.find(p => p.id === productId); 
     if (product) {
       const itemHTML = `
         <div class="wishlist-item" data-product-id="${product.id}">
-          <div class="wishlist-item-image-container"> <!-- Added a container for better styling -->
+          <div class="wishlist-item-image-container">
             <img src="${product.image}" alt="${product.name}" class="wishlist-item-image">
           </div>
           <div class="wishlist-item-details">
@@ -142,17 +146,29 @@ function renderWishlistPage() {
         </div>
       `;
       container.insertAdjacentHTML('beforeend', itemHTML);
+      
+      // Calculate subtotal
+      // Assuming product.price is a string like "$65" or "$13.50"
+      const priceString = product.price.replace('$', '');
+      const priceValue = parseFloat(priceString);
+      if (!isNaN(priceValue)) {
+        currentSubtotal += priceValue;
+      }
     }
   });
+
+  // Update subtotal and total display (for now, total is same as subtotal)
+  subtotalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
+  totalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
 
   // Add event listeners to the new remove buttons
   document.querySelectorAll('#wishlist-page-content .wishlist-item-remove-btn').forEach(button => {
     button.addEventListener('click', function() {
       const prodId = this.dataset.productId;
-      removeFromWishlist(prodId); // This will re-render the wishlist page
+      removeFromWishlist(prodId); // This will re-render the wishlist page and recalculate totals
     });
   });
-  // Ensure heart icons are updated (e.g. general ones if list was empty and now has items)
+  
   updateAllWishlistIcons();
 }
 

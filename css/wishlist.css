@@ -143,10 +143,82 @@
 
 .wishlist-footer {
     max-width: 1000px; 
-    margin: 50px auto 0 auto; 
+    margin: 20px auto 0 auto; /* 减小与上方 summary 的间距 */
     text-align: center;
     padding: 0 15px 30px 15px; 
     box-sizing: border-box;
+}
+
+/* 新增：购物车折算区域样式 */
+.wishlist-summary {
+    max-width: 1000px; /* 与主内容区和页脚宽度一致 */
+    margin: 40px auto 0 auto; /* 与上方商品列表的间距 */
+    padding: 20px 15px;    /* 内边距 */
+    background-color: #FFFFFF; /* 可以给一个背景色，如果需要与页面主背景区分 */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-sizing: border-box;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.summary-line:last-of-type {
+    margin-bottom: 25px; /* 总计行与按钮间距大一些 */
+}
+
+.summary-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px; /* Figma: Subtotal 36px, Total 48px. Adjusted for context */
+    color: #333;
+}
+
+.summary-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* 数值可以略粗一些 */
+    font-size: 18px;
+    color: #000000;
+}
+
+.summary-label-total {
+    font-weight: 600; /* Total 标签更粗 */
+    font-size: 22px; /* Total 标签和数值更大 */
+}
+
+.summary-value-total {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid #E0E0E0; /* Figma: stroke_KSW02S is #000000, using a lighter one */
+    margin: 10px 0 20px 0; /* 上下间距 */
+}
+
+.checkout-btn {
+    display: block; /* 占满整行 */
+    width: 100%;
+    background-color: #51393A; /* 深色背景，与Figma中的矩形颜色接近或一致 */
+    color: #FFFFFF; /* 文字用白色 */
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* Figma: 600, 按钮文字可以不用那么粗 */
+    font-size: 20px;  /* Figma: 64px, 大幅调整为更常用的按钮字号 */
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px; /* Figma: 20px, 适配调整 */
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #3e2d2d; /* 深色按钮悬停效果 */
 }
 
 .wishlist-continue-shopping-btn {
