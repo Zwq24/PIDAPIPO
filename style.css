@@ -7,22 +7,40 @@ body {
   color: #000; /* 主文字色 */
 }
 
+/* 页面主要内容包裹器 */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: filter 0.3s ease-in-out; /* 为背景模糊添加过渡 */
+  /* margin: 0 auto; */ /* 移除这个，让navbar可以更灵活控制 */
+  /* max-width: 1440px; */ /* 根据Figma调整为整体宽度 */
+}
+.page-wrapper.search-active {
+  filter: blur(5px); /* 当搜索激活时，背景内容模糊 */
+}
+
 /* 顶部导航栏样式 */
 .navbar {
   display: flex; /* 使用Flex布局 */
   align-items: center;
   justify-content: space-between;
-  padding: 24px 48px;
+  padding: 20px 40px; /* 根据Figma微调 */
   background: #fff; /* 导航栏背景色 */
   border-radius: 60px; /* 圆角 */
-  margin: 32px auto 24px auto;
-  max-width: 1106px;
+  margin: 20px auto; /* 上下20px，左右自动居中 */
+  width: calc(100% - 80px); /* 宽度减去左右padding */
+  max-width: 1300px; /* 一个最大宽度，防止过宽 */
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-sizing: border-box;
+  position: relative; /* 确保在内容之上 */
+  z-index: 500; /* 高于普通内容 */
 }
 .logo {
   font-size: 32px;
   font-weight: bold;
   letter-spacing: 2px;
+  cursor: pointer; /* 添加手型光标 */
 }
 .nav-menu {
   display: flex;
@@ -32,7 +50,7 @@ body {
   padding: 0;
 }
 .nav-menu li {
-  font-size: 24px;
+  font-size: 24px; /* Figma: Poppins Regular 24px */
   font-family: 'Poppins', Arial, sans-serif;
   cursor: pointer;
   transition: color 0.2s;
@@ -48,96 +66,230 @@ body {
   gap: 16px;
   font-size: 24px;
 }
-
-/* 导航栏搜索SVG图标样式 */
 .nav-icons .icon-search img {
-  width: 24px; /* 与原字体图标大小接近 */
+  width: 24px;
   height: 24px;
-  vertical-align: middle; /* 尝试垂直居中对齐 */
+  vertical-align: middle;
   cursor: pointer;
 }
 
-/* 主视觉区样式 */
-.hero {
-  text-align: center;
-  margin: 48px 0 24px 0;
+/* --- 新主页样式 (homepage1) --- */
+#new-homepage-content { 
+  /* 默认显示，后续JS会控制 */
 }
-.hero h1 {
+
+.new-hero-section {
+  position: relative; /* 为了日期定位 */
+  width: 100%;
+  margin-top: -100px; /* 让图片向上移动，部分被navbar遮盖，符合Figma效果 */
+  z-index: 1; /* 在navbar之下 */
+}
+
+.new-hero-image {
+  width: 100%;
+  height: auto; /* 或根据Figma设置固定高度，例如 800px */
+  max-height: 800px;
+  object-fit: cover; /* 覆盖整个容器 */
+  display: block;
+}
+
+.new-hero-date {
+  position: absolute;
+  top: 50%; /* 垂直居中，可微调 */
+  left: 80px; /* Figma 左侧距离 */
+  transform: translateY(-50%);
+  color: #FFFFFF; /* Figma 字体白色 */
+  text-align: left;
+  z-index: 2;
+}
+
+.new-hero-date .date-day-name, 
+.new-hero-date .date-month {
+  font-family: 'Playfair Display SC', serif;
+  font-weight: 700;
+  font-size: 96px; /* Figma 96px */
+  line-height: 1.1;
+  display: block;
+}
+
+.new-hero-date .date-day-number {
+  font-family: 'Playfair Display SC', serif;
+  font-weight: 700;
+  font-size: 400px; /* Figma 400px */
+  line-height: 1;
+  display: block;
+  margin-top: -20px; /* 微调与月份的间距 */
+}
+
+.new-main-content {
+  padding: 60px 80px; /* Figma 边距 */
+  background-color: #EAE4DD; /* 与body背景色一致 */
+}
+
+.new-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 64px; /* Figma 64px */
+  color: #000000;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.new-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+  gap: 60px; /* Figma 卡片间距 */
+}
+
+.new-product-card {
+  background-color: #D5CCC6; /* Figma 卡片背景色 */
+  border-radius: 30px; /* Figma 圆角 */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 默认居中，可根据内容调整 */
+}
+
+.new-product-card.left-card .new-product-info {
+  text-align: left;
+}
+.new-product-card.right-card .new-product-info {
+  text-align: right;
+}
+
+.new-product-image-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.new-product-image {
+  width: 100%; /* 图片宽度占满容器 */
+  max-width: 400px; /* 限制图片最大宽度，使其不过大 */
+  height: auto;
+  max-height: 300px; /* 根据Figma调整图片区域高度 */
+  object-fit: contain; /* 保持图片比例 */
+  border-radius: 20px; /* 图片本身也可以有圆角 */
+  display: block;
+  margin: 0 auto; /* 图片在容器内居中 */
+}
+
+.new-product-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 64px; /* Figma 64px */
+  color: #000000;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.new-product-description {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 24px; /* Figma 24px */
+  color: #000000;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  min-height: 100px; /* 给描述一个最小高度防止不对齐 */
+}
+
+.new-buy-now-btn {
+  background-color: #51393A; /* Figma 按钮背景色 */
+  color: #FFFFFF; /* Figma 按钮文字颜色 */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 32px; /* Figma 32px */
+  padding: 15px 40px;
+  border: none;
+  border-radius: 47.5px; /* Figma 圆角 */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.new-buy-now-btn:hover {
+  background-color: #3a2a2b; /* 加深按钮颜色 */
+}
+
+.new-footer {
+  padding: 50px 80px; /* Figma 边距 */
+  text-align: center;
+  background-color: #EAE4DD; /* 与body背景色一致 */
+}
+
+.new-social-media {
+  margin-bottom: 20px;
+}
+
+.new-social-media span {
+  font-family: 'Poppins', sans-serif; /* 假设使用Poppins */
+  font-size: 18px; /* 自定义大小 */
+  color: #000000;
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.new-acknowledgement {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px; /* Figma 16px */
+  color: #000000;
+  line-height: 1.3;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+/* --- 旧主页 (About页面) 样式 --- */
+/* 确保这些选择器足够特定，或者与新主页样式不冲突 */
+/* 如果有冲突，可能需要给旧主页的元素添加特定类名或ID来限定作用域 */
+
+#about-page-content {
+  /* JS控制 display: block/none */
+  padding-top: 20px; /* 为navbar留出空间 */
+}
+
+/* 主视觉区样式 (About页) */
+#about-page-content .hero {
+  text-align: center;
+  margin: 20px 0; /* 调整间距 */
+}
+#about-page-content .hero h1 {
   font-size: 48px;
   font-family: 'Poppins', Arial, sans-serif;
   font-weight: 700;
   margin: 0 0 16px 0;
 }
-.subtitle {
+#about-page-content .subtitle {
   font-size: 32px;
   font-family: 'Abhaya Libre', serif;
   font-weight: 400;
   margin: 0;
 }
 
-/* 内容区样式 */
-.content {
-  max-width: 1106px;
-  margin: 0 auto;
-  padding: 24px;
-  background: #fff;
+/* 图片容器样式 (About页) */
+#about-page-content #page-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 40px auto 24px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 350px;
+}
+#about-page-content .switch-img {
+  max-width: 100%;
   border-radius: 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-.intro p {
-  font-size: 24px;
-  font-family: 'Abhaya Libre', serif;
-  line-height: 1.3;
-  margin-bottom: 24px;
+  display: block;
 }
 
-/* 底部社交媒体区样式 */
-.footer {
-  margin: 48px 0 0 0;
-  padding: 32px 0 16px 0;
-  background: transparent;
-  text-align: center;
-}
-.social-media {
+/* 图片分页组件 (About页) */
+#about-page-content .pagination {
   display: flex;
   justify-content: center;
-  gap: 32px;
-  margin-bottom: 16px;
-  font-size: 20px;
-}
-.acknowledgement {
-  font-size: 16px;
-  font-family: 'Poppins', Arial, sans-serif;
-  font-weight: 600;
-  color: #000;
-  margin-top: 16px;
-}
-
-/* 响应式设计：适配移动端 */
-@media (max-width: 768px) {
-  .navbar, .content {
-    max-width: 98vw;
-    padding: 12px;
-  }
-  .nav-menu {
-    gap: 12px;
-  }
-  .hero h1 {
-    font-size: 32px;
-  }
-  .subtitle, .intro p {
-    font-size: 18px;
-  }
-}
-
-/* 分页组件样式 */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 78px; /* 与Figma间距一致 */
+  gap: 78px;
   margin: 40px 0 0 0;
 }
-.page-btn {
+#about-page-content .page-btn {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -150,98 +302,79 @@ body {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.page-btn.active {
+#about-page-content .page-btn.active {
   background: #000;
   color: #fff;
 }
-.page-btn:hover:not(.active) {
+#about-page-content .page-btn:hover:not(.active) {
   background: #EAE4DD;
 }
 
-/* 图片淡入淡出动画 */
-.fade-in {
-  animation: fadeIn 0.6s;
-}
-.fade-out {
-  animation: fadeOut 0.6s;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-/* 图片容器样式，始终在页面上方 */
-#page-container {
-  width: 100%;
-  max-width: 700px;
-  margin: 40px auto 24px auto; /* 底部间距24px，图片与文字分隔 */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 350px;
-}
-.switch-img {
-  max-width: 100%;
+/* 内容区样式 (About页) */
+#about-page-content .content {
+  max-width: 1106px;
+  margin: 20px auto; /* 调整间距 */
+  padding: 24px;
+  background: #fff;
   border-radius: 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  display: block;
+}
+#about-page-content .intro p {
+  font-size: 24px;
+  font-family: 'Abhaya Libre', serif;
+  line-height: 1.3;
+  margin-bottom: 24px;
 }
 
-/* 左右滑动动画，时长0.3s更快 */
-.slide-in-left {
-  animation: slideInLeft 0.3s forwards;
+/* 底部社交媒体区样式 (About页) */
+#about-page-content .footer {
+  margin: 48px 0 20px 0; /* 调整间距 */
+  padding: 32px 0 16px 0;
+  background: transparent;
+  text-align: center;
 }
-.slide-out-left {
-  animation: slideOutLeft 0.3s forwards;
-}
-.slide-in-right {
-  animation: slideInRight 0.3s forwards;
-}
-.slide-out-right {
-  animation: slideOutRight 0.3s forwards;
-}
-@keyframes slideInLeft {
-  from { transform: translateX(-100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-@keyframes slideOutLeft {
-  from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(100%); opacity: 0; }
-}
-@keyframes slideInRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-@keyframes slideOutRight {
-  from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(-100%); opacity: 0; }
-}
-
-/* 页面主要内容包裹器 */
-.page-wrapper {
+#about-page-content .social-media {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: filter 0.3s ease-in-out; /* 为背景模糊添加过渡 */
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 16px;
+  font-size: 20px;
 }
-.page-wrapper.search-active {
-  filter: blur(5px); /* 当搜索激活时，背景内容模糊 */
+#about-page-content .acknowledgement {
+  font-size: 16px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 600;
+  color: #000;
+  margin-top: 16px;
 }
 
-/* 搜索浮层样式 */
+
+/* 图片淡入淡出/滑动动画 (保持全局，因为产品详情页也可能用到) */
+.fade-in { animation: fadeIn 0.6s; }
+.fade-out { animation: fadeOut 0.6s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+.slide-in-left { animation: slideInLeft 0.3s forwards; }
+.slide-out-left { animation: slideOutLeft 0.3s forwards; }
+.slide-in-right { animation: slideInRight 0.3s forwards; }
+.slide-out-right { animation: slideOutRight 0.3s forwards; }
+@keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOutLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+
+
+/* 搜索浮层样式 (保持不变) */
 .search-overlay {
-  position: fixed; /* 固定定位，覆盖整个视口 */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #EAE4DD; /* Figma 背景色 */
-  z-index: 1000; /* 确保在最上层 */
-  display: none; /* 默认隐藏 */
+  background-color: #EAE4DD;
+  z-index: 1000;
+  display: none;
   flex-direction: column;
   align-items: center;
   padding: 30px;
@@ -255,25 +388,24 @@ body {
   opacity: 1;
   visibility: visible;
 }
+/* ... (其余搜索浮层、产品详情页样式保持不变) ... */
 
-/* 搜索浮层顶部栏 */
+/* 搜索浮层顶部 */
 .search-overlay-topbar {
   width: 100%;
-  max-width: 1106px; /* 与主内容区宽度一致 */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 60px; /* 根据Figma调整间距 */
+  margin-bottom: 40px; /* Figma 间距 */
 }
 .search-overlay-topbar .logo {
-  font-size: 32px; /* 与原导航栏logo一致 */
+  font-size: 28px; /* 略小于主导航栏logo */
   font-weight: bold;
-  letter-spacing: 2px;
 }
 .search-overlay-topbar-icons {
   display: flex;
-  gap: 24px; /* 根据Figma调整图标间距 */
-  font-size: 24px;
+  gap: 20px; /* Figma 图标间距 */
+  font-size: 22px;
 }
 .icon-close-search {
   cursor: pointer;
@@ -282,142 +414,128 @@ body {
 
 /* 搜索输入区域 */
 .search-overlay-input-area {
-  width: 100%;
-  max-width: 800px; /* 根据Figma调整宽度 */
   display: flex;
   align-items: center;
-  background-color: #FFFFFF; /* 输入框背景 */
-  border-radius: 999px; /* Figma 圆角 */
-  padding: 15px 30px;
-  margin-bottom: 60px; /* 根据Figma调整间距 */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  background-color: #FFFFFF; /* Figma 输入框背景色 */
+  border-radius: 10px; /* Figma 圆角 */
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 700px; /* Figma 宽度 */
+  margin-bottom: 30px; /* Figma 间距 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .search-overlay-input-area input[type="text"] {
   flex-grow: 1;
   border: none;
   outline: none;
-  background: transparent;
-  font-size: 32px; /* Figma 字体大小 */
-  font-family: 'Inter', sans-serif; /* Figma 字体 */
-  color: #000000;
-  margin: 0 15px;
+  font-size: 20px; /* Figma 字体大小 */
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
 }
 .search-overlay-input-area input[type="text"]::placeholder {
-  color: #000000;
-  opacity: 0.38; /* Figma placeholder 透明度 */
+  color: #AAA; /* Figma placeholder颜色 */
 }
 .search-overlay-icon-search,
 .search-overlay-icon-sliders {
-  font-size: 30px;
+  margin: 0 10px;
+}
+.search-overlay-icon-search img {
+  width: 24px;
+  height: 24px;
+}
+.search-overlay-icon-sliders {
+  font-size: 24px; /* 假设与搜索图标大小一致 */
   color: #51393A; /* Figma 图标颜色 */
 }
-
-/* 搜索浮层输入框区域SVG图标样式 */
-.search-overlay-icon-search img {
-  width: 30px; /* 与原字体图标大小接近 */
-  height: 30px;
-  color: #51393A; /* Figma 图标颜色, SVG可能需要通过fill属性控制 */
-}
-
-/* 如果SVG颜色不能直接通过CSS color控制，可能需要这样做：*/
-/* .search-overlay-icon-search svg path { fill: #51393A; } */
 
 /* 推荐搜索词 */
 .search-overlay-suggestions {
   display: flex;
-  gap: 20px; /* 根据Figma调整间距, Figma是110px, 可能需要微调 */
-  flex-wrap: wrap; /* 允许换行 */
-  justify-content: center;
+  gap: 15px; /* Figma 按钮间距 */
+  margin-bottom: 40px; /* Figma 间距 */
 }
 .search-overlay-suggestions button {
-  background-color: #51393A; /* Figma 按钮背景色 */
-  color: #FFFFFF; /* Figma 按钮文字颜色 */
-  border: none;
-  border-radius: 999px; /* Figma 按钮圆角 */
-  padding: 10px 30px;
-  font-size: 24px; /* Figma 按钮字体大小 */
-  font-family: 'Inter', sans-serif; /* Figma 字体 */
+  background-color: #FFFFFF; /* Figma 按钮背景色 */
+  color: #000000; /* Figma 文字颜色 */
+  border: 1px solid #CCC; /* Figma 边框 */
+  border-radius: 20px; /* Figma 圆角 */
+  padding: 10px 20px;
+  font-size: 16px; /* Figma 字体大小 */
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 .search-overlay-suggestions button:hover {
-  background-color: #3a2a2b; /* 鼠标悬停颜色加深 */
+  background-color: #51393A;
+  color: #FFFFFF;
+  border-color: #51393A;
 }
 
-/* 搜索结果预览区 */
+/* 搜索结果预览 */
 .search-results-preview {
-  width: 100%;
-  max-width: 800px; /* 与搜索框同宽或根据Figma调整 */
-  background-color: #D5CCC6; /* Figma 背景色 */
+  background-color: #FFFFFF; /* Figma 背景色 */
   border-radius: 10px; /* Figma 圆角 */
-  padding: 20px 30px;
-  margin-top: 30px; /* 与上方推荐词的间距 */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  display: none; /* 默认隐藏，由JS控制显示 */
+  width: 100%;
+  max-width: 700px; /* 与输入框同宽 */
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: none; /* 默认隐藏 */
 }
 .search-results-preview.active {
   display: block;
 }
-
 .results-title {
-  font-family: 'Inter', sans-serif; /* Figma 字体 */
-  font-weight: 400;
-  font-size: 32px; /* Figma 字体大小 */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 18px; /* Figma 字体大小 */
   color: #000000;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0; /* Figma 间距 */
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0,0,0,0.1); /* 标题下的分隔线，颜色稍浅 */
+  border-bottom: 1px solid #EEE; /* Figma 分割线 */
 }
-
 .results-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .result-item {
   display: flex;
   align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.1); /* Figma 分割线 */
+  padding: 15px 0; /* Figma 上下间距 */
+  border-bottom: 1px solid #EEE; /* Figma 分割线 */
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 .result-item:last-child {
-  border-bottom: none; /* 最后一项无分隔线 */
+  border-bottom: none;
 }
 .result-item:hover {
-  background-color: rgba(0,0,0,0.03);
+  background-color: #f9f9f9;
 }
-
 .result-item-icon {
-  width: 24px; /* 图标大小 */
-  height: 24px;
-  margin-right: 15px;
-  opacity: 0.7;
+  width: 20px; /* Figma 图标大小 */
+  height: 20px;
+  margin-right: 15px; /* Figma 图标与文字间距 */
+  opacity: 0.5; /* 图标可以淡一点 */
 }
-
 .result-item-name {
-  font-family: 'Inter', sans-serif; /* Figma 字体 */
-  font-weight: 400;
-  font-size: 28px; /* Figma 字体大小，比标题略小 */
-  line-height: 1; /* Figma line-height */
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px; /* Figma 字体大小 */
   color: #000000;
 }
 
-/* 产品详情页样式 */
+/* --- 产品详情页 (PDP) 样式 --- */
 .product-detail-page {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #F3D8A1; /* Figma 背景色 */
-  z-index: 2000; /* 比搜索浮层更高 */
+  /* background-color set by JS */
+  z-index: 1100; /* 高于搜索浮层 */
   display: none; /* 默认隐藏 */
   flex-direction: column;
-  overflow-y: auto; /* 如果内容超出一屏则允许滚动 */
-  color: #000000;
+  overflow-y: auto; /* 如果内容超长则允许滚动 */
+  color: #000; /* 默认文字颜色，背景色会变 */
 }
 
 .pdp-top-bar {
@@ -425,102 +543,103 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  background-color: transparent; /* 顶部栏通常与页面背景同色或透明 */
-  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute; /* 覆盖在图片之上 */
+  top:0;
+  left:0;
+  z-index: 10;
 }
 .pdp-back-btn {
-  width: 30px; /* 根据实际SVG调整 */
+  width: 30px; /* 根据SVG大小调整 */
   height: 30px;
   cursor: pointer;
 }
 .pdp-logo {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
-  letter-spacing: 2px;
-  color: #51393A;
+  /* color: #000 or #fff depending on BG */
 }
 .pdp-top-icons {
   display: flex;
-  gap: 24px;
-  font-size: 24px;
+  gap: 15px;
+  font-size: 20px;
 }
 .pdp-top-icons .icon-heart,
 .pdp-top-icons .icon-bag {
-  color: #51393A; /* 与Figma描边色一致 */
+  cursor: pointer;
+  /* color: #000 or #fff depending on BG */
 }
 
 .pdp-main-image-container {
   width: 100%;
-  max-height: 50vh; /* 示例：图片最大高度为视口一半 */
+  height: 60vh; /* 图片占据一定视口高度 */
+  max-height: 500px; /* 最大高度 */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  padding: 0 30px; /* 左右留白 */
-  box-sizing: border-box;
+  overflow: hidden; /* 防止图片溢出 */
+  background-color: #ccc; /* 图片未加载时的占位背景 */
 }
+
 .pdp-main-image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* 保持图片比例 */
-  border-radius: 10px; /* 轻微圆角 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 覆盖容器 */
 }
 
 .pdp-info-container {
-  background-color: #EAE4DD; /* Figma 信息区背景 */
-  border-radius: 60px 60px 0 0; /* Figma顶部圆角 */
-  padding: 40px 30px 30px 30px;
+  padding: 30px;
+  background-color: #EAE4DD; /* 详情区域的背景，参照Figma */
+  border-top-left-radius: 30px; /* 左上圆角 */
+  border-top-right-radius: 30px; /* 右上圆角 */
+  margin-top: -30px; /* 与图片部分重叠形成圆角效果 */
+  position: relative; /* 确保在图片层之上 */
+  z-index: 5;
   flex-grow: 1; /* 占据剩余空间 */
-  display: flex;
-  flex-direction: column;
 }
 
 .pdp-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; /* Figma: Poppins SemiBold */
   font-weight: 600;
-  font-size: 36px; /* 比Figma稍小以适应移动端优先 */
-  line-height: 1.2;
-  color: #000000;
+  font-size: 36px; /* Figma: 48px, 可根据实际调整 */
   margin: 0 0 15px 0;
 }
 
 .pdp-description {
-  font-family: 'Abhaya Libre Medium', serif;
+  font-family: 'Abhaya Libre Medium', serif; /* Figma */
   font-weight: 500;
-  font-size: 24px; /* 比Figma稍小 */
+  font-size: 20px; /* Figma: 36px, 可根据实际调整 */
   line-height: 1.4;
-  color: #000000;
-  margin: 0 0 20px 0;
+  margin-bottom: 20px;
 }
 
 .pdp-price {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Figma */
   font-weight: 700;
-  font-size: 36px; /* 比Figma稍小 */
-  color: #51393A;
-  margin: 0 0 20px 0;
+  font-size: 32px; /* Figma: 48px, 可根据实际调整 */
+  margin-bottom: 20px;
 }
 
 .pdp-divider {
   border: none;
-  border-top: 1px solid rgba(0,0,0,0.2);
-  margin: 0 0 20px 0;
+  border-top: 1px solid #000000; /* Figma 分割线 */
+  margin: 20px 0;
 }
 
 .pdp-dimensions {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Figma */
   font-weight: 400;
-  font-size: 16px; /* 比Figma稍小 */
+  font-size: 16px; /* Figma: 20px */
   line-height: 1.5;
-  color: #000000;
-  margin: 0 0 30px 0;
+  margin-bottom: 30px;
+  white-space: pre-line; /* 保持换行符 */
 }
 
 .pdp-actions {
   display: flex;
-  align-items: center;
   gap: 20px;
-  margin-top: auto; /* 将动作按钮推到底部 */
+  align-items: center;
 }
 
 .pdp-quantity-selector {
@@ -528,41 +647,49 @@ body {
   align-items: center;
   background-color: #AEA19D; /* Figma 背景 */
   border-radius: 25px; /* Figma 圆角 */
-  padding: 10px;
+  padding: 5px;
 }
+
 .pdp-quantity-btn {
-  background: transparent;
+  background: none;
   border: none;
-  color: #000000;
-  font-size: 28px; /* 根据Figma调整 */
-  font-weight: bold;
+  color: #000000; /* Figma 颜色 */
+  font-size: 28px; /* Figma 字体大小 */
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
-  padding: 5px 15px;
+  padding: 10px 15px;
 }
+
 .pdp-quantity-value {
   font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 28px; /* 根据Figma调整 */
+  font-size: 28px; /* Figma 字体大小 */
   color: #000000;
   padding: 0 10px;
-  min-width: 40px; /* 保证两位数显示 */
+  min-width: 40px; /* 保证两位数宽度 */
   text-align: center;
 }
 
 .pdp-add-to-cart-btn {
   background-color: #AEA19D; /* Figma 背景 */
-  color: #000000;
+  color: #000000; /* Figma 文字颜色 */
   font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 28px; /* 根据Figma调整 */
+  font-size: 28px; /* Figma 字体大小 */
   border: none;
   border-radius: 25px; /* Figma 圆角 */
   padding: 15px 30px;
   cursor: pointer;
-  text-align: center;
   flex-grow: 1; /* 占据剩余空间 */
-  transition: background-color 0.2s;
+  text-align: center;
+  transition: background-color 0.3s;
 }
+
 .pdp-add-to-cart-btn:hover {
-  background-color: #9c8f8c;
+  background-color: #998f8c; /* 加深颜色 */
+}
+
+/* 确保旧主页 (About) 内容的图片切换器等在 About 页面激活时才可见/可操作 */
+#about-page-content #page-container,
+#about-page-content .pagination {
+  /* display: none; /* 初始隐藏，由JS在显示About页时设为flex/block */ 
+  /* 这个逻辑已经由 #about-page-content 的 display:none 控制了 */
 } 

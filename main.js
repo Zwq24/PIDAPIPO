@@ -1,97 +1,144 @@
 // main.js
-// 包含图片切换和搜索浮层功能脚本，详细中文注释
+// 包含页面切换、图片切换、搜索浮层和产品详情功能脚本
 
-// --- 图片切换功能 --- //
-const images = [
-  'images/Rectangle 129.jpg',       // 对应按钮 1
+// --- DOM 元素获取 --- //
+const pageWrapper = document.querySelector('.page-wrapper');
+
+// 页面容器
+const newHomepageContent = document.getElementById('new-homepage-content');
+const aboutPageContent = document.getElementById('about-page-content');
+const productDetailPage = document.getElementById('product-detail-page');
+
+// 导航元素
+const logoBtn = document.getElementById('logo-btn');
+const navLinkAbout = document.getElementById('nav-link-about');
+// (可以为其他导航链接添加ID和引用，如果它们需要特定行为)
+const navLinks = document.querySelectorAll('.nav-menu li'); // 获取所有导航项
+
+// 搜索相关 (保持不变)
+const openSearchBtn = document.getElementById('open-search-btn');
+const closeSearchBtn = document.getElementById('close-search-btn');
+const searchOverlay = document.getElementById('search-overlay');
+const searchInput = searchOverlay ? searchOverlay.querySelector('input[type="text"]') : null;
+const searchResultsPreview = document.getElementById('search-results-preview');
+
+// 新主页 "Buy Now" 按钮
+const newBuyNowBtns = document.querySelectorAll('.new-buy-now-btn');
+
+// About页面图片切换元素 (在显示About页面时再具体获取和初始化)
+let imagePageBtns, imageContainer;
+let currentImageIndex = 1; // 默认显示第二张 (索引1)
+const aboutPageImages = [
+  'images/Rectangle 129.jpg',       // 对应按钮 1 (旧主页的图)
   'images/Rectangle 134 (1).jpg',  // 对应按钮 2
   'images/Rectangle 134 (2).jpg',  // 对应按钮 3
   'images/Rectangle 134 (3).jpg'   // 对应按钮 4
 ];
 
-// 获取所有分页按钮和图片容器
-const imagePageBtns = document.querySelectorAll('.page-btn');
-const imageContainer = document.getElementById('page-container'); // 容器ID已更新
+// --- 页面状态管理 --- // 
+function showNewHomepage() {
+  if (newHomepageContent) newHomepageContent.style.display = 'block';
+  if (aboutPageContent) aboutPageContent.style.display = 'none';
+  if (productDetailPage) productDetailPage.style.display = 'none';
+  if (pageWrapper) pageWrapper.style.display = 'flex'; // 确保page-wrapper可见
+  document.body.style.overflow = '';
+}
 
-// 当前显示图片的索引 (默认显示第二张，所以是1)
-let currentImageIndex = 1;
+function showAboutPage() {
+  if (newHomepageContent) newHomepageContent.style.display = 'none';
+  if (aboutPageContent) aboutPageContent.style.display = 'block';
+  if (productDetailPage) productDetailPage.style.display = 'none';
+  if (pageWrapper) pageWrapper.style.display = 'flex';
+  document.body.style.overflow = '';
+  initializeAboutPageSlider(); // 初始化或重新激活About页的图片轮播
+}
 
-// 渲染指定索引的图片（可带动画方向）
-function renderImage(imageIndex, slideDirection = null) {
-  if (!imageContainer) return; // 如果图片容器不存在则退出
-  if (!slideDirection) {
-    imageContainer.innerHTML = `<img src="${images[imageIndex]}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img">`;
-    imagePageBtns.forEach(btn => {
-      btn.classList.toggle('active', parseInt(btn.getAttribute('data-page')) === imageIndex);
-    });
+// --- About页面图片切换功能 --- //
+function initializeAboutPageSlider() {
+  // 获取About页内的图片切换元素
+  imageContainer = aboutPageContent.querySelector('#page-container'); 
+  imagePageBtns = aboutPageContent.querySelectorAll('.page-btn');
+
+  if (!imageContainer || imagePageBtns.length === 0) {
+    console.warn('About page slider elements not found.');
     return;
   }
-  const oldImg = imageContainer.querySelector('img');
-  if (oldImg) {
-    const slideOutClass = slideDirection === 'left' ? 'slide-out-left' : 'slide-out-right';
-    oldImg.className = 'switch-img ' + slideOutClass;
-    oldImg.addEventListener('animationend', function handler() {
-      oldImg.removeEventListener('animationend', handler);
-      const slideInClass = slideDirection === 'left' ? 'slide-in-right' : 'slide-in-left';
-      imageContainer.innerHTML = `<img src="${images[imageIndex]}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
-      imagePageBtns.forEach(btn => {
-        btn.classList.toggle('active', parseInt(btn.getAttribute('data-page')) === imageIndex);
-      });
-    }, { once: true });
-  } else {
-    const slideInClass = slideDirection === 'left' ? 'slide-in-right' : 'slide-in-left';
-    imageContainer.innerHTML = `<img src="${images[imageIndex]}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
-    imagePageBtns.forEach(btn => {
-      btn.classList.toggle('active', parseInt(btn.getAttribute('data-page')) === imageIndex);
-    });
-  }
-}
 
-// 给每个分页按钮添加点击事件
-imagePageBtns.forEach(btn => {
-  btn.addEventListener('click', function() {
-    const targetImageIndex = parseInt(this.getAttribute('data-page'));
-    if (targetImageIndex === currentImageIndex) return;
-    const slideDirection = targetImageIndex > currentImageIndex ? 'right' : 'left';
-    renderImage(targetImageIndex, slideDirection);
-    currentImageIndex = targetImageIndex;
+  renderAboutImage(currentImageIndex); // 初始渲染
+
+  imagePageBtns.forEach(btn => {
+    // 移除旧监听器，防止重复绑定 (如果函数被多次调用)
+    btn.removeEventListener('click', handleAboutPageBtnClick);
+    btn.addEventListener('click', handleAboutPageBtnClick);
   });
-});
-
-if (imageContainer) { // 确保在图片容器存在时才执行
-    renderImage(currentImageIndex);
 }
 
-// --- 搜索浮层功能 --- //
-const openSearchBtn = document.getElementById('open-search-btn');
-const closeSearchBtn = document.getElementById('close-search-btn');
-const searchOverlay = document.getElementById('search-overlay');
-const pageWrapper = document.querySelector('.page-wrapper');
-const searchInput = searchOverlay ? searchOverlay.querySelector('input[type="text"]') : null;
-const searchResultsPreview = document.getElementById('search-results-preview');
+function handleAboutPageBtnClick() {
+  const targetImageIndex = parseInt(this.getAttribute('data-page'));
+  if (targetImageIndex === currentImageIndex) return;
+  const slideDirection = targetImageIndex > currentImageIndex ? 'right' : 'left';
+  renderAboutImage(targetImageIndex, slideDirection);
+  currentImageIndex = targetImageIndex;
+}
 
-// 调试信息
-console.log('Search Input Element:', searchInput);
-console.log('Search Results Preview Element:', searchResultsPreview);
+function renderAboutImage(imageIndex, slideDirection = null) {
+  if (!imageContainer) return;
+  const imgPath = aboutPageImages[imageIndex];
+  if (!imgPath) {
+      console.error('Invalid image index for about page:', imageIndex);
+      return;
+  }
 
+  if (!slideDirection) {
+    imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img">`;
+  } else {
+    const oldImg = imageContainer.querySelector('img');
+    if (oldImg) {
+      const slideOutClass = slideDirection === 'left' ? 'slide-out-left' : 'slide-out-right';
+      oldImg.className = 'switch-img ' + slideOutClass;
+      oldImg.addEventListener('animationend', function handler() {
+        oldImg.removeEventListener('animationend', handler); // 清理
+        const slideInClass = slideDirection === 'left' ? 'slide-in-right' : 'slide-in-left';
+        imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
+        updateActiveAboutPageButton(imageIndex);
+      }, { once: true });
+    } else {
+      const slideInClass = slideDirection === 'left' ? 'slide-in-right' : 'slide-in-left';
+      imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
+    }
+  }
+  updateActiveAboutPageButton(imageIndex);
+}
+
+function updateActiveAboutPageButton(activeIndex) {
+  if (!imagePageBtns) return;
+  imagePageBtns.forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.getAttribute('data-page')) === activeIndex);
+  });
+}
+
+
+// --- 搜索浮层功能 (基本保持不变) --- //
 if (openSearchBtn && searchOverlay && pageWrapper) {
   openSearchBtn.addEventListener('click', () => {
-    console.log('Open search button clicked'); // 调试
     searchOverlay.classList.add('active');
-    pageWrapper.classList.add('search-active');
+    pageWrapper.classList.add('search-active'); 
+    // 新增：如果非主页内容也激活了搜索，也要模糊
+    if (newHomepageContent && newHomepageContent.style.display !== 'none') newHomepageContent.classList.add('search-active');
+    if (aboutPageContent && aboutPageContent.style.display !== 'none') aboutPageContent.classList.add('search-active');
+
     document.body.style.overflow = 'hidden';
-    if(searchInput) {
-        console.log('Focusing on search input'); // 调试
-        searchInput.focus();
-    }
+    if(searchInput) searchInput.focus();
   });
 }
 
 if (closeSearchBtn && searchOverlay && pageWrapper) {
   closeSearchBtn.addEventListener('click', () => {
-    console.log('Close search button clicked'); // 调试
     searchOverlay.classList.remove('active');
     pageWrapper.classList.remove('search-active');
+    if (newHomepageContent) newHomepageContent.classList.remove('search-active');
+    if (aboutPageContent) aboutPageContent.classList.remove('search-active');
+    
     document.body.style.overflow = '';
     if(searchResultsPreview) searchResultsPreview.classList.remove('active');
     if(searchInput) searchInput.value = '';
@@ -99,32 +146,29 @@ if (closeSearchBtn && searchOverlay && pageWrapper) {
 }
 
 if (searchInput && searchResultsPreview) {
-  console.log('Adding input listener to searchInput'); // 调试
   searchInput.addEventListener('input', function() {
-    console.log('Search input value:', this.value); // 调试
     if (this.value.length > 0) {
       searchResultsPreview.classList.add('active');
-      console.log('Search results preview activated'); // 调试
-      document.querySelectorAll('.search-overlay .result-item').forEach(item => {
-        const productId = item.getAttribute('data-product-id'); // 获取产品ID
+      document.querySelectorAll('#search-results-preview .result-item').forEach(item => {
+        const productId = item.getAttribute('data-product-id');
         if (productId) {
-            // 为每个item动态创建事件监听器，确保每次只绑定一个
+            // 确保事件监听器不重复绑定
+            const existingHandler = item._clickHandler;
+            if (existingHandler) {
+                item.removeEventListener('click', existingHandler);
+            }
             const newItemClickHandler = () => showProductDetail(productId);
-            item.removeEventListener('click', item._clickHandler); // 移除旧的（如果存在）
             item.addEventListener('click', newItemClickHandler);
-            item._clickHandler = newItemClickHandler; // 存储引用以便移除
+            item._clickHandler = newItemClickHandler; 
         }
       });
     } else {
       searchResultsPreview.classList.remove('active');
-      console.log('Search results preview deactivated'); // 调试
     }
   });
-} else {
-    console.error('Search input or search results preview not found. Input event listener not added.');
 }
 
-// --- 产品数据 --- //
+// --- 产品数据 (保持不变) --- //
 const productsData = [
   {
     id: "pb-brownie",
@@ -133,7 +177,7 @@ const productsData = [
     description: "A caramel brownie base, filled with soft, salty caramel gelato, peanut butter gelato and milk chocolate gelato, finished with a thin chocolate glaze and covered with peanut crunch.",
     price: "$78",
     dimensions: "DEMENSIONS:<br>BOXED: 25CM (L) X 25CM (W) X 20CM (H)<br>CAKE:17CM (W) X 14CM (H)",
-    detailPageBgColor: "#F3D8A1" // 第一个产品详情页的背景色
+    detailPageBgColor: "#F3D8A1"
   },
   {
     id: "tiramisu-cake",
@@ -142,7 +186,7 @@ const productsData = [
     description: "Chocolate sponge drenched with coffee and sherry syrup, mascarpone gelato dusted with Dutch cocoa powder.",
     price: "$65",
     dimensions: "DIMENSIONS:<br>BOXED:25CM(L) X (25)CM (W) X 20CM(H)<br>CAKE: 15CM(W) X 5CM(H)",
-    detailPageBgColor: "#A4D5D4" // 第二个产品详情页的背景色
+    detailPageBgColor: "#A4D5D4"
   },
   {
     id: "milk-chocolate-hazelnut",
@@ -153,15 +197,10 @@ const productsData = [
     dimensions: "DIMENSIONS:<br>46% Milk Chocolate & Hazelnut – 100g",
     detailPageBgColor: "#EDC1D5"
   }
-  // 可以继续添加更多产品...
 ];
 
-// --- 产品详情页功能 --- //
-const productDetailPage = document.getElementById('product-detail-page');
-
-// 生成产品详情页HTML的函数
+// --- 产品详情页功能 (基本保持不变) --- //
 function createProductDetailHTML(product) {
-  // 更新产品详情页的背景色
   if (productDetailPage && product.detailPageBgColor) {
     productDetailPage.style.backgroundColor = product.detailPageBgColor;
   }
@@ -203,41 +242,102 @@ function showProductDetail(productId) {
     console.error('Product not found with ID:', productId);
     return;
   }
-
-  searchOverlay.classList.remove('active');
-  pageWrapper.classList.remove('search-active');
-  pageWrapper.style.display = 'none';
-  document.body.style.overflow = '';
+  // 隐藏主页内容和About页内容
+  if (newHomepageContent) newHomepageContent.style.display = 'none';
+  if (aboutPageContent) aboutPageContent.style.display = 'none';
+  if (pageWrapper) pageWrapper.style.display = 'none'; // 隐藏整个 .page-wrapper
+  
+  searchOverlay.classList.remove('active'); // 关闭搜索浮层（如果打开）
+  document.body.style.overflow = ''; // 恢复body滚动
 
   productDetailPage.innerHTML = createProductDetailHTML(product);
   productDetailPage.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden'; // PDP打开时禁止body滚动
 
   const pdpBackBtn = document.getElementById('pdp-back-btn');
   if (pdpBackBtn) {
-    pdpBackBtn.addEventListener('click', () => {
+    // 确保只绑定一次事件
+    const existingHandler = pdpBackBtn._clickHandler;
+    if(existingHandler) pdpBackBtn.removeEventListener('click', existingHandler);
+
+    const newPdpBackHandler = () => {
       productDetailPage.style.display = 'none';
-      productDetailPage.style.backgroundColor = ''; // 清除背景色
-      pageWrapper.style.display = 'flex';
-      document.body.style.overflow = '';
-    });
+      productDetailPage.style.backgroundColor = '';
+      // 决定返回到哪个页面 (这里简单返回新主页)
+      showNewHomepage(); 
+    };
+    pdpBackBtn.addEventListener('click', newPdpBackHandler);
+    pdpBackBtn._clickHandler = newPdpBackHandler;
   }
+  
   let quantity = 1;
   const qtyValueEl = document.getElementById('pdp-quantity-value');
   const qtyIncreaseBtn = document.getElementById('pdp-qty-increase');
   const qtyDecreaseBtn = document.getElementById('pdp-qty-decrease');
   if(qtyValueEl && qtyIncreaseBtn && qtyDecreaseBtn){
-      qtyIncreaseBtn.addEventListener('click', () => {
+      // 清理旧监听器，防止重复计数
+      qtyIncreaseBtn.replaceWith(qtyIncreaseBtn.cloneNode(true));
+      qtyDecreaseBtn.replaceWith(qtyDecreaseBtn.cloneNode(true));
+      // 获取新的按钮引用并添加事件
+      document.getElementById('pdp-qty-increase').addEventListener('click', () => {
           quantity++;
-          qtyValueEl.textContent = quantity < 10 ? '0' + quantity : quantity;
+          document.getElementById('pdp-quantity-value').textContent = quantity < 10 ? '0' + quantity : quantity;
       });
-      qtyDecreaseBtn.addEventListener('click', () => {
+      document.getElementById('pdp-qty-decrease').addEventListener('click', () => {
           if(quantity > 1) {
               quantity--;
-              qtyValueEl.textContent = quantity < 10 ? '0' + quantity : quantity;
+              document.getElementById('pdp-quantity-value').textContent = quantity < 10 ? '0' + quantity : quantity;
           }
       });
+      document.getElementById('pdp-quantity-value').textContent = '01'; // 重置数量显示
   }
 }
 
-renderImage(currentImageIndex); 
+// --- 事件监听器绑定 --- //
+if (navLinkAbout) {
+  navLinkAbout.addEventListener('click', (e) => {
+    e.preventDefault(); //阻止可能的默认行为
+    showAboutPage();
+  });
+}
+
+if (logoBtn) {
+  logoBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    showNewHomepage();
+  });
+}
+
+// 为新主页上的 "buy now" 按钮绑定事件
+newBuyNowBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const productId = this.getAttribute('data-product-id');
+    if (productId) {
+      showProductDetail(productId);
+    }
+  });
+});
+
+// 为其他主导航链接（除了About）添加返回新主页的逻辑
+navLinks.forEach(link => {
+  if (link.id !== 'nav-link-about') { // 排除About链接本身
+    link.addEventListener('click', (e) => {
+      // 简单的示例：如果不是特殊链接，都返回主页
+      // 你可能需要根据链接ID实现更复杂的路由或页面加载
+      if (link.id !== 'open-search-btn') { //排除打开搜索按钮
+          e.preventDefault();
+          showNewHomepage();
+      }
+    });
+  }
+});
+
+
+// --- 初始化 --- //
+// 初始显示新主页
+showNewHomepage();
+
+// 移除旧的全局 renderImage(currentImageIndex); 调用
+// 它现在由 showAboutPage -> initializeAboutPageSlider 内部调用
+
+console.log("Main.js loaded and initialized."); 
