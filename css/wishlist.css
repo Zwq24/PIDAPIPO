@@ -29,9 +29,16 @@
 
 .wishlist-back-btn,
 .wishlist-shopping-bag-icon {
-    width: 32px; /* 根据Figma设计稿中图标的观感，适当增大 */
-    height: 32px;
+    width: 24px; /* 根据Figma设计稿中图标的观感，适当增大 - 统一为24px */
+    height: 24px; /* - 统一为24px */
     cursor: pointer;
+    object-fit: contain; /* 确保图标内容完整显示 */
+    vertical-align: middle; /* 尝试对齐 */
+}
+
+/* 单独为返回按钮确保它使用通用类定义的属性，虽然上面已经有width/height, 但通用类更优先 */
+.wishlist-back-btn {
+    /* .common-back-button-img 类已在HTML中应用，将继承其样式 */
 }
 
 .wishlist-header h2 {

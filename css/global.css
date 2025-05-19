@@ -16,4 +16,21 @@ body {
 }
 .page-wrapper.search-active {
   filter: blur(5px); /* 当搜索激活时，背景内容模糊 */
+}
+
+/* 新增：通用站点Logo图片样式 */
+.site-logo {
+    height: 40px; /* 默认Logo高度 */
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle; /* 帮助垂直对齐 */
+}
+
+/* 新增：通用返回按钮图片样式 */
+.common-back-button-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    cursor: pointer;
+    vertical-align: middle; /* 帮助对齐 */
 } 

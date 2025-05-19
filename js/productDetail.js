@@ -2,8 +2,8 @@
 // 负责生成和管理产品详情页的逻辑
 
 // (依赖 productData.js -> productsData 变量)
-// (依赖 navigation.js -> showNewHomepage, goBackToPreviousPageOrHomepage, setActivePage 函数)
-// (依赖 wishlist.js -> addToWishlist, updateAllWishlistIcons 函数)
+// (依赖 navigation.js -> showNewHomepage, goBackToPreviousPageOrHomepage, setActivePage, showWishlistPage 函数)
+// (依赖 wishlist.js -> addToWishlist, updateAllWishlistIcons, toggleWishlistProduct 函数)
 // (依赖 uiElements.js -> closeSearchOverlay 函数)
 
 function createProductDetailHTML(product) {
@@ -120,6 +120,35 @@ function showProductDetailFromOtherPage(productId) {
     pdpBackBtn._clickHandler = newPdpBackHandler;
   }
   
+  // PDP 心形图标特定逻辑：切换收藏并跳转到心愿单
+  const pdpHeartIcon = productDetailPage.querySelector('.wishlist-toggle-icon[data-product-id]');
+  if (pdpHeartIcon) {
+    // 移除可能存在的旧监听器，以防重复绑定
+    const existingPdpHeartHandler = pdpHeartIcon._clickHandler;
+    if (existingPdpHeartHandler) {
+      pdpHeartIcon.removeEventListener('click', existingPdpHeartHandler);
+    }
+
+    const newPdpHeartHandler = function() {
+      const currentProductId = this.dataset.productId;
+      if (currentProductId) {
+        if (typeof toggleWishlistProduct === 'function') {
+          toggleWishlistProduct(currentProductId); // 切换收藏状态
+        }
+        if (typeof showWishlistPage === 'function') {
+          showWishlistPage(); // 跳转到心愿单页面
+        } else {
+          console.error("showWishlistPage function is not defined in navigation.js");
+        }
+      } else {
+        console.error("Product ID not found on PDP heart icon.");
+      }
+    };
+
+    pdpHeartIcon.addEventListener('click', newPdpHeartHandler);
+    pdpHeartIcon._clickHandler = newPdpHeartHandler; // 存储引用以便将来移除
+  }
+  
   // 数量选择器逻辑 (保持不变)
   let quantity = 1;
   const qtyValueEl = document.getElementById('pdp-quantity-value');
@@ -146,7 +175,7 @@ function showProductDetailFromOtherPage(productId) {
       qtyValueEl.textContent = '01'; 
   }
 
-  // “添加到购物车”按钮事件监听器
+  // "添加到购物车"按钮事件监听器
   const addToCartBtn = productDetailPage.querySelector('.pdp-add-to-cart-btn');
   if (addToCartBtn) {
     // 移除旧的监听器 (如果适用)
@@ -155,14 +184,10 @@ function showProductDetailFromOtherPage(productId) {
     
     const newCartHandler = function() {
         const currentProductId = this.dataset.productId;
-        if (currentProductId && typeof addToWishlist === 'function') {
-            addToWishlist(currentProductId);
-            // 可以添加一些用户反馈，比如按钮状态改变或提示信息
-            console.log(`Product ${currentProductId} added to wishlist from PDP.`);
-            // 注意：不在此处导航到心愿单页面，只是添加商品
-        } else {
-            console.error("addToWishlist function is not defined or product ID is missing.");
-        }
+        // Log pesan bahwa fitur keranjang belum diimplementasikan
+        console.log(`"Add to cart" button clicked for product ${currentProductId}. Cart functionality not yet implemented.`);
+        // Anda bisa menambahkan alert di sini jika mau, contoh: alert('Cart functionality coming soon!');
+        
     };
     addToCartBtn.addEventListener('click', newCartHandler);
     addToCartBtn._clickHandler = newCartHandler;

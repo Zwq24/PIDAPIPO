@@ -31,8 +31,14 @@
   margin-bottom: 40px; /* Figma 间距 */
 }
 .search-overlay-topbar .logo {
-  font-size: 28px; /* 略小于主导航栏logo */
-  font-weight: bold;
+  /* font-size: 28px; */ /* 略小于主导航栏logo - 已被图片替代 */
+  /* font-weight: bold; */ /* - 已被图片替代 */
+  display: flex; /* 添加 flex 以帮助对齐图片 */
+  align-items: center; /* 垂直居中图片 */
+}
+/* 针对搜索浮层中的Logo图片，应用特定大小 */
+.search-overlay-topbar .site-logo {
+    height: 30px;
 }
 .search-overlay-topbar-icons {
   display: flex;

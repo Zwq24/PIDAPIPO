@@ -13,11 +13,9 @@
   box-sizing: border-box;
 }
 .logo {
-  font-family: 'Playfair Display SC', serif; /* Figma LOGO 字体 */
-  font-size: 36px; /* Figma LOGO字号 */
-  font-weight: 700;
-  color: #51393A; /* Figma LOGO 颜色 */
   cursor: pointer;
+  display: flex; /* 添加 flex 以帮助对齐图片 */
+  align-items: center; /* 垂直居中图片 */
 }
 .nav-menu {
   list-style: none; /* 移除列表默认样式 */

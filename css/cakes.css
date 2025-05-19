@@ -29,10 +29,16 @@
 }
 
 .cakes-logo {
-    font-size: 28px; /* Placeholder, similar to search overlay */
-    font-weight: bold;
+    /* font-size: 28px; */ /* Placeholder, similar to search overlay - 已被图片替代 */
+    /* font-weight: bold; */ /* - 已被图片替代 */
+    display: flex; /* 添加 flex 以帮助对齐图片 */
+    align-items: center; /* 垂直居中图片 */
     /* Figma: 22-logo 2, Vector (fill_8UK6R7: #51393A), Group (fill_XON6SO: #000000) */
     /* Actual logo SVG/text would be more complex */
+}
+/* 针对 Cakes 页面顶栏中的Logo图片，应用特定大小 */
+.cakes-top-bar .site-logo {
+    height: 35px;
 }
 
 .cakes-title-bar {
@@ -43,9 +49,10 @@
 }
 
 .cakes-back-btn {
-    width: 24px; /* Adjust based on actual SVG or icon used */
-    height: 24px;
-    cursor: pointer;
+    /* width: 24px; */ /* 由 common-back-button-img 控制 */
+    /* height: 24px; */ /* 由 common-back-button-img 控制 */
+    /* cursor: pointer; */ /* 由 common-back-button-img 控制 */
+    /* 这些样式现在由 global.css 中的 .common-back-button-img 控制 */
 }
 
 .cakes-header h1 {
