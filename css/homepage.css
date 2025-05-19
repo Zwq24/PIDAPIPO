@@ -48,32 +48,39 @@
 }
 
 .new-main-content {
-  padding: 60px 80px; /* Figma 边距 */
-  background-color: #EAE4DD; /* 与body背景色一致 */
+  padding: 20px; /* 页面内边距 */
+  background-color: #FCF9F4; /* 根据Figma可能的背景色调调整 */
 }
 
 .new-section-title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 64px; /* Figma 64px */
-  color: #000000;
-  text-align: left;
-  margin-bottom: 40px;
+  font-family: 'Playfair Display SC', serif; /* 衬线字体，更显优雅 */
+  font-size: 2.8rem; /* 标题字号 */
+  color: #51393A; /* 标题颜色 */
+  text-align: center; /* 居中对齐 */
+  margin-bottom: 40px; /* 与下方产品网格的间距 */
 }
 
 .new-product-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 两列布局 */
-  gap: 60px; /* Figma 卡片间距 */
+  display: flex; /* 使用Flexbox布局 */
+  justify-content: space-around; /* 产品卡片之间平均分布空间 */
+  gap: 30px; /* 卡片之间的间隙 */
+  flex-wrap: wrap; /* 如果一行放不下，则换行 */
 }
 
 .new-product-card {
-  background-color: #D5CCC6; /* Figma 卡片背景色 */
-  border-radius: 30px; /* Figma 圆角 */
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 默认居中，可根据内容调整 */
+  background-color: #FFFFFF; /* 卡片背景色 */
+  border-radius: 15px; /* 卡片圆角 */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 卡片阴影 */
+  overflow: hidden; /* 防止内容溢出圆角 */
+  width: calc(50% - 40px); /* 基础宽度，占据近一半，减去一些间隙 */
+  display: flex; /* 卡片内部也用Flexbox */
+  flex-direction: column; /* 图片和信息垂直排列 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+}
+
+.new-product-card:hover {
+  transform: translateY(-5px); /* 鼠标悬浮时轻微上移 */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* 悬浮时阴影加深 */
 }
 
 .new-product-card.left-card .new-product-info {
@@ -84,81 +91,278 @@
 }
 
 .new-product-image-container {
-  width: 100%;
-  margin-bottom: 30px;
+  width: 100%; /* 图片容器宽度占满卡片 */
+  padding-top: 75%; /* 创建一个宽高比约为4:3的容器，具体根据图片调整 */
+  position: relative; /* 用于绝对定位内部图片 */
 }
 
 .new-product-image {
+  position: absolute; /* 绝对定位 */
+  top: 0;
+  left: 0;
   width: 100%; /* 图片宽度占满容器 */
-  max-width: 400px; /* 限制图片最大宽度，使其不过大 */
-  height: auto;
-  max-height: 300px; /* 根据Figma调整图片区域高度 */
-  object-fit: contain; /* 保持图片比例 */
-  border-radius: 20px; /* 图片本身也可以有圆角 */
-  display: block;
-  margin: 0 auto; /* 图片在容器内居中 */
+  height: 100%; /* 图片高度占满容器 */
+  object-fit: cover; /* 保持图片比例并填充容器，可能裁剪 */
+}
+
+.new-product-info {
+  padding: 20px; /* 信息区域内边距 */
+  text-align: center; /* 文字居中 */
+  flex-grow: 1; /* 占据剩余空间，使得按钮能靠底部（如果卡片等高） */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 使得内容在信息区内部分布更均匀 */
 }
 
 .new-product-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 64px; /* Figma 64px */
-  color: #000000;
-  margin-bottom: 16px;
-  line-height: 1.1;
+  font-family: 'Poppins', sans-serif; /* 现代无衬线字体 */
+  font-size: 1.5rem; /* 产品标题字号 */
+  font-weight: 600; /* 字体加粗 */
+  color: #333333; /* 标题颜色 */
+  margin-bottom: 10px; /* 与描述的间距 */
 }
 
 .new-product-description {
   font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 24px; /* Figma 24px */
-  color: #000000;
-  line-height: 1.5;
-  margin-bottom: 30px;
-  min-height: 100px; /* 给描述一个最小高度防止不对齐 */
+  font-size: 0.9rem; /* 描述字号 */
+  color: #666666; /* 描述文字颜色 */
+  line-height: 1.6; /* 行高 */
+  margin-bottom: 20px; /* 与按钮的间距 */
+  flex-grow: 1; /* 允许描述区域伸展 */
 }
 
 .new-buy-now-btn {
-  background-color: #51393A; /* Figma 按钮背景色 */
-  color: #FFFFFF; /* Figma 按钮文字颜色 */
   font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 32px; /* Figma 32px */
-  padding: 15px 40px;
-  border: none;
-  border-radius: 47.5px; /* Figma 圆角 */
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: #D4B2A7; /* 按钮背景色 (参考Figma中的一种颜色) */
+  color: #FFFFFF; /* 文字颜色 */
+  border: none; /* 无边框 */
+  padding: 12px 25px; /* 内边距 */
+  border-radius: 25px; /* 圆角 */
+  cursor: pointer; /* 鼠标指针样式 */
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase; /* 文字大写 */
+  transition: background-color 0.3s ease; /* 过渡效果 */
+  align-self: center; /* 按钮在flex容器中居中 */
 }
 
 .new-buy-now-btn:hover {
-  background-color: #3a2a2b; /* 加深按钮颜色 */
+  background-color: #C8A093; /* 鼠标悬浮时按钮颜色加深 */
 }
 
 .new-footer {
-  padding: 50px 80px; /* Figma 边距 */
-  text-align: center;
-  background-color: #EAE4DD; /* 与body背景色一致 */
+  background-color: #51393A; /* 页脚背景色 (深色系) */
+  color: #EAE4DD; /* 页脚文字颜色 (浅色，形成对比) */
+  padding: 40px 20px; /* 页脚内边距 */
+  text-align: center; /* 文字居中 */
 }
 
 .new-social-media {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* 与下方声明的间距 */
 }
 
 .new-social-media span {
-  font-family: 'Poppins', sans-serif; /* 假设使用Poppins */
-  font-size: 18px; /* 自定义大小 */
-  color: #000000;
-  margin: 0 15px;
-  cursor: pointer;
+  margin: 0 15px; /* 社交媒体图标/文字之间的间距 */
+  font-size: 0.9rem; /* 文字大小 */
+  cursor: pointer; /* 鼠标指针 */
+  transition: color 0.3s ease;
+}
+
+.new-social-media span:hover {
+  color: #D4B2A7; /* 鼠标悬浮时颜色变化 */
 }
 
 .new-acknowledgement {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 16px; /* Figma 16px */
-  color: #000000;
-  line-height: 1.3;
-  max-width: 800px;
-  margin: 0 auto;
+  font-size: 0.75rem; /* 声明文字较小 */
+  line-height: 1.5; /* 行高 */
+  max-width: 800px; /* 限制最大宽度，使其更易读 */
+  margin: 0 auto; /* 居中显示 */
+}
+
+/* 响应式设计：针对小屏幕（例如手机） */
+@media (max-width: 768px) {
+  /* 导航栏调整 */
+  .navbar {
+    flex-direction: column; /* 导航项垂直排列 */
+    align-items: flex-start; /* 左对齐logo和菜单按钮 */
+  }
+
+  .nav-menu {
+    display: none; /* 在小屏幕上默认隐藏菜单项，为汉堡菜单做准备 */
+    /* 实际项目中这里会用JS配合汉堡按钮来切换显示 */
+    flex-direction: column; /* 菜单项垂直排列 */
+    width: 100%; /* 展开时占满宽度 */
+    background-color: #fff; /* 背景色，避免透明 */
+    padding: 10px 0;
+  }
+
+  .nav-menu li {
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  .nav-icons {
+    /* 小屏幕上图标可能需要调整位置或大小，这里暂时保持原样，但可以按需修改 */
+    margin-top: 10px; /* 如果导航栏是flex-direction: column, 图标和菜单按钮之间可能需要间距 */
+    align-self: center; /* 让图标区域在折叠的导航栏中居中 */
+  }
+  
+  /* 可以添加一个汉堡菜单按钮的样式，并用JS控制 .nav-menu 的显示/隐藏 */
+  /* .hamburger-menu { display: block; } */
+
+
+  /* 新主页英雄区域调整 */
+  .new-hero-section {
+    height: auto; /* 高度自适应 */
+    padding-bottom: 20px; /* 底部留一些空间 */
+  }
+
+  .new-hero-image {
+    max-height: 60vh; /* 限制图片最大高度，避免过长 */
+  }
+
+  .new-hero-date {
+    font-size: 0.8em; /* 缩小日期字体 */
+    padding: 8px;
+    bottom: 10px; /* 调整位置 */
+    left: 10px;
+    right: auto; /* 确保在左侧 */
+    transform: none; /* 移除桌面端的居中转换 */
+    background-color: rgba(0,0,0,0.4); /* 增加一点背景确保可读性 */
+  }
+
+  .new-hero-date .date-day-name,
+  .new-hero-date .date-month,
+  .new-hero-date .date-day-number {
+    font-size: 1.8rem; /* 调整日期内部字体大小 */
+  }
+   .new-hero-date .date-month {
+    font-size: 1rem;
+   }
+
+
+  /* “Top products”区域标题 */
+  .new-section-title {
+    font-size: 2rem; /* 减小标题字号 */
+    margin-bottom: 20px;
+  }
+
+  /* 产品网格容器 */
+  .new-product-grid {
+    flex-direction: column; /* 产品卡片垂直堆叠 */
+    gap: 20px; /* 卡片之间的间隙 */
+  }
+
+  /* 产品卡片 */
+  .new-product-card {
+    width: 100%; /* 卡片宽度占满父容器 */
+    /* flex-direction: row; */ /* 如果希望图片在左，文字在右 */
+    /* align-items: center; */ /* 如果是row布局，垂直居中 */
+  }
+  
+  /* 如果希望手机端图片在左，文字在右（类似Figma搜索结果的列表项）可以这样调整 */
+  /*
+  .new-product-card.left-card, .new-product-card.right-card {
+    flex-direction: row;
+  }
+  .new-product-image-container {
+    width: 120px; // 固定图片宽度
+    height: 120px; // 固定图片高度
+    padding-top: 0; // 移除之前的百分比padding
+    flex-shrink: 0; // 防止图片容器被压缩
+  }
+  .new-product-info {
+    text-align: left; // 文字左对齐
+    padding: 15px;
+  }
+  .new-product-title {
+    font-size: 1.2rem;
+  }
+  .new-product-description {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+  }
+  .new-buy-now-btn {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    align-self: flex-start; // 按钮左对齐
+  }
+  */
+
+
+  .new-product-image-container {
+     padding-top: 65%; /* 调整图片容器宽高比以适应垂直卡片 */
+  }
+
+  .new-product-title {
+    font-size: 1.3rem; /* 调整产品标题字号 */
+  }
+
+  .new-product-description {
+    font-size: 0.85rem; /* 调整描述字号 */
+  }
+
+  .new-buy-now-btn {
+    padding: 10px 20px; /* 调整按钮大小 */
+    font-size: 0.85rem;
+  }
+
+  /* 新页脚调整 */
+  .new-footer {
+    padding: 30px 15px; /* 减小页脚内边距 */
+  }
+
+  .new-social-media span {
+    margin: 0 10px; /* 减小社交媒体图标间距 */
+    font-size: 0.85rem;
+  }
+
+  .new-acknowledgement {
+    font-size: 0.7rem; /* 减小声明文字大小 */
+  }
+}
+
+/* 针对非常小的屏幕，可以进一步微调 */
+@media (max-width: 480px) {
+  .new-hero-date .date-day-name,
+  .new-hero-date .date-month,
+  .new-hero-date .date-day-number {
+    font-size: 1.5rem; /* 在非常小的屏幕上进一步缩小日期字体 */
+  }
+  .new-hero-date .date-month {
+    font-size: 0.9rem;
+   }
+
+  .new-section-title {
+    font-size: 1.8rem; /* 进一步减小标题 */
+  }
+
+  .new-product-title {
+    font-size: 1.2rem; /* 进一步减小产品标题 */
+  }
+
+  .new-product-description {
+    font-size: 0.8rem;
+  }
+
+  .new-buy-now-btn {
+    padding: 8px 18px;
+  }
+}
+
+/* 确保 #new-homepage-content 在默认情况下是显示的，而其他页面是隐藏的 */
+/* 这个逻辑主要由JS控制，但CSS可以设置初始状态 */
+#new-homepage-content {
+  display: block; /* 或者 flex, grid, 取决于其内部结构需求 */
+}
+
+/* 其他页面初始隐藏 */
+#about-page-content,
+#cakes-page-content,
+#wishlist-page-content,
+#payment-page-content,
+#thank-you-page-content,
+#product-detail-page {
+  display: none;
 } 

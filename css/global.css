@@ -13,6 +13,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   transition: filter 0.3s ease-in-out; /* 为背景模糊添加过渡 */
+  scroll-behavior: smooth; /* 平滑滚动 */
 }
 .page-wrapper.search-active {
   filter: blur(5px); /* 当搜索激活时，背景内容模糊 */
@@ -33,4 +34,60 @@ body {
     object-fit: contain;
     cursor: pointer;
     vertical-align: middle; /* 帮助对齐 */
-} 
+}
+
+/* ---------- 新增媒体查询 ---------- */
+
+/* 移动设备样式 (例如：屏幕宽度 <= 768px) */
+@media (max-width: 768px) {
+  .navbar { /* 隐藏桌面导航栏 */
+    display: none !important; /* 使用 !important确保覆盖其他样式 */
+  }
+
+  #new-homepage-content { /* 隐藏桌面版主页内容 */
+    display: none !important;
+  }
+
+  #mobile-main-app-view { /* 显示手机版主应用视图 */
+    display: flex !important; /* 使用 flex 因为其内部是 flex 布局 */
+  }
+
+  /* 如果搜索浮层在移动端不需要，也可以在这里隐藏它 */
+  /* #search-overlay {
+    display: none !important;
+  } */
+
+  /* 其他所有特定于"页面"的容器在移动端初始时也应该隐藏，除非它们是移动视图的一部分 */
+  /* 例如，如果产品详情页等不是立即在移动首页上展示的 */
+  #product-detail-page,
+  #about-page-content,
+  #cakes-page-content,
+  #wishlist-page-content,
+  #payment-page-content,
+  #thank-you-page-content {
+    /* 确保这些在移动视图优先时不会意外显示 */
+    /* display: none; */ /* 这个可能需要JS来控制哪个页面显示 */
+  }
+}
+
+/* 平板和桌面设备样式 (例如：屏幕宽度 > 768px) */
+@media (min-width: 769px) {
+  #mobile-main-app-view { /* 隐藏手机版主应用视图 */
+    display: none !important;
+  }
+
+  /* 确保桌面元素是可见的 (如果它们之前被全局隐藏了) */
+  .navbar {
+    display: flex !important; /* 或者 table, block 等，取决于原始的 display 类型 */
+  }
+
+  #new-homepage-content {
+    display: block !important; /* 或者其他原始 display 类型 */
+  }
+}
+
+/* 你可能还需要为 #search-overlay 添加特定的显示/隐藏逻辑，
+   因为它可能在桌面和移动端都有，但触发方式和样式不同。
+   目前，#search-overlay 本身有自己的关闭按钮和通过JS控制的显示逻辑，
+   这里的媒体查询主要是为了确保主页面布局的切换。
+*/ 

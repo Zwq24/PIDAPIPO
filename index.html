@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/wishlist.css">
   <link rel="stylesheet" href="css/payment.css">
   <link rel="stylesheet" href="css/thankyou.css">
+  <link rel="stylesheet" href="css/mobile-view.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Poppins:wght@400;600&family=Abhaya+Libre:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -107,6 +108,110 @@
         <span id="open-search-btn" class="icon-search"><img src="images/放大镜.svg" alt="打开搜索" class="icon-search-img"></span> <!-- Ensure class for img -->
       </div>
     </nav>
+
+    <!-- 新增：手机版主应用视图容器 -->
+    <div id="mobile-main-app-view" style="display: none;">
+      <!-- 手机版顶部栏 -->
+      <header class="mobile-top-bar">
+        <button class="mobile-menu-btn">
+          <img src="mobile_images/菜单.svg" alt="Menu">
+        </button>
+        <div class="mobile-logo">
+          <img src="mobile_images/logo_apple_black.svg" alt="Pidapipo Logo">
+        </div>
+        <button class="mobile-location-btn">
+          <img src="mobile_images/location.svg" alt="Location">
+        </button>
+      </header>
+
+      <!-- 手机版英雄区域 -->
+      <section class="mobile-hero-section">
+        <img src="mobile_images/Rectangle 110.jpg" alt="Pidapipo Easter 2025" class="mobile-hero-image">
+        <div class="mobile-hero-text-overlay">
+          <h1>PIDAPIPO</h1>
+          <p>EASTER 2025</p>
+        </div>
+      </section>
+
+      <!-- 手机版搜索栏 -->
+      <section class="mobile-search-bar-container">
+        <div class="mobile-search-input-wrapper">
+          <img src="mobile_images/放大镜.svg" alt="Search" class="mobile-search-icon">
+          <input type="text" placeholder="Cake" class="mobile-search-input">
+        </div>
+        <button class="mobile-filter-btn">
+          <img src="mobile_images/filter.svg" alt="Filter">
+        </button>
+      </section>
+
+      <!-- 手机版最近搜索/建议 -->
+      <section class="mobile-recent-searches">
+        <ul class="mobile-search-suggestions-list">
+          <li><img src="mobile_images/放大镜.svg" alt="">Banoffee Pie cake</li>
+          <li><img src="mobile_images/放大镜.svg" alt="">Matcha Strawberry cake</li>
+          <li><img src="mobile_images/放大镜.svg" alt="">Tiramisu' alia Pidapipó cake</li>
+          <li><img src="mobile_images/放大镜.svg" alt="">The Great Rocher cake</li>
+        </ul>
+      </section>
+
+      <!-- 手机版分类 -->
+      <section class="mobile-categories-section">
+        <h2>Categories</h2>
+        <div class="mobile-categories-grid">
+          <div class="mobile-category-item">
+            <img src="mobile_images/image 35.png" alt="Gelato">
+            <span>Gelato</span>
+          </div>
+          <div class="mobile-category-item">
+            <img src="mobile_images/image.png" alt="Chocolate">
+            <span>Chocolate</span>
+          </div>
+          <div class="mobile-category-item">
+            <img src="mobile_images/image (18).png" alt="Cake">
+            <span>Cake</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 手机版热门产品 -->
+      <section class="mobile-top-products-section">
+        <h2>Top Products</h2>
+        <div class="mobile-top-products-grid">
+          <div class="mobile-product-card">
+            <img src="mobile_images/image (22).png" alt="Peanut Butter & Caramel Brownie cake">
+            <div class="mobile-product-info">
+              <h3>Peanut Butter & Caramel Brownie cake</h3>
+              <span class="mobile-product-price">$78</span>
+            </div>
+            <button class="mobile-add-to-cart-btn">+</button>
+          </div>
+          <div class="mobile-product-card">
+            <img src="mobile_images/image (28).png" alt="Milk Chocolate & Hazelnut">
+            <div class="mobile-product-info">
+              <h3>Milk Chocolate & Hazelnut</h3>
+              <span class="mobile-product-price">$13.5</span>
+            </div>
+            <button class="mobile-add-to-cart-btn">+</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 手机版底部导航栏 -->
+      <nav class="mobile-bottom-nav">
+        <a href="#" class="mobile-nav-item active">
+          <img src="mobile_images/home.svg" alt="Home">
+        </a>
+        <a href="#" class="mobile-nav-item">
+          <img src="mobile_images/heart-outline.svg" alt="Wishlist">
+        </a>
+        <a href="#" class="mobile-nav-item">
+          <img src="mobile_images/购物袋.svg" alt="Bag">
+        </a>
+        <a href="#" class="mobile-nav-item">
+          <img src="mobile_images/user.svg" alt="Profile">
+        </a>
+      </nav>
+    </div>
 
     <!-- 新主页内容容器 -->
     <div id="new-homepage-content">
