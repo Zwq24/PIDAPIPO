@@ -3,7 +3,7 @@
 
 // 记录导航到PDP或Wishlist之前的页面，方便返回
 let previousPage = 'newHomepage'; // 默认为新主页
-const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist', 'payment'];
+const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist', 'payment', 'thankYou'];
 
 // --- 页面状态管理与导航 --- // 
 function setActivePage(pageId) {
@@ -25,7 +25,8 @@ function hideAllPages() {
     document.getElementById('product-detail-page').style.display = 'none';
     document.getElementById('cakes-page-content').style.display = 'none';
     document.getElementById('wishlist-page-content').style.display = 'none';
-    document.getElementById('payment-page-content').style.display = 'none'; // 新增
+    document.getElementById('payment-page-content').style.display = 'none'; 
+    document.getElementById('thank-you-page-content').style.display = 'none';
     const pageWrapper = document.querySelector('.page-wrapper');
     if (pageWrapper) pageWrapper.style.display = 'flex'; // 通常 pageWrapper 保持 flex
     document.body.style.overflow = ''; // 恢复默认滚动
@@ -50,7 +51,6 @@ function showCakesPage() {
   hideAllPages();
   document.getElementById('cakes-page-content').style.display = 'block';
   setActivePage('cakes');
-  // Cakes 返回按钮事件监听器 (确保只绑定一次或在showCakesPage中处理)
   const cakesBackBtn = document.getElementById('cakes-back-btn');
   if (cakesBackBtn && !cakesBackBtn._clickHandlerAttached) {
     const newCakesBackHandler = (e) => { e.preventDefault(); showNewHomepage(); };
@@ -68,61 +68,51 @@ function showWishlistPage() {
     window.scrollTo(0, 0);
 }
 
-// 新增函数：显示支付页面
 function showPaymentPage() {
     hideAllPages();
-    document.getElementById('payment-page-content').style.display = 'flex'; // payment page is flex container
+    document.getElementById('payment-page-content').style.display = 'flex'; 
     setActivePage('payment');
     
-    // 更新订单摘要
     if (typeof calculateWishlistTotals === 'function') {
-        const totals = calculateWishlistTotals(); // 假设这个函数在wishlist.js中
+        const totals = calculateWishlistTotals(); 
         const subtotalEl = document.getElementById('payment-subtotal');
         const totalEl = document.getElementById('payment-total');
-        // const shippingEl = document.getElementById('payment-shipping'); // 运费暂时为0
-        
         if (subtotalEl) subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
-        if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`; // 目前 total = subtotal
-        // if (shippingEl) shippingEl.textContent = '$0.00';
+        if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`; 
     } else {
         console.error('calculateWishlistTotals function is not defined. Check wishlist.js');
     }
 
-    // 支付页面返回按钮事件监听器
     const paymentBackBtn = document.getElementById('payment-back-btn');
     if (paymentBackBtn && !paymentBackBtn._clickHandlerAttached) {
         const newPaymentBackHandler = (e) => { 
             e.preventDefault(); 
-            showWishlistPage(); // 从支付页面返回到心愿单/购物车摘要页面
+            showWishlistPage(); 
         };
         paymentBackBtn.addEventListener('click', newPaymentBackHandler);
         paymentBackBtn._clickHandlerAttached = true;
     }
 
-    // "Place to order" 按钮的事件监听器
     const placeOrderBtn = document.getElementById('place-order-btn');
     if (placeOrderBtn && !placeOrderBtn._clickHandlerAttached) {
         placeOrderBtn.addEventListener('click', () => {
-            alert('Order placed successfully! (This is a demo)');
-            if (typeof wishlistItems !== 'undefined') { // Ensure wishlistItems is defined
+            if (typeof wishlistItems !== 'undefined') { 
               wishlistItems = []; 
             }
             if (typeof renderWishlistPage === 'function') renderWishlistPage(); 
             if (typeof updateAllWishlistIcons === 'function') updateAllWishlistIcons(); 
-            showNewHomepage(); 
+            
+            showThankYouPage();
         });
         placeOrderBtn._clickHandlerAttached = true;
     }
-
-    // --- Payment Method Selection Logic --- //
+    
     const paymentOptions = document.querySelectorAll('#payment-page-content .payment-option');
     paymentOptions.forEach(option => {
         if (!option._paymentOptionClickHandlerAttached) {
             option.addEventListener('click', function() {
                 paymentOptions.forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
-                // const selectedMethod = this.dataset.method;
-                // console.log('Selected payment method:', selectedMethod);
             });
             option._paymentOptionClickHandlerAttached = true; 
         }
@@ -131,40 +121,78 @@ function showPaymentPage() {
     window.scrollTo(0, 0);
 }
 
+// Revised showThankYouPage function
+function showThankYouPage() {
+    hideAllPages();
+    const thankYouPage = document.getElementById('thank-you-page-content');
+    if (thankYouPage) {
+        thankYouPage.style.display = 'flex'; 
+    }
+    setActivePage('thankYou');
+    document.body.style.overflow = 'auto';
+
+    const backHomeBtn = document.getElementById('thank-you-back-home-btn');
+    if (backHomeBtn && !backHomeBtn._clickHandlerAttachedThankYouHome) {
+        backHomeBtn.addEventListener('click', () => {
+            showNewHomepage();
+        });
+        backHomeBtn._clickHandlerAttachedThankYouHome = true;
+    }
+
+    const backArrowBtn = document.getElementById('thank-you-back-arrow-btn');
+    if (backArrowBtn && !backArrowBtn._clickHandlerAttachedThankYouBack) {
+        backArrowBtn.addEventListener('click', () => {
+            goBackToPreviousPageOrHomepage();
+        });
+        backArrowBtn._clickHandlerAttachedThankYouBack = true;
+    }
+
+    const viewOrderBtn = document.getElementById('thank-you-view-order-btn');
+    if (viewOrderBtn && !viewOrderBtn._clickHandlerAttachedThankYouView) {
+        viewOrderBtn.addEventListener('click', () => {
+            alert('"View Order" functionality is not yet implemented. Returning to homepage.');
+            showNewHomepage();
+        });
+        viewOrderBtn._clickHandlerAttachedThankYouView = true;
+    }
+    
+    const emojis = document.querySelectorAll('#thank-you-page-content .emoji-option');
+    emojis.forEach(emoji => {
+        if (!emoji._emojiClickHandlerAttached) {
+            emoji.addEventListener('click', function() {
+                emojis.forEach(em => em.classList.remove('selected-emoji'));
+                this.classList.add('selected-emoji');
+                console.log('Satisfaction rating:', this.dataset.rating);
+            });
+            emoji._emojiClickHandlerAttached = true;
+        }
+    });
+
+    window.scrollTo(0, 0);
+}
+
 function goBackToPreviousPageOrHomepage() {
-    const pageToGo = previousPage || 'newHomepage'; // Fallback to newHomepage
+    const pageToGo = previousPage || 'newHomepage'; 
     console.log("Going back. Previous page was:", previousPage, "Navigating to:", pageToGo);
     switch (pageToGo) {
         case 'newHomepage': showNewHomepage(); break;
         case 'about': showAboutPage(); break;
         case 'cakes': showCakesPage(); break;
         case 'wishlist': showWishlistPage(); break;
-        // PDP 返回时，previousPage 应该是 PDP 打开前的页面，由setActivePage在显示PDP前设置。
-        // productDetail.js 中的返回按钮直接调用此函数。
         case 'productDetail': 
-             // This case might be tricky. If productDetail was the *actual* previous page (e.g., user navigated payment -> pdp)
-             // then this is fine. But usually, productDetail calls this to go to *its* previous page.
-             // Let's assume setActivePage in showProductDetailFromOtherPage correctly sets previousPage to what was before PDP.
-             // The current setActivePage logic needs refinement for this to work perfectly.
-             // For now, this might default to homepage if previousPage was 'productDetail' due to PDP itself being previous.
-             // A better `previousPage` management would be a stack or more context.
-             // Simplified: if previousPage is 'productDetail', it means we were on PDP, and its own 'previousPage' should be used.
-             // This logic is flawed for PDP. PDP's back button should rely on `previousPage` set *before* PDP was shown.
-             // The current `setActivePage` has been updated to try and manage `previousPage` better.
-             showNewHomepage(); // Fallback, this needs robust previousPage management.
+             showNewHomepage(); 
              break;
         case 'payment': showPaymentPage(); break;
+        case 'thankYou': showNewHomepage(); break;
         default: showNewHomepage(); break;
     }
 }
 
-// 主导航链接的事件监听器设置
 function setupNavigationListeners() {
   const logoBtn = document.getElementById('logo-btn');
   const navLinkAbout = document.getElementById('nav-link-about');
   const navLinkCakes = document.getElementById('nav-link-cakes');
-  // const navLinkWishlist = document.querySelector('.nav-icons .wishlist-toggle-icon'); // 这个由wishlist.js的initWishlist处理
-  const navLinks = document.querySelectorAll('.nav-menu li a, .nav-menu button'); // 更通用地选择链接和按钮
+  const navLinks = document.querySelectorAll('.nav-menu li a, .nav-menu button');
 
   if (navLinkAbout) {
     navLinkAbout.addEventListener('click', (e) => {
@@ -180,9 +208,6 @@ function setupNavigationListeners() {
     });
   }
 
-  // 导航栏心形图标的点击由 wishlist.js 中的 initWishlist 处理，它会调用 showWishlistPage
-  // 所以这里不需要为导航栏心形图标单独添加监听器来显示页面
-
   if (logoBtn) {
     logoBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -191,14 +216,13 @@ function setupNavigationListeners() {
   }
 
   navLinks.forEach(link => {
-    // 排除已经有特定处理的链接/按钮 和 打开搜索的按钮
     const id = link.id || (link.parentElement && link.parentElement.id);
     if (id !== 'nav-link-about' && id !== 'nav-link-cakes' && 
         id !== 'open-search-btn' && !link.classList.contains('wishlist-toggle-icon') && 
         id !== 'logo-btn' && link.closest('.nav-icons') === null) { 
       link.addEventListener('click', (e) => {
           e.preventDefault();
-          showNewHomepage(); // 其他导航链接（如Shop, Gelato）都导向新主页
+          showNewHomepage(); 
       });
     }
   });

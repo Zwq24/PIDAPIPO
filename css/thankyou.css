@@ -1,0 +1,126 @@
+/* css/thankyou.css - Revised for "Confirmation of purchase" design */
+
+#thank-you-page-content {
+    background-color: #EAE4DD;
+    color: #333333; /* Default text color */
+    font-family: 'Inter', sans-serif; /* Assuming Inter from previous context */
+    min-height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
+    display: none; /* Controlled by JS */
+    flex-direction: column;
+}
+
+.thank-you-header { /* More like a top bar */
+    display: flex;
+    align-items: center;
+    padding: 20px 25px; /* Adjust padding as needed */
+    width: 100%;
+    box-sizing: border-box;
+    /* position: relative; */ /* For centering title if back button is absolute or flex spaced */
+}
+
+.thank-you-back-arrow {
+    font-size: 28px; /* Make arrow larger */
+    /* font-weight: bold; */ /* Arrow is not typically bold */
+    color: #000000;
+    cursor: pointer;
+    margin-right: auto; /* Pushes title to center if flex is used correctly */
+}
+
+.thank-you-confirmation-title {
+    font-size: 16px; /* "Confirmation of purchase" text - smaller as per image */
+    font-weight: 400; /* Regular weight */
+    color: #8A8A8A; /* Greyish text from image */
+    /* text-align: center; */
+    /* flex-grow: 1; */ 
+    position: absolute; /* Position it absolutely to truly center */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+
+.thank-you-main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    flex-grow: 1;
+    padding: 20px 40px; /* Horizontal padding for content */
+    text-align: center; /* Center all inline/block children */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.main-success-icon {
+    font-size: 70px; /* Large smiley icon */
+    color: #51393A; /* Dark brown/purple color from image */
+    margin-bottom: 20px;
+}
+
+.order-status-title {
+    font-size: 22px; /* "Order Payment Successful !" - adjusted to image */
+    font-weight: 600; /* SemiBold */
+    color: #333333;
+    margin-bottom: 25px;
+}
+
+.thank-you-divider {
+    width: 100%;
+    max-width: 380px; /* Control width of divider */
+    height: 1px;
+    background-color: #CECECE; /* Light grey divider from image */
+    margin: 0 auto 25px auto; /* Center divider */
+}
+
+.satisfaction-prompt {
+    font-size: 13px; /* Smaller text from image */
+    color: #4F4F4F; /* Darker grey text */
+    margin-bottom: 15px;
+}
+
+.satisfaction-emojis {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Space between emojis - adjusted to image */
+    margin-bottom: 35px;
+}
+
+.emoji-option {
+    font-size: 28px; /* Size of emoji characters - adjusted to image */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    color: #51393A; /* Match icon color */
+}
+
+.emoji-option:hover {
+    transform: scale(1.2);
+}
+
+.thank-you-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Space between buttons - adjusted to image */
+    width: 100%;
+    max-width: 280px; /* Control button width - adjusted to image */
+    margin: 0 auto; /* Center buttons */
+}
+
+.thank-you-action-button {
+    background-color: #E1D8D3; /* Light beige/grey from image buttons */
+    color: #545454; /* Darker grey text color from image buttons */
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 14px; /* Smaller font size from image */
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px; /* Slightly less rounded corners from image */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.thank-you-action-button:hover {
+    background-color: #d0c6c0; /* Slightly darker on hover */
+} 

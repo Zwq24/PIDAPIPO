@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/cakes.css">
   <link rel="stylesheet" href="css/wishlist.css">
   <link rel="stylesheet" href="css/payment.css">
+  <link rel="stylesheet" href="css/thankyou.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Poppins:wght@400;600&family=Abhaya+Libre:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -410,8 +411,34 @@
       </footer>
     </div> <!-- end of #payment-page-content -->
 
+    <!-- 感谢您页面容器 (严格按照新截图 "Confirmation of purchase") -->
+    <div id="thank-you-page-content" class="thank-you-page" style="display: none;">
+      <header class="thank-you-header">
+        <span class="thank-you-back-arrow" id="thank-you-back-arrow-btn">←</span> <!-- Back arrow -->
+        <h1 class="thank-you-confirmation-title">Confirmation of purchase</h1>
+      </header>
+      <main class="thank-you-main-content-wrapper">
+        <div class="main-success-icon">😊</div> <!-- Main smiley icon -->
+        <h2 class="order-status-title">Order Payment Successful !</h2>
+        <div class="thank-you-divider"></div>
+        <p class="satisfaction-prompt">Satisfaction with this shopping experience</p>
+        <div class="satisfaction-emojis">
+          <span class="emoji-option" data-rating="5">😄</span>
+          <span class="emoji-option" data-rating="4">😊</span>
+          <span class="emoji-option" data-rating="3">😐</span>
+          <span class="emoji-option" data-rating="2">😟</span>
+          <span class="emoji-option" data-rating="1">😠</span>
+        </div>
+        <div class="thank-you-actions">
+          <button id="thank-you-view-order-btn" class="thank-you-action-button">View Order</button>
+          <button id="thank-you-back-home-btn" class="thank-you-action-button">Back to home</button>
+        </div>
+      </main>
+    </div> <!-- end of #thank-you-page-content -->
+
   </div> <!-- end of .page-wrapper -->
 
+  
   <!-- 分页切换脚本 -->
   <!-- <script src="main.js"></script> -->
   <script src="js/productData.js"></script>
