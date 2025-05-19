@@ -45,6 +45,7 @@ function showProductDetail(productId) {
   const searchOverlay = document.getElementById('search-overlay');
   const newHomepageContent = document.getElementById('new-homepage-content');
   const aboutPageContent = document.getElementById('about-page-content');
+  const cakesPageContent = document.getElementById('cakes-page-content');
 
   if (!productDetailPage || !pageWrapper || !searchOverlay) return;
 
@@ -63,6 +64,7 @@ function showProductDetail(productId) {
   // 隐藏当前页面内容
   if (newHomepageContent) newHomepageContent.style.display = 'none';
   if (aboutPageContent) aboutPageContent.style.display = 'none';
+  if (cakesPageContent) cakesPageContent.style.display = 'none';
   if (pageWrapper) pageWrapper.style.display = 'none'; 
   
   document.body.style.overflow = ''; 
@@ -80,6 +82,7 @@ function showProductDetail(productId) {
       productDetailPage.style.display = 'none';
       productDetailPage.style.backgroundColor = '';
       showNewHomepage(); // 依赖 navigation.js
+      window.scrollTo(0, 0); // 返回主页时滚动到顶部
     };
     pdpBackBtn.addEventListener('click', newPdpBackHandler);
     pdpBackBtn._clickHandler = newPdpBackHandler;
