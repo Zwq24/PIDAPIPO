@@ -3,9 +3,9 @@
 import sys
 from googletrans import Translator
 
-# text = sys.stdin.read()
+text = sys.stdin.read()
 
-text = "你好"
+# text = "你好"
 translator = Translator()
 
 try:
