@@ -7,71 +7,103 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 顶部导航栏 -->
-  <nav class="navbar">
-    <!-- LOGO区域 -->
-    <div class="logo">LOGO</div>
-    <!-- 菜单栏 -->
-    <ul class="nav-menu">
-      <li>Shop</li>
-      <li>gelato</li>
-      <li>Chocolate</li>
-      <li>Cakes</li>
-      <li>About</li>
-      <li>The lab</li>
-    </ul>
-    <!-- 图标区：心形、购物袋、搜索 -->
-    <div class="nav-icons">
-      <span class="icon-heart">♥</span>
-      <span class="icon-bag">🛍️</span>
-      <span class="icon-search">🔍</span>
+  <!-- 搜索浮层 -->
+  <div id="search-overlay" class="search-overlay">
+    <!-- 浮层顶部 -->
+    <div class="search-overlay-topbar">
+      <div class="logo">
+        <!-- LOGO SVG 或图片 -->
+        LOGO
+      </div>
+      <div class="search-overlay-topbar-icons">
+        <span class="icon-heart">♥</span>
+        <span class="icon-bag">🛍️</span>
+        <span id="close-search-btn" class="icon-close-search">✖</span> <!-- 关闭按钮 -->
+      </div>
     </div>
-  </nav>
-
-  <!-- 主视觉区 -->
-  <header class="hero">
-    <h1>PIDAPIPO EASTER 2025</h1>
-    <p class="subtitle">Friday 28th March Chocolate, Events, Loves, News</p>
-  </header>
-
-  <!-- 图片切换区域 -->
-  <div id="page-container">
-    <!-- 图片由JS动态渲染于此 -->
+    <!-- 搜索输入区域 -->
+    <div class="search-overlay-input-area">
+      <span class="search-overlay-icon-search"><img src="images/放大镜.svg" alt="搜索图标"></span>
+      <input type="text" placeholder="What do you want?">
+      <span class="search-overlay-icon-sliders">📊</span> <!-- 假设是sliders图标 -->
+    </div>
+    <!-- 推荐搜索词 -->
+    <div class="search-overlay-suggestions">
+      <button>Cake</button>
+      <button>Chocolate</button>
+      <button>Gelato</button>
+      <button>Shop</button>
+    </div>
   </div>
 
-  <!-- 图片分页组件 -->
-  <nav class="pagination">
-    <button class="page-btn" data-page="0">1</button>
-    <button class="page-btn active" data-page="1">2</button> <!-- 默认第二张，索引为1 -->
-    <button class="page-btn" data-page="2">3</button>
-    <button class="page-btn" data-page="3">4</button>
-  </nav>
+  <!-- 页面主要内容 -->
+  <div class="page-wrapper">
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+      <!-- LOGO区域 -->
+      <div class="logo">LOGO</div>
+      <!-- 菜单栏 -->
+      <ul class="nav-menu">
+        <li>Shop</li>
+        <li>gelato</li>
+        <li>Chocolate</li>
+        <li>Cakes</li>
+        <li>About</li>
+        <li>The lab</li>
+      </ul>
+      <!-- 图标区：心形、购物袋、搜索 -->
+      <div class="nav-icons">
+        <span class="icon-heart">♥</span>
+        <span class="icon-bag">🛍️</span>
+        <span id="open-search-btn" class="icon-search"><img src="images/放大镜.svg" alt="打开搜索"></span> <!-- 打开搜索按钮 -->
+      </div>
+    </nav>
 
-  <!-- 固定正文内容区 -->
-  <main class="content">
-    <section class="intro">
-      <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
-      <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
-      <p>Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
-      <p>It wouldn't be a Pidapipo Easter without gelato, and on offer at all stores is a variety of chocolate-focussed gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate gelato with caramel swirl, dipped in milk chocolate.</p>
-      <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
-      <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
-    </section>
-  </main>
+    <!-- 主视觉区 -->
+    <header class="hero">
+      <h1>PIDAPIPO EASTER 2025</h1>
+      <p class="subtitle">Friday 28th March Chocolate, Events, Loves, News</p>
+    </header>
 
-  <!-- 底部社交媒体区 -->
-  <footer class="footer">
-    <div class="social-media">
-      <!-- 社交媒体图标可替换为SVG或图片 -->
-      <span class="icon-twitter">Twitter</span>
-      <span class="icon-facebook">Facebook</span>
-      <span class="icon-instagram">Instagram</span>
+    <!-- 图片切换区域 -->
+    <div id="page-container">
+      <!-- 图片由JS动态渲染于此 -->
     </div>
-    <!-- 原住民致敬声明 -->
-    <div class="acknowledgement">
-      PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.
-    </div>
-  </footer>
+
+    <!-- 图片分页组件 -->
+    <nav class="pagination">
+      <button class="page-btn" data-page="0">1</button>
+      <button class="page-btn active" data-page="1">2</button> <!-- 默认第二张，索引为1 -->
+      <button class="page-btn" data-page="2">3</button>
+      <button class="page-btn" data-page="3">4</button>
+    </nav>
+
+    <!-- 固定正文内容区 -->
+    <main class="content">
+      <section class="intro">
+        <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
+        <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
+        <p>Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
+        <p>It wouldn't be a Pidapipo Easter without gelato, and on offer at all stores is a variety of chocolate-focussed gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate gelato with caramel swirl, dipped in milk chocolate.</p>
+        <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
+        <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
+      </section>
+    </main>
+
+    <!-- 底部社交媒体区 -->
+    <footer class="footer">
+      <div class="social-media">
+        <!-- 社交媒体图标可替换为SVG或图片 -->
+        <span class="icon-twitter">Twitter</span>
+        <span class="icon-facebook">Facebook</span>
+        <span class="icon-instagram">Instagram</span>
+      </div>
+      <!-- 原住民致敬声明 -->
+      <div class="acknowledgement">
+        PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.
+      </div>
+    </footer>
+  </div> <!-- end of .page-wrapper -->
 
   <!-- 分页切换脚本 -->
   <script src="main.js"></script>
