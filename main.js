@@ -118,14 +118,14 @@ function updateActiveAboutPageButton(activeIndex) {
 }
 
 
-// --- 搜索浮层功能 (基本保持不变) --- //
+// --- 搜索浮层功能 --- //
 if (openSearchBtn && searchOverlay && pageWrapper) {
   openSearchBtn.addEventListener('click', () => {
     searchOverlay.classList.add('active');
-    pageWrapper.classList.add('search-active'); 
-    // 新增：如果非主页内容也激活了搜索，也要模糊
-    if (newHomepageContent && newHomepageContent.style.display !== 'none') newHomepageContent.classList.add('search-active');
-    if (aboutPageContent && aboutPageContent.style.display !== 'none') aboutPageContent.classList.add('search-active');
+    pageWrapper.classList.add('search-active'); // 主要由此控制背景模糊
+    // 下面这两行针对特定内容区域的 search-active 是多余的，如果模糊由 pageWrapper 控制
+    // if (newHomepageContent && newHomepageContent.style.display !== 'none') newHomepageContent.classList.add('search-active');
+    // if (aboutPageContent && aboutPageContent.style.display !== 'none') aboutPageContent.classList.add('search-active');
 
     document.body.style.overflow = 'hidden';
     if(searchInput) searchInput.focus();
@@ -135,9 +135,10 @@ if (openSearchBtn && searchOverlay && pageWrapper) {
 if (closeSearchBtn && searchOverlay && pageWrapper) {
   closeSearchBtn.addEventListener('click', () => {
     searchOverlay.classList.remove('active');
-    pageWrapper.classList.remove('search-active');
-    if (newHomepageContent) newHomepageContent.classList.remove('search-active');
-    if (aboutPageContent) aboutPageContent.classList.remove('search-active');
+    pageWrapper.classList.remove('search-active'); // 主要由此移除背景模糊
+    // 下面这两行针对特定内容区域的 search-active 是多余的
+    // if (newHomepageContent) newHomepageContent.classList.remove('search-active');
+    // if (aboutPageContent) aboutPageContent.classList.remove('search-active');
     
     document.body.style.overflow = '';
     if(searchResultsPreview) searchResultsPreview.classList.remove('active');
@@ -242,13 +243,17 @@ function showProductDetail(productId) {
     console.error('Product not found with ID:', productId);
     return;
   }
-  // 隐藏主页内容和About页内容
+
+  // 关闭搜索浮层并移除模糊效果
+  searchOverlay.classList.remove('active');
+  pageWrapper.classList.remove('search-active'); // <--- 关键：确保移除模糊
+
+  // 隐藏当前页面内容
   if (newHomepageContent) newHomepageContent.style.display = 'none';
   if (aboutPageContent) aboutPageContent.style.display = 'none';
   if (pageWrapper) pageWrapper.style.display = 'none'; // 隐藏整个 .page-wrapper
   
-  searchOverlay.classList.remove('active'); // 关闭搜索浮层（如果打开）
-  document.body.style.overflow = ''; // 恢复body滚动
+  document.body.style.overflow = ''; // 临时恢复body滚动，以防PDP未能正确设置
 
   productDetailPage.innerHTML = createProductDetailHTML(product);
   productDetailPage.style.display = 'flex';
@@ -256,14 +261,12 @@ function showProductDetail(productId) {
 
   const pdpBackBtn = document.getElementById('pdp-back-btn');
   if (pdpBackBtn) {
-    // 确保只绑定一次事件
     const existingHandler = pdpBackBtn._clickHandler;
     if(existingHandler) pdpBackBtn.removeEventListener('click', existingHandler);
 
     const newPdpBackHandler = () => {
       productDetailPage.style.display = 'none';
       productDetailPage.style.backgroundColor = '';
-      // 决定返回到哪个页面 (这里简单返回新主页)
       showNewHomepage(); 
     };
     pdpBackBtn.addEventListener('click', newPdpBackHandler);
