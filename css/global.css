@@ -1,0 +1,19 @@
+/* 全局基础样式 */
+body {
+  margin: 0;
+  padding: 0;
+  background: #EAE4DD; /* 主背景色 */
+  font-family: 'Poppins', 'Abhaya Libre', Arial, sans-serif; /* 主字体 */
+  color: #000; /* 主文字色 */
+}
+
+/* 页面主要内容包裹器 */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: filter 0.3s ease-in-out; /* 为背景模糊添加过渡 */
+}
+.page-wrapper.search-active {
+  filter: blur(5px); /* 当搜索激活时，背景内容模糊 */
+} 

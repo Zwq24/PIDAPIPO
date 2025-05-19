@@ -1,0 +1,164 @@
+/* --- 新主页样式 (homepage1) --- */
+#new-homepage-content {
+  /* 默认显示，后续JS会控制 */
+}
+
+.new-hero-section {
+  position: relative; /* 为了日期定位 */
+  width: 100%;
+  height: 75vh; /* 尝试使用视口高度，例如屏幕高度的75%。可以调整这个值。*/
+  margin-top: -100px; /* 让图片向上移动，部分被navbar遮盖，符合Figma效果 */
+  z-index: 1; /* 在navbar之下 */
+  overflow: hidden; /* 当图片使用object-fit:cover并充满100%高度时，这很重要 */
+}
+
+.new-hero-image {
+  width: 100%;
+  height: 100%; /* 图片高度充满父容器 .new-hero-section */
+  object-fit: cover; /* 覆盖整个容器，可能会裁剪图片以适应 */
+  display: block;
+}
+
+.new-hero-date {
+  position: absolute;
+  top: 50%; /* 垂直居中，可微调 */
+  left: 80px; /* Figma 左侧距离 */
+  transform: translateY(-50%);
+  color: #FFFFFF; /* Figma 字体白色 */
+  text-align: left;
+  z-index: 2;
+}
+
+.new-hero-date .date-day-name,
+.new-hero-date .date-month {
+  font-family: 'Playfair Display SC', serif;
+  font-weight: 700;
+  font-size: 96px; /* Figma 96px */
+  line-height: 1.1;
+  display: block;
+}
+
+.new-hero-date .date-day-number {
+  font-family: 'Playfair Display SC', serif;
+  font-weight: 700;
+  font-size: 400px; /* Figma 400px */
+  line-height: 1;
+  display: block;
+  margin-top: -20px; /* 微调与月份的间距 */
+}
+
+.new-main-content {
+  padding: 60px 80px; /* Figma 边距 */
+  background-color: #EAE4DD; /* 与body背景色一致 */
+}
+
+.new-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 64px; /* Figma 64px */
+  color: #000000;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.new-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+  gap: 60px; /* Figma 卡片间距 */
+}
+
+.new-product-card {
+  background-color: #D5CCC6; /* Figma 卡片背景色 */
+  border-radius: 30px; /* Figma 圆角 */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 默认居中，可根据内容调整 */
+}
+
+.new-product-card.left-card .new-product-info {
+  text-align: left;
+}
+.new-product-card.right-card .new-product-info {
+  text-align: right;
+}
+
+.new-product-image-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.new-product-image {
+  width: 100%; /* 图片宽度占满容器 */
+  max-width: 400px; /* 限制图片最大宽度，使其不过大 */
+  height: auto;
+  max-height: 300px; /* 根据Figma调整图片区域高度 */
+  object-fit: contain; /* 保持图片比例 */
+  border-radius: 20px; /* 图片本身也可以有圆角 */
+  display: block;
+  margin: 0 auto; /* 图片在容器内居中 */
+}
+
+.new-product-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 64px; /* Figma 64px */
+  color: #000000;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.new-product-description {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 24px; /* Figma 24px */
+  color: #000000;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  min-height: 100px; /* 给描述一个最小高度防止不对齐 */
+}
+
+.new-buy-now-btn {
+  background-color: #51393A; /* Figma 按钮背景色 */
+  color: #FFFFFF; /* Figma 按钮文字颜色 */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 32px; /* Figma 32px */
+  padding: 15px 40px;
+  border: none;
+  border-radius: 47.5px; /* Figma 圆角 */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.new-buy-now-btn:hover {
+  background-color: #3a2a2b; /* 加深按钮颜色 */
+}
+
+.new-footer {
+  padding: 50px 80px; /* Figma 边距 */
+  text-align: center;
+  background-color: #EAE4DD; /* 与body背景色一致 */
+}
+
+.new-social-media {
+  margin-bottom: 20px;
+}
+
+.new-social-media span {
+  font-family: 'Poppins', sans-serif; /* 假设使用Poppins */
+  font-size: 18px; /* 自定义大小 */
+  color: #000000;
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.new-acknowledgement {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px; /* Figma 16px */
+  color: #000000;
+  line-height: 1.3;
+  max-width: 800px;
+  margin: 0 auto;
+} 

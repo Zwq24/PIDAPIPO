@@ -1,0 +1,105 @@
+/* --- 旧主页 (About页面) 样式 --- */
+#about-page-content {
+  padding-top: 20px; /* 为navbar留出空间 */
+}
+
+/* 主视觉区样式 (About页) */
+#about-page-content .hero {
+  text-align: center;
+  margin: 20px 0; /* 调整间距 */
+}
+#about-page-content .hero h1 {
+  font-size: 48px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+#about-page-content .subtitle {
+  font-size: 32px;
+  font-family: 'Abhaya Libre', serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* 图片容器样式 (About页) */
+#about-page-content #page-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 40px auto 24px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 350px;
+}
+#about-page-content .switch-img {
+  max-width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  display: block;
+}
+
+/* 图片分页组件 (About页) */
+#about-page-content .pagination {
+  display: flex;
+  justify-content: center;
+  gap: 78px;
+  margin: 40px 0 0 0;
+}
+#about-page-content .page-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #000;
+  font-size: 24px;
+  font-family: 'Abhaya Libre Medium', 'Abhaya Libre', serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#about-page-content .page-btn.active {
+  background: #000;
+  color: #fff;
+}
+#about-page-content .page-btn:hover:not(.active) {
+  background: #EAE4DD;
+}
+
+/* 内容区样式 (About页) */
+#about-page-content .content {
+  max-width: 1106px;
+  margin: 20px auto; /* 调整间距 */
+  padding: 24px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+#about-page-content .intro p {
+  font-size: 24px;
+  font-family: 'Abhaya Libre', serif;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+/* 底部社交媒体区样式 (About页) */
+#about-page-content .footer {
+  margin: 48px 0 20px 0; /* 调整间距 */
+  padding: 32px 0 16px 0;
+  background: transparent;
+  text-align: center;
+}
+#about-page-content .social-media {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+#about-page-content .acknowledgement {
+  font-size: 16px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 600;
+  color: #000;
+  margin-top: 16px;
+} 

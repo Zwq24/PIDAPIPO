@@ -1,0 +1,52 @@
+/* 顶部导航栏样式 */
+.navbar {
+  display: flex; /* 使用Flex布局 */
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px; /* 根据Figma微调 */
+  background: #fff; /* 导航栏背景色 */
+  border-radius: 60px; /* 圆角 */
+  margin: 20px auto; /* 上下20px，左右自动居中 */
+  width: calc(100% - 80px); /* 宽度减去左右padding */
+  max-width: 1300px; /* 一个最大宽度，防止过宽 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-sizing: border-box;
+  position: relative; /* 确保在内容之上 */
+  z-index: 500; /* 高于普通内容 */
+}
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer; /* 添加手型光标 */
+}
+.nav-menu {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-menu li {
+  font-size: 24px; /* Figma: Poppins Regular 24px */
+  font-family: 'Poppins', Arial, sans-serif;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.nav-menu li:hover {
+  color: #EAE4DD;
+  background: #000;
+  border-radius: 12px;
+  padding: 4px 12px;
+}
+.nav-icons {
+  display: flex;
+  gap: 16px;
+  font-size: 24px;
+}
+.nav-icons .icon-search img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+} 
