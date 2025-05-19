@@ -1,0 +1,175 @@
+/* css/wishlist.css */
+
+#wishlist-page-content {
+    background-color: #EAE4DD; /* Figma: fill_9IHIMZ */
+    color: #000000; /* Figma: fill_H6FLFU */
+    padding: 20px 40px; /* 增大左右内边距以匹配设计稿观感 */
+    font-family: 'Poppins', sans-serif;
+    /* display: none; /* Controlled by JS */
+    min-height: calc(100vh - 80px); /* 假设导航栏高度约为80px, 确保内容至少填满视口 */
+    box-sizing: border-box;
+    width: 100%; /* Ensure it takes full available width */
+}
+
+.wishlist-header {
+    margin-bottom: 40px; /* 增大底部间距 */
+    max-width: 1200px; /* 尝试更大的最大宽度 */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px; /* Padding for centered content */
+    box-sizing: border-box;
+}
+
+.wishlist-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.wishlist-back-btn,
+.wishlist-shopping-bag-icon {
+    width: 32px; /* 根据Figma设计稿中图标的观感，适当增大 */
+    height: 32px;
+    cursor: pointer;
+}
+
+.wishlist-header h2 {
+    font-family: 'Inter', sans-serif; 
+    font-weight: 400; 
+    font-size: 36px;  /* Figma: 40px, 调整为36px */
+    margin: 0 auto; /* 标题居中 */
+    text-align: center; /* 确保文字居中 */
+}
+
+.wishlist-main-content {
+    max-width: 1000px; /* 商品列表区域的最大宽度 */
+    margin: 0 auto; /* Center the main content (items list) */
+    padding: 0 15px; /* Padding for centered content */
+    box-sizing: border-box;
+}
+
+.wishlist-items-container {
+    display: grid;
+    grid-template-columns: 1fr; /* 每个商品项占一行 */
+    gap: 25px; /* 商品项之间的间距 */
+}
+
+.wishlist-item {
+    background-color: #FFFFFF; 
+    border-radius: 10px; 
+    padding: 20px; /* 增大内边距 */
+    display: flex;
+    align-items: center; /* 改为居中对齐，因为设计稿中各项看起来是垂直居中的 */
+    gap: 25px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* 稍微加深阴影 */
+}
+
+/* 新增：为图片容器设定明确尺寸和防止收缩 */
+.wishlist-item-image-container {
+    width: 180px; /* 根据Figma设计稿，图片区域占比更大 */
+    height: 180px;
+    flex-shrink: 0; /* 防止图片容器在flex布局中被压缩 */
+    display: flex; /* 用于内部图片的对齐 */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* 确保图片超出部分被裁剪 */
+    border-radius: 10px; /* 与Figma卡片圆角一致 */
+}
+
+.wishlist-item-image {
+    /* width: 100px;  现在由容器控制 */
+    /* height: 100px; 现在由容器控制 */
+    max-width: 100%; /* 确保图片不会超出容器 */
+    max-height: 100%;
+    object-fit: cover; /* 保持cover以填充，但现在容器大小固定 */
+    border-radius: 10px; /* 图片也加圆角，虽然容器有overflow hidden */
+}
+
+.wishlist-item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 尝试让内容垂直居中 */
+    /* min-height: 180px; /* 不再需要，因为父级 align-items: center */
+}
+
+.wishlist-item-details h3 {
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 500; /* Figma Poppins 400, 但视觉上可以略重一点 */
+    font-size: 22px;  /* Figma Poppins 40px is too large for list, using 22px */
+    margin: 0 0 10px 0; 
+    line-height: 1.3;
+}
+
+.wishlist-item-details .price {
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 400;
+    font-size: 18px; /* 增大价格字体 */
+    margin: 0 0 20px 0; 
+    color: #333; 
+}
+
+.wishlist-item-remove-btn {
+    background-color: #D5CCC6; 
+    color: #000000;
+    border: none;
+    padding: 10px 20px; /* 增大按钮内边距 */
+    border-radius: 25px; /* 增大圆角 */
+    cursor: pointer;
+    font-family: 'Inter', sans-serif; /* 与Figma按钮字体一致 */
+    font-size: 14px; /* 保持或略微增大 */
+    font-weight: 500;
+    align-self: flex-start; 
+    /* margin-top: auto;  No longer needed with details flex center */
+}
+.wishlist-item-remove-btn:hover {
+    background-color: #c0b8b2;
+}
+
+.wishlist-empty-message {
+    text-align: center;
+    font-size: 20px;
+    color: #555;
+    padding: 80px 20px; 
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    min-height: 200px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wishlist-footer {
+    max-width: 1000px; 
+    margin: 50px auto 0 auto; 
+    text-align: center;
+    padding: 0 15px 30px 15px; 
+    box-sizing: border-box;
+}
+
+.wishlist-continue-shopping-btn {
+    background-color: #D5CCC6; /* Figma: fill_NDNWO6 */
+    color: #000000; 
+    font-family: 'Inter', sans-serif; /* Figma: style_TIDW98 */
+    font-weight: 500; 
+    font-size: 20px;  /* Figma: 48px, adjusted to 20px */
+    border: none;
+    padding: 15px 40px; /* 增大内边距 */
+    border-radius: 999px; /* Figma: borderRadius */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wishlist-continue-shopping-btn:hover {
+    background-color: #c0b8b2;
+}
+
+/* Styling for the heart icons themselves if needed beyond simple src swap */
+.wishlist-toggle-icon {
+    width: 24px; 
+    height: 24px;
+    cursor: pointer;
+    vertical-align: middle; /* Align with other icons if they are text/spans */
+} 

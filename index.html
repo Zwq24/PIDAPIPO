@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/search.css">
   <link rel="stylesheet" href="css/product-detail.css">
   <link rel="stylesheet" href="css/cakes.css">
+  <link rel="stylesheet" href="css/wishlist.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Poppins:wght@400;600&family=Abhaya+Libre:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -30,8 +31,9 @@
         LOGO
       </div>
       <div class="search-overlay-topbar-icons">
-        <span class="icon-heart">♥</span>
-        <span class="icon-bag">🛍️</span>
+        <!-- <span class="icon-heart">♥</span> -->
+        <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="overlay-header">
+        <img src="images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
         <span id="close-search-btn" class="icon-close-search">✖</span> <!-- 关闭按钮 -->
       </div>
     </div>
@@ -97,9 +99,10 @@
       </ul>
       <!-- 图标区：心形、购物袋、搜索 -->
       <div class="nav-icons">
-        <span class="icon-heart">♥</span>
-        <span class="icon-bag">🛍️</span>
-        <span id="open-search-btn" class="icon-search"><img src="images/放大镜.svg" alt="打开搜索"></span> <!-- 打开搜索按钮 -->
+        <!-- <span class="icon-heart">♥</span> -->
+        <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="navbar">
+        <img src="images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
+        <span id="open-search-btn" class="icon-search"><img src="images/放大镜.svg" alt="打开搜索" class="icon-search-img"></span> <!-- Ensure class for img -->
       </div>
     </nav>
 
@@ -292,6 +295,26 @@
       </footer>
     </div> <!-- end of #cakes-page-content -->
 
+    <!-- Wishlist Page Content -->
+    <div id="wishlist-page-content" style="display: none;">
+      <header class="wishlist-header">
+        <div class="wishlist-top-bar">
+          <img src="images/back-arrow.svg" alt="返回" class="wishlist-back-btn" id="wishlist-back-btn">
+          <h2>My Wishlist</h2>
+          <img src="images/shopping-bag.svg" alt="购物袋" class="wishlist-shopping-bag-icon"> <!-- 假设有一个购物袋图标 -->
+        </div>
+      </header>
+      <main class="wishlist-main-content">
+        <div class="wishlist-items-container">
+          <!-- 心愿单产品将由JS动态渲染于此 -->
+          <!-- <p class="wishlist-empty-message">Your wishlist is currently empty.</p> -->
+        </div>
+      </main>
+      <footer class="wishlist-footer">
+        <button class="wishlist-continue-shopping-btn">Continue Shopping</button>
+      </footer>
+    </div> <!-- end of #wishlist-page-content -->
+
   </div> <!-- end of .page-wrapper -->
 
   <!-- 分页切换脚本 -->
@@ -301,6 +324,7 @@
   <script src="js/navigation.js"></script>
   <script src="js/productDetail.js"></script>
   <script src="js/searchFunctionality.js"></script>
+  <script src="js/wishlist.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html> 

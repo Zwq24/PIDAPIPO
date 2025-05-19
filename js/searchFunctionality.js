@@ -2,7 +2,7 @@
 // 搜索输入、结果显示相关的逻辑
 
 // (依赖 uiElements.js -> openSearchOverlay, closeSearchOverlay)
-// (依赖 productDetail.js -> showProductDetail)
+// (依赖 productDetail.js -> showProductDetailFromOtherPage)
 
 function setupSearchFunctionality() {
   const openSearchBtn = document.getElementById('open-search-btn');
@@ -13,13 +13,13 @@ function setupSearchFunctionality() {
 
   if (openSearchBtn) {
     openSearchBtn.addEventListener('click', () => {
-      openSearchOverlay(); // 依赖 uiElements.js
+      if (typeof openSearchOverlay === 'function') openSearchOverlay();
     });
   }
 
   if (closeSearchBtn) {
     closeSearchBtn.addEventListener('click', () => {
-      closeSearchOverlay(); // 依赖 uiElements.js
+      if (typeof closeSearchOverlay === 'function') closeSearchOverlay();
     });
   }
 
@@ -34,7 +34,13 @@ function setupSearchFunctionality() {
               if (existingHandler) {
                   item.removeEventListener('click', existingHandler);
               }
-              const newItemClickHandler = () => showProductDetail(productId); // 依赖 productDetail.js
+              const newItemClickHandler = () => {
+                if (typeof showProductDetailFromOtherPage === 'function') {
+                    showProductDetailFromOtherPage(productId);
+                } else {
+                    console.error('showProductDetailFromOtherPage is not defined. Check productDetail.js');
+                }
+              };
               item.addEventListener('click', newItemClickHandler);
               item._clickHandler = newItemClickHandler; 
           }

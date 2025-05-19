@@ -36,12 +36,37 @@
 }
 .search-overlay-topbar-icons {
   display: flex;
+  align-items: center; /* Vertically align icons */
   gap: 20px; /* Figma 图标间距 */
-  font-size: 22px;
 }
-.icon-close-search {
+
+/* General style for icons in search overlay top bar */
+.search-overlay-topbar-icons > * { /* Target direct children: img for heart/bag, span for close */
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+.search-overlay-topbar-icons img { /* For heart and bag images */
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
   cursor: pointer;
+  opacity: 1; /* Ensure no transparency by default for img icons */
+}
+
+/* Specifically target the bag icon in search if further refinement is needed */
+.search-overlay-topbar-icons img[src="images/购物袋.svg"] {
+    width: 24px; /* Ensure size consistency */
+    height: 24px;
+    opacity: 1; /* Explicitly set opacity to 1, overriding any other general rule if necessary */
+}
+
+.search-overlay-topbar-icons .icon-close-search { /* For the close button (span) */
+  font-size: 22px; /* Keep its original size or adjust as needed */
   font-weight: bold;
+  cursor: pointer;
+  line-height: 1; /* Helps with vertical alignment of text/span */
 }
 
 /* 搜索输入区域 */
