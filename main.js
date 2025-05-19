@@ -105,11 +105,15 @@ if (searchInput && searchResultsPreview) {
     if (this.value.length > 0) {
       searchResultsPreview.classList.add('active');
       console.log('Search results preview activated'); // 调试
-      // 确保在预览区显示后，再给结果项绑定事件
       document.querySelectorAll('.search-overlay .result-item').forEach(item => {
-        console.log('Binding click listener to result item:', item); // 调试
-        item.removeEventListener('click', showProductDetail);
-        item.addEventListener('click', showProductDetail);
+        const productId = item.getAttribute('data-product-id'); // 获取产品ID
+        if (productId) {
+            // 为每个item动态创建事件监听器，确保每次只绑定一个
+            const newItemClickHandler = () => showProductDetail(productId);
+            item.removeEventListener('click', item._clickHandler); // 移除旧的（如果存在）
+            item.addEventListener('click', newItemClickHandler);
+            item._clickHandler = newItemClickHandler; // 存储引用以便移除
+        }
       });
     } else {
       searchResultsPreview.classList.remove('active');
@@ -120,20 +124,47 @@ if (searchInput && searchResultsPreview) {
     console.error('Search input or search results preview not found. Input event listener not added.');
 }
 
+// --- 产品数据 --- //
+const productsData = [
+  {
+    id: "pb-brownie",
+    name: "Peanut Butter & Caramel Brownie",
+    image: "images/Ellipse 1.jpg",
+    description: "A caramel brownie base, filled with soft, salty caramel gelato, peanut butter gelato and milk chocolate gelato, finished with a thin chocolate glaze and covered with peanut crunch.",
+    price: "$78",
+    dimensions: "DEMENSIONS:<br>BOXED: 25CM (L) X 25CM (W) X 20CM (H)<br>CAKE:17CM (W) X 14CM (H)",
+    detailPageBgColor: "#F3D8A1" // 第一个产品详情页的背景色
+  },
+  {
+    id: "tiramisu-cake",
+    name: "Tiramisu' alla Pidapipo",
+    image: "images/Rectangle 154.jpg",
+    description: "Chocolate sponge drenched with coffee and sherry syrup, mascarpone gelato dusted with Dutch cocoa powder.",
+    price: "$65",
+    dimensions: "DIMENSIONS:<br>BOXED:25CM(L) X (25)CM (W) X 20CM(H)<br>CAKE: 15CM(W) X 5CM(H)",
+    detailPageBgColor: "#A4D5D4" // 第二个产品详情页的背景色
+  },
+  {
+    id: "milk-chocolate-hazelnut",
+    name: "Milk Chocolate & Hazelnut",
+    image: "images/Rectangle 157.jpg",
+    description: "Our range of single origin chocolate celebrates the art and craftsmanship of the great Italian cioccolatieri. Handmade from scratch in Fitzroy, our chocolates are crafted in small batches using only the best, ethically-sourced ingredients – from Dominican Republic organic cacao to hazelnuts from Piemonte – and our own caramels, pralines and ganaches. Classic simplicity meets traditional technique and modern innovation. Delizioso.",
+    price: "$65",
+    dimensions: "DIMENSIONS:<br>46% Milk Chocolate & Hazelnut – 100g",
+    detailPageBgColor: "#EDC1D5"
+  }
+  // 可以继续添加更多产品...
+];
+
 // --- 产品详情页功能 --- //
 const productDetailPage = document.getElementById('product-detail-page');
 
-// 示例产品数据 (后续可以替换为真实数据或从API获取)
-const sampleProduct = {
-  name: "Peanut Butter & Caramel Brownie",
-  image: "images/Rectangle 145_placeholder.jpg", // 请替换为真实的产品图片路径
-  description: "A caramel brownie base, filled with soft, salty caramel gelato, peanut butter gelato and milk chocolate gelato, finished with a thin chocolate glaze and covered with peanut crunch.",
-  price: "$78",
-  dimensions: "DEMENSIONS:<br>BOXED: 25CM (L) X 25CM (W) X 20CM (H)<br>CAKE:17CM (W) X 14CM (H)"
-};
-
 // 生成产品详情页HTML的函数
 function createProductDetailHTML(product) {
+  // 更新产品详情页的背景色
+  if (productDetailPage && product.detailPageBgColor) {
+    productDetailPage.style.backgroundColor = product.detailPageBgColor;
+  }
   return `
     <div class="pdp-top-bar">
       <img src="images/back-arrow.svg" alt="返回" class="pdp-back-btn" id="pdp-back-btn">
@@ -164,37 +195,33 @@ function createProductDetailHTML(product) {
   `;
 }
 
-// 点击搜索结果项时显示产品详情页
-const searchResultItems = document.querySelectorAll('.result-item'); // 需要在search-overlay的JS执行后获取
-
-function showProductDetail() {
+function showProductDetail(productId) {
   if (!productDetailPage || !pageWrapper || !searchOverlay) return;
 
-  // 隐藏搜索浮层和主页面
+  const product = productsData.find(p => p.id === productId);
+  if (!product) {
+    console.error('Product not found with ID:', productId);
+    return;
+  }
+
   searchOverlay.classList.remove('active');
   pageWrapper.classList.remove('search-active');
   pageWrapper.style.display = 'none';
-  document.body.style.overflow = ''; // 恢复滚动
+  document.body.style.overflow = '';
 
-  // 填充并显示产品详情页
-  productDetailPage.innerHTML = createProductDetailHTML(sampleProduct);
-  productDetailPage.style.display = 'flex'; // 或 'block'，根据CSS结构决定
-  document.body.style.overflow = 'hidden'; // 产品详情页可能也需要禁止body滚动
+  productDetailPage.innerHTML = createProductDetailHTML(product);
+  productDetailPage.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 
-  // 为详情页内的返回按钮等添加事件监听 (在此处或createProductDetailHTML后)
   const pdpBackBtn = document.getElementById('pdp-back-btn');
   if (pdpBackBtn) {
     pdpBackBtn.addEventListener('click', () => {
       productDetailPage.style.display = 'none';
-      pageWrapper.style.display = 'flex'; // 恢复主页面显示
-      document.body.style.overflow = ''; // 恢复滚动
-      // 可以选择是否重新打开搜索浮层或返回首页
-      // searchOverlay.classList.add('active');
-      // pageWrapper.classList.add('search-active');
-      // document.body.style.overflow = 'hidden';
+      productDetailPage.style.backgroundColor = ''; // 清除背景色
+      pageWrapper.style.display = 'flex';
+      document.body.style.overflow = '';
     });
   }
-  // 为数量选择器添加逻辑...
   let quantity = 1;
   const qtyValueEl = document.getElementById('pdp-quantity-value');
   const qtyIncreaseBtn = document.getElementById('pdp-qty-increase');
