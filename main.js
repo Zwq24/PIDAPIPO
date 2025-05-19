@@ -66,21 +66,38 @@ if (imageContainer) { // 确保在图片容器存在时才执行
 const openSearchBtn = document.getElementById('open-search-btn');
 const closeSearchBtn = document.getElementById('close-search-btn');
 const searchOverlay = document.getElementById('search-overlay');
-const pageWrapper = document.querySelector('.page-wrapper'); // 获取页面主要内容包裹器
+const pageWrapper = document.querySelector('.page-wrapper');
+const searchInput = searchOverlay ? searchOverlay.querySelector('input[type="text"] cityscape') : null;
+const searchResultsPreview = document.getElementById('search-results-preview');
 
 if (openSearchBtn && searchOverlay && pageWrapper) {
   openSearchBtn.addEventListener('click', () => {
     searchOverlay.classList.add('active');
-    pageWrapper.classList.add('search-active'); // 背景模糊
-    document.body.style.overflow = 'hidden'; // 禁止背景滚动
+    pageWrapper.classList.add('search-active');
+    document.body.style.overflow = 'hidden';
+    if(searchInput) searchInput.focus(); // 打开时自动聚焦到输入框
   });
 }
 
 if (closeSearchBtn && searchOverlay && pageWrapper) {
   closeSearchBtn.addEventListener('click', () => {
     searchOverlay.classList.remove('active');
-    pageWrapper.classList.remove('search-active'); // 取消背景模糊
-    document.body.style.overflow = ''; // 恢复背景滚动
+    pageWrapper.classList.remove('search-active');
+    document.body.style.overflow = '';
+    if(searchResultsPreview) searchResultsPreview.classList.remove('active'); // 关闭时隐藏预览
+    if(searchInput) searchInput.value = ''; // 清空输入
   });
-} 
+}
+
+// 简单演示：当在搜索框输入时，显示/隐藏静态的预览结果区
+if (searchInput && searchResultsPreview) {
+  searchInput.addEventListener('input', function() {
+    if (this.value.length > 0) {
+      searchResultsPreview.classList.add('active');
+    } else {
+      searchResultsPreview.classList.remove('active');
+    }
+  });
+}
+
 renderImage(currentImageIndex); 
