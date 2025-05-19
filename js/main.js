@@ -50,7 +50,99 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('showNewHomepage is not defined. Check navigation.js');
   }
 
-  console.log("Main.js loaded and initialized. Modules coordinated."); 
+  // -------- 移动端菜单交互 和 页面导航逻辑 (合并和调整) --------
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileSideMenuElement = document.getElementById('mobile-side-menu'); // 更明确的变量名
+  const mobileCloseMenuBtn = document.getElementById('mobile-close-menu-btn');
+  const body = document.body;
+
+  const mobileHomepageSections = [
+    document.querySelector('.mobile-hero-section'),
+    document.querySelector('.mobile-search-bar-container'),
+    document.querySelector('.mobile-recent-searches'),
+    document.querySelector('.mobile-categories-section'),
+    document.querySelector('.mobile-top-products-section'),
+  ].filter(el => el !== null);
+
+  const mobileCakesPage = document.getElementById('mobile-cakes-page-content');
+  const mobileCakesBackBtn = document.querySelector('.mobile-cakes-back-btn');
+
+  // --- 菜单打开/关闭功能 ---
+  if (mobileMenuBtn && mobileSideMenuElement && mobileCloseMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileSideMenuElement.classList.add('open');
+      body.classList.add('mobile-menu-open');
+    });
+
+    mobileCloseMenuBtn.addEventListener('click', () => {
+      mobileSideMenuElement.classList.remove('open');
+      body.classList.remove('mobile-menu-open');
+    });
+  } else {
+    console.error("Mobile menu buttons or side menu element not found. Menu will not work.");
+  }
+
+  // --- 页面切换功能 ---
+  function showMobilePage(pageElementToShow, sectionsToHide) {
+    sectionsToHide.forEach(section => section.classList.add('hidden'));
+    if (pageElementToShow) pageElementToShow.style.display = 'flex';
+    if (mobileSideMenuElement) mobileSideMenuElement.classList.remove('open'); // 确保菜单关闭
+    body.classList.remove('mobile-menu-open');
+    window.scrollTo(0, 0);
+  }
+
+  function showMobileHomepage(sectionsToShow, pageToHide) {
+    if (pageToHide) pageToHide.style.display = 'none';
+    sectionsToShow.forEach(section => section.classList.remove('hidden'));
+    if (mobileSideMenuElement) mobileSideMenuElement.classList.remove('open'); // 确保菜单关闭
+    body.classList.remove('mobile-menu-open');
+    window.scrollTo(0, 0);
+  }
+
+  // --- 导航菜单项事件监听 ---
+  // 确保 mobileSideMenuElement 存在后再尝试获取其子项并绑定事件
+  if (mobileSideMenuElement && mobileCakesPage) { 
+    const mobileSideMenuItems = mobileSideMenuElement.querySelectorAll('ul li');
+    if (mobileSideMenuItems.length > 0) {
+      mobileSideMenuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const targetPage = item.dataset.target;
+          console.log("Menu item clicked, target:", targetPage); // 调试信息
+
+          if (targetPage === 'mobile-cakes-page') {
+            showMobilePage(mobileCakesPage, mobileHomepageSections);
+          } else if (targetPage === 'mobile-home-view') {
+            showMobileHomepage(mobileHomepageSections, mobileCakesPage);
+            // TODO: Hide other specific pages if they are open
+          } else {
+            console.log("Placeholder navigation for:", targetPage);
+            // For other pages, ensure they are defined and then call showMobilePage
+            // Example: const mobileAboutPage = document.getElementById('mobile-about-page');
+            // if (targetPage === 'mobile-about-page' && mobileAboutPage) { 
+            //   showMobilePage(mobileAboutPage, mobileHomepageSections.concat(mobileCakesPage));
+            // }
+            if (mobileSideMenuElement) mobileSideMenuElement.classList.remove('open');
+            body.classList.remove('mobile-menu-open');
+          }
+        });
+      });
+    } else {
+      console.error("No items found in mobile side menu (ul li). Navigation will not work.");
+    }
+  } else {
+    if (!mobileSideMenuElement) console.error("Mobile side menu element not found for navigation setup.");
+    if (!mobileCakesPage) console.error("Mobile cakes page element not found for navigation setup.");
+  }
+
+  // --- 返回按钮事件监听 (Cakes page) ---
+  if (mobileCakesBackBtn && mobileCakesPage) {
+    mobileCakesBackBtn.addEventListener('click', () => {
+      showMobileHomepage(mobileHomepageSections, mobileCakesPage);
+    });
+  }
+  // -------- 结束：移动端菜单交互 和 页面导航逻辑 --------
+
+  console.log("Main.js loaded and initialized. Modules coordinated.");
 });
 
 // 注意：

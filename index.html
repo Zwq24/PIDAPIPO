@@ -25,6 +25,19 @@
     <!-- 内容将由JS动态填充 -->
   </div>
 
+  <!-- 新增：手机版侧边导航菜单 -->
+  <div id="mobile-side-menu" class="mobile-side-menu">
+    <button id="mobile-close-menu-btn" class="mobile-close-menu-btn">&times;</button>
+    <ul>
+      <li data-target="mobile-home-view">Shop</li>      {/* <!-- 假设 Shop = Home for now --> */}
+      <li data-target="mobile-gelato-page">gelato</li>    {/* <!-- Placeholder target --> */}
+      <li data-target="mobile-chocolate-page">Chocolate</li> {/* <!-- Placeholder target --> */}
+      <li data-target="mobile-cakes-page">Cakes</li>
+      <li data-target="mobile-about-page">About</li>      {/* <!-- Placeholder target --> */}
+      <li data-target="mobile-lab-page">The lab</li>      {/* <!-- Placeholder target --> */}
+    </ul>
+  </div>
+
   <!-- 搜索浮层 -->
   <div id="search-overlay" class="search-overlay">
     <!-- 浮层顶部 -->
@@ -211,6 +224,87 @@
           <img src="mobile_images/user.svg" alt="Profile">
         </a>
       </nav>
+    </div>
+
+    <!-- 新增：手机版Cakes页面内容容器 -->
+    <div id="mobile-cakes-page-content" style="display: none;">
+      <!-- 手机版Cakes页面顶部栏 -->
+      <header class="mobile-cakes-page-top-bar">
+        <button class="mobile-cakes-back-btn">
+          <img src="mobile_images/back-arrow.svg" alt="Back"> {/* <!-- 假设有一个 back-arrow.svg --> */}
+        </button>
+        <h1>CAKES</h1>
+        <button class="mobile-cakes-location-btn">
+          <img src="mobile_images/location.svg" alt="Location"> {/* <!-- 与首页一致的定位图标 --> */}
+        </button>
+      </header>
+
+      <div class="mobile-cakes-page-description">
+        <p>
+          Our latest range of gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.
+        </p>
+      </div>
+
+      <main class="mobile-cakes-grid-container">
+        <div class="mobile-cake-item">
+          <div class="mobile-cake-image-background">
+            <img src="mobile_images/image (21).png" alt="Tiramisu' alla Pidapipo">
+          </div>
+          <div class="mobile-cake-info">
+            <h3>Tiramisu' alla Pidapipo</h3>
+            <p class="price">$65</p>
+          </div>
+        </div>
+        <div class="mobile-cake-item">
+          <div class="mobile-cake-image-background">
+            <img src="mobile_images/image (22).png" alt="Peanut Butter & Caramel Brownie">
+          </div>
+          <div class="mobile-cake-info">
+            <h3>Peanut Butter & Caramel Brownie</h3>
+            <p class="price">$78</p>
+          </div>
+        </div>
+        <div class="mobile-cake-item">
+          <div class="mobile-cake-image-background">
+            <img src="mobile_images/image (23).png" alt="Matcha Strawberry">
+          </div>
+          <div class="mobile-cake-info">
+            <h3>Matcha Strawberry</h3>
+            <p class="price">$78</p>
+          </div>
+        </div>
+        <div class="mobile-cake-item">
+          <div class="mobile-cake-image-background">
+            <img src="mobile_images/image (24).png" alt="Banoffee Pie">
+          </div>
+          <div class="mobile-cake-info">
+            <h3>Banoffee Pie</h3>
+            <p class="price">$59</p>
+          </div>
+        </div>
+        <div class="mobile-cake-item">
+          <div class="mobile-cake-image-background">
+            <img src="mobile_images/image (25).png" alt="The Great Rocher">
+          </div>
+          <div class="mobile-cake-info">
+            <h3>The Great Rocher</h3>
+            <p class="price">$78</p>
+          </div>
+        </div>
+        <div class="mobile-cake-item">
+          <div class="mobile-cake-image-background">
+            <img src="mobile_images/image (26).png" alt="Bombe Alaska">
+          </div>
+          <div class="mobile-cake-info">
+            <h3>Bombe Alaska</h3>
+            <p class="price">$59</p>
+          </div>
+        </div>
+      </main>
+
+      <footer class="mobile-cakes-page-footer">
+        <p>PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
+      </footer>
     </div>
 
     <!-- 新主页内容容器 -->
