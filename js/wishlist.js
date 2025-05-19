@@ -106,8 +106,31 @@ function toggleWishlistProduct(productId) {
 }
 
 /**
+ * Calculates the subtotal and total for items in the wishlist.
+ * @returns {object} An object containing subtotal and total. e.g. { subtotal: 65.00, total: 65.00 }
+ */
+function calculateWishlistTotals() {
+  let currentSubtotal = 0;
+  wishlistItems.forEach(productId => {
+    const product = productsData.find(p => p.id === productId);
+    if (product && product.price) {
+      const priceString = product.price.replace('$', '');
+      const priceValue = parseFloat(priceString);
+      if (!isNaN(priceValue)) {
+        currentSubtotal += priceValue;
+      }
+    }
+  });
+  // For now, shipping is 0, so total is the same as subtotal.
+  return {
+    subtotal: currentSubtotal,
+    total: currentSubtotal // Assuming no shipping or other charges yet
+  };
+}
+
+/**
  * Renders the products in the wishlist on the wishlist page.
- * Also calculates and renders subtotal and total.
+ * Also calculates and renders subtotal and total using calculateWishlistTotals.
  */
 function renderWishlistPage() {
   const container = document.querySelector('#wishlist-page-content .wishlist-items-container');
@@ -119,7 +142,7 @@ function renderWishlistPage() {
     return;
   }
   container.innerHTML = ''; // Clear previous items
-  let currentSubtotal = 0;
+  // let currentSubtotal = 0; // Removed, calculation is now in calculateWishlistTotals
 
   if (wishlistItems.length === 0) {
     container.innerHTML = '<p class="wishlist-empty-message">Your wishlist is currently empty.</p>';
@@ -129,6 +152,11 @@ function renderWishlistPage() {
     updateAllWishlistIcons();
     return;
   }
+
+  // Use the new calculateWishlistTotals function
+  const totals = calculateWishlistTotals();
+  subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
+  totalEl.textContent = `$${totals.total.toFixed(2)}`;
 
   wishlistItems.forEach(productId => {
     const product = productsData.find(p => p.id === productId); 
@@ -147,19 +175,19 @@ function renderWishlistPage() {
       `;
       container.insertAdjacentHTML('beforeend', itemHTML);
       
-      // Calculate subtotal
-      // Assuming product.price is a string like "$65" or "$13.50"
-      const priceString = product.price.replace('$', '');
-      const priceValue = parseFloat(priceString);
-      if (!isNaN(priceValue)) {
-        currentSubtotal += priceValue;
-      }
+      // // Calculate subtotal // Removed, calculation is now in calculateWishlistTotals
+      // // Assuming product.price is a string like "$65" or "$13.50"
+      // const priceString = product.price.replace('$', '');
+      // const priceValue = parseFloat(priceString);
+      // if (!isNaN(priceValue)) {
+      //   currentSubtotal += priceValue;
+      // }
     }
   });
 
-  // Update subtotal and total display (for now, total is same as subtotal)
-  subtotalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
-  totalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
+  // // Update subtotal and total display (for now, total is same as subtotal) // Removed
+  // subtotalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
+  // totalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
 
   // Add event listeners to the new remove buttons
   document.querySelectorAll('#wishlist-page-content .wishlist-item-remove-btn').forEach(button => {
@@ -224,10 +252,25 @@ function initWishlist() {
       }
     });
   }
+
+  // Event listener for the "Check out" button on the wishlist page
+  const checkoutButton = document.getElementById('checkout-btn');
+  if (checkoutButton) {
+    checkoutButton.addEventListener('click', function() {
+      // This function needs to be available from navigation.js
+      if (typeof showPaymentPage === 'function') {
+        showPaymentPage();
+      } else {
+        console.error('showPaymentPage function is not defined. Make sure navigation.js is loaded and correct.');
+      }
+    });
+  }
   
   // Initial update of all icons based on current wishlist state (e.g. loaded from localStorage in future)
   updateAllWishlistIcons();
 }
 
 // Note: `productsData` is assumed to be globally available from productData.js
-// Note: `showWishlistPage`, `goBackToPreviousPageOrHomepage`, `showNewHomepage` are assumed to be available from navigation.js 
+// Note: `showWishlistPage`, `goBackToPreviousPageOrHomepage`, `showNewHomepage` are assumed to be available from navigation.js
+// Potentially, these navigation functions are part of a 'navigation' object in main.js
+// For example: navigation.showWishlistPage(), navigation.goBackToPreviousPageOrHomepage(), navigation.showNewHomepage() 

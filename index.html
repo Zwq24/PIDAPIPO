@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/product-detail.css">
   <link rel="stylesheet" href="css/cakes.css">
   <link rel="stylesheet" href="css/wishlist.css">
+  <link rel="stylesheet" href="css/payment.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Poppins:wght@400;600&family=Abhaya+Libre:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -329,6 +330,85 @@
         <button class="wishlist-continue-shopping-btn">Continue Shopping</button>
       </footer>
     </div> <!-- end of #wishlist-page-content -->
+
+    <!-- 新增：支付页面容器 -->
+    <div id="payment-page-content" style="display: none;">
+      <!-- 支付页面的内容将在这里构建 -->
+      <header class="payment-header">
+        <div class="payment-top-bar">
+          <img src="images/back-arrow.svg" alt="返回" class="payment-back-btn" id="payment-back-btn">
+          <h2>Confirm Order</h2> <!-- 页面标题 -->
+          <span class="payment-header-placeholder"></span> <!-- 占位，保持标题居中 -->
+        </div>
+      </header>
+      <main class="payment-main-content">
+        <section class="payment-section delivery-address-section">
+          <h3>Delivery Address</h3>
+          <!-- 新增：地址类型选择 -->
+          <div class="address-type-selector">
+            <label class="radio-option">
+              <input type="radio" name="address-type" value="home" checked>
+              <span class="radio-label">Home</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="address-type" value="office">
+              <span class="radio-label">Office</span>
+            </label>
+          </div>
+          <div class="address-details">
+            <p><strong>Oliver Wang</strong></p>
+            <p>228 Latrobe Street, VIC300, Melbourne</p>
+            <p>0481330670</p>
+            <!-- <button class="change-address-btn">Change</button> -->
+          </div>
+        </section>
+
+        <section class="payment-section payment-method-section">
+          <h3>Payment Method</h3>
+          <div class="payment-options-container">
+            <!-- Apple Pay Option -->
+            <div class="payment-option" data-method="applepay">
+              <!-- Icon will be added via CSS or if you provide an SVG -->
+              <span class="payment-option-icon-placeholder apple-pay-icon"></span>
+              <span class="payment-option-text">Apple Pay</span>
+            </div>
+            <!-- Credit Card Option - Selected by default -->
+            <div class="payment-option selected" data-method="creditcard">
+              <!-- Icon will be added via CSS or if you provide an SVG -->
+              <span class="payment-option-icon-placeholder credit-card-icon">💳</span>
+              <span class="payment-option-text">Credit Card</span>
+              <span class="payment-option-detail">Visa **** **** **** 1234</span>
+            </div>
+          </div>
+          <!-- 
+          <div class="method-details">
+            <p>Credit Card</p>
+            <p>Visa **** **** **** 1234</p>
+          </div> 
+          -->
+        </section>
+
+        <section class="payment-section order-summary-section">
+          <h3>Order Summary</h3>
+          <div class="summary-line">
+            <span class="summary-label">Subtotal</span>
+            <span class="summary-value" id="payment-subtotal">$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span class="summary-label">Shipping</span>
+            <span class="summary-value" id="payment-shipping">$0.00</span> <!-- 暂时为0 -->
+          </div>
+          <hr class="summary-divider">
+          <div class="summary-line">
+            <span class="summary-label summary-label-total">Total</span>
+            <span class="summary-value summary-value-total" id="payment-total">$0.00</span>
+          </div>
+        </section>
+      </main>
+      <footer class="payment-footer">
+        <button class="place-order-btn" id="place-order-btn">Place to order</button>
+      </footer>
+    </div> <!-- end of #payment-page-content -->
 
   </div> <!-- end of .page-wrapper -->
 

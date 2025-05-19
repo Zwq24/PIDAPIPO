@@ -3,165 +3,160 @@
 
 // 记录导航到PDP或Wishlist之前的页面，方便返回
 let previousPage = 'newHomepage'; // 默认为新主页
-const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist'];
+const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist', 'payment'];
 
 // --- 页面状态管理与导航 --- // 
 function setActivePage(pageId) {
-    if (VALID_PAGE_IDS.includes(pageId)) {
-        previousPage = pageId;
-        console.log("Active page set to:", previousPage);
+    // 在切换到新页面之前，记录当前显示的页面ID
+    const currentPage = document.body.dataset.currentPage || 'newHomepage'; 
+    if (VALID_PAGE_IDS.includes(currentPage) && currentPage !== pageId) {
+        previousPage = currentPage;
+        console.log("Previous page was:", previousPage);
     }
+    if (VALID_PAGE_IDS.includes(pageId)) {
+        document.body.dataset.currentPage = pageId; // 使用body的dataset存储当前页面
+        console.log("Active page set to:", pageId);
+    }
+}
+
+function hideAllPages() {
+    document.getElementById('new-homepage-content').style.display = 'none';
+    document.getElementById('about-page-content').style.display = 'none';
+    document.getElementById('product-detail-page').style.display = 'none';
+    document.getElementById('cakes-page-content').style.display = 'none';
+    document.getElementById('wishlist-page-content').style.display = 'none';
+    document.getElementById('payment-page-content').style.display = 'none'; // 新增
+    const pageWrapper = document.querySelector('.page-wrapper');
+    if (pageWrapper) pageWrapper.style.display = 'flex'; // 通常 pageWrapper 保持 flex
+    document.body.style.overflow = ''; // 恢复默认滚动
 }
 
 function showNewHomepage() {
-  const newHomepageContent = document.getElementById('new-homepage-content');
-  const aboutPageContent = document.getElementById('about-page-content');
-  const productDetailPage = document.getElementById('product-detail-page');
-  const cakesPageContent = document.getElementById('cakes-page-content');
-  const wishlistPageContent = document.getElementById('wishlist-page-content'); // 新增
-  const pageWrapper = document.querySelector('.page-wrapper');
-
-  if (newHomepageContent) newHomepageContent.style.display = 'block';
-  if (aboutPageContent) aboutPageContent.style.display = 'none';
-  if (productDetailPage) productDetailPage.style.display = 'none';
-  if (cakesPageContent) cakesPageContent.style.display = 'none';
-  if (wishlistPageContent) wishlistPageContent.style.display = 'none'; // 新增
-  if (pageWrapper) pageWrapper.style.display = 'flex'; 
-  document.body.style.overflow = '';
-  window.scrollTo(0, 0);
+  hideAllPages();
+  document.getElementById('new-homepage-content').style.display = 'block';
   setActivePage('newHomepage');
+  window.scrollTo(0, 0);
 }
 
 function showAboutPage() {
-  const newHomepageContent = document.getElementById('new-homepage-content');
-  const aboutPageContent = document.getElementById('about-page-content');
-  const productDetailPage = document.getElementById('product-detail-page');
-  const cakesPageContent = document.getElementById('cakes-page-content');
-  const wishlistPageContent = document.getElementById('wishlist-page-content'); // 新增
-  const pageWrapper = document.querySelector('.page-wrapper');
-
-  if (newHomepageContent) newHomepageContent.style.display = 'none';
-  if (aboutPageContent) aboutPageContent.style.display = 'block';
-  if (productDetailPage) productDetailPage.style.display = 'none';
-  if (cakesPageContent) cakesPageContent.style.display = 'none';
-  if (wishlistPageContent) wishlistPageContent.style.display = 'none'; // 新增
-  if (pageWrapper) pageWrapper.style.display = 'flex';
-  document.body.style.overflow = '';
-  window.scrollTo(0, 0);
+  hideAllPages();
+  document.getElementById('about-page-content').style.display = 'block';
   setActivePage('about');
-  // 确保 initializeAboutPageSlider 在 uiElements.js 中定义并且已加载
-  if (typeof initializeAboutPageSlider === 'function') {
-      initializeAboutPageSlider();
-  } else {
-      console.warn('initializeAboutPageSlider function is not defined.');
-  }
+  if (typeof initializeAboutPageSlider === 'function') initializeAboutPageSlider();
+  window.scrollTo(0, 0);
 }
 
 function showCakesPage() {
-  const newHomepageContent = document.getElementById('new-homepage-content');
-  const aboutPageContent = document.getElementById('about-page-content');
-  const productDetailPage = document.getElementById('product-detail-page');
-  const cakesPageContent = document.getElementById('cakes-page-content');
-  const wishlistPageContent = document.getElementById('wishlist-page-content'); // 新增
-  const pageWrapper = document.querySelector('.page-wrapper');
-
-  if (newHomepageContent) newHomepageContent.style.display = 'none';
-  if (aboutPageContent) aboutPageContent.style.display = 'none';
-  if (productDetailPage) productDetailPage.style.display = 'none';
-  if (cakesPageContent) cakesPageContent.style.display = 'block';
-  if (wishlistPageContent) wishlistPageContent.style.display = 'none'; // 新增
-  if (pageWrapper) pageWrapper.style.display = 'flex';
-  document.body.style.overflow = '';
-  window.scrollTo(0, 0);
+  hideAllPages();
+  document.getElementById('cakes-page-content').style.display = 'block';
   setActivePage('cakes');
-
+  // Cakes 返回按钮事件监听器 (确保只绑定一次或在showCakesPage中处理)
   const cakesBackBtn = document.getElementById('cakes-back-btn');
-  if (cakesBackBtn) {
-    const existingHandler = cakesBackBtn._clickHandler;
-    if (existingHandler) {
-        cakesBackBtn.removeEventListener('click', existingHandler);
-    }
-    const newCakesBackHandler = (e) => {
-        e.preventDefault();
-        showNewHomepage(); // Cakes 返回按钮总是导航到主页
-    };
+  if (cakesBackBtn && !cakesBackBtn._clickHandlerAttached) {
+    const newCakesBackHandler = (e) => { e.preventDefault(); showNewHomepage(); };
     cakesBackBtn.addEventListener('click', newCakesBackHandler);
-    cakesBackBtn._clickHandler = newCakesBackHandler; 
+    cakesBackBtn._clickHandlerAttached = true; 
   }
+  window.scrollTo(0, 0);
 }
 
-// 新增函数：显示心愿单页面
 function showWishlistPage() {
-    console.log("Attempting to show wishlist page. Current previousPage:", previousPage);
-    // 不需要在这里再次设置 previousPage，因为它应该在导航到心愿单之前被设置
-    // 或者，如果直接通过导航栏心形图标进入，那么 previousPage 就是当前显示的页面
-
-    const newHomepageContent = document.getElementById('new-homepage-content');
-    const aboutPageContent = document.getElementById('about-page-content');
-    const productDetailPage = document.getElementById('product-detail-page');
-    const cakesPageContent = document.getElementById('cakes-page-content');
-    const wishlistPageContent = document.getElementById('wishlist-page-content');
-    const pageWrapper = document.querySelector('.page-wrapper');
-
-    if (newHomepageContent) newHomepageContent.style.display = 'none';
-    if (aboutPageContent) aboutPageContent.style.display = 'none';
-    if (productDetailPage) productDetailPage.style.display = 'none';
-    if (cakesPageContent) cakesPageContent.style.display = 'none';
-    if (wishlistPageContent) wishlistPageContent.style.display = 'block';
-    
-    // 心愿单页通常是覆盖整个视窗或主要内容区，pageWrapper 的显示可能需要调整
-    // 如果心愿单是全屏覆盖，则 pageWrapper 可能也需要隐藏或特殊处理
-    // 暂时保持 pageWrapper 显示，因为心愿单内容在 pageWrapper 内部
-    if (pageWrapper) pageWrapper.style.display = 'flex'; 
-    document.body.style.overflow = ''; // 或 'hidden' 如果心愿单是模态的
+    hideAllPages();
+    document.getElementById('wishlist-page-content').style.display = 'block';
+    setActivePage('wishlist');
+    if (typeof renderWishlistPage === 'function') renderWishlistPage();
     window.scrollTo(0, 0);
+}
 
-    // 确保 renderWishlistPage 在 wishlist.js 中定义并且已加载
-    if (typeof renderWishlistPage === 'function') {
-        renderWishlistPage();
+// 新增函数：显示支付页面
+function showPaymentPage() {
+    hideAllPages();
+    document.getElementById('payment-page-content').style.display = 'flex'; // payment page is flex container
+    setActivePage('payment');
+    
+    // 更新订单摘要
+    if (typeof calculateWishlistTotals === 'function') {
+        const totals = calculateWishlistTotals(); // 假设这个函数在wishlist.js中
+        const subtotalEl = document.getElementById('payment-subtotal');
+        const totalEl = document.getElementById('payment-total');
+        // const shippingEl = document.getElementById('payment-shipping'); // 运费暂时为0
+        
+        if (subtotalEl) subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
+        if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`; // 目前 total = subtotal
+        // if (shippingEl) shippingEl.textContent = '$0.00';
     } else {
-        console.error('renderWishlistPage function is not defined.');
+        console.error('calculateWishlistTotals function is not defined. Check wishlist.js');
     }
-    // setActivePage('wishlist'); // 不在这里设置，因为我们想保留之前的页面状态用于返回
+
+    // 支付页面返回按钮事件监听器
+    const paymentBackBtn = document.getElementById('payment-back-btn');
+    if (paymentBackBtn && !paymentBackBtn._clickHandlerAttached) {
+        const newPaymentBackHandler = (e) => { 
+            e.preventDefault(); 
+            showWishlistPage(); // 从支付页面返回到心愿单/购物车摘要页面
+        };
+        paymentBackBtn.addEventListener('click', newPaymentBackHandler);
+        paymentBackBtn._clickHandlerAttached = true;
+    }
+
+    // "Place to order" 按钮的事件监听器
+    const placeOrderBtn = document.getElementById('place-order-btn');
+    if (placeOrderBtn && !placeOrderBtn._clickHandlerAttached) {
+        placeOrderBtn.addEventListener('click', () => {
+            alert('Order placed successfully! (This is a demo)');
+            if (typeof wishlistItems !== 'undefined') { // Ensure wishlistItems is defined
+              wishlistItems = []; 
+            }
+            if (typeof renderWishlistPage === 'function') renderWishlistPage(); 
+            if (typeof updateAllWishlistIcons === 'function') updateAllWishlistIcons(); 
+            showNewHomepage(); 
+        });
+        placeOrderBtn._clickHandlerAttached = true;
+    }
+
+    // --- Payment Method Selection Logic --- //
+    const paymentOptions = document.querySelectorAll('#payment-page-content .payment-option');
+    paymentOptions.forEach(option => {
+        if (!option._paymentOptionClickHandlerAttached) {
+            option.addEventListener('click', function() {
+                paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                // const selectedMethod = this.dataset.method;
+                // console.log('Selected payment method:', selectedMethod);
+            });
+            option._paymentOptionClickHandlerAttached = true; 
+        }
+    });
+
+    window.scrollTo(0, 0);
 }
 
-// 新增函数：返回上一页或主页
 function goBackToPreviousPageOrHomepage() {
-    console.log("Going back from page. previousPage was:", previousPage);
-    switch (previousPage) {
-        case 'newHomepage':
-            showNewHomepage();
-            break;
-        case 'about':
-            showAboutPage();
-            break;
-        case 'cakes':
-            showCakesPage();
-            break;
-        case 'productDetail': // PDP的返回按钮会调用这个
-            // 如果是从PDP返回，通常是返回到它被打开的列表页或主页
-            // 这里的逻辑可能需要更精细，例如，如果PDP是从Cakes页打开的，应该返回Cakes页
-            // 但我们当前的 previousPage 只记录了PDP本身，而不是PDP之前的页面。
-            // 暂时，从PDP返回都去主页，除非PDP逻辑自己处理。
-            // 或者 productDetail.js 在调用 showProductDetailFromOtherPage 之前，设置一个更具体的返回点。
-            // 现在，我们依赖于调用 showProductDetailFromOtherPage 之前 previousPage 的状态。
-            // 例如，如果在 Cakes 页面点击 Buy Now，则 previousPage 是 'cakes'。
-            // 然后 productDetail.js 会调用 showProductDetailFromOtherPage，这个函数会把 previousPage 设为 'productDetail'
-            // 所以，这里的 previousPage (当从PDP返回时)实际上是 *打开PDP之前的页面*。
-            // 这意味着，如果 showProductDetailFromOtherPage 正确地在它改变页面之前保存了状态，这里的逻辑是OK的。
-            // 让我们假设 productDetail.js 的 showProductDetailFromOtherPage 会在显示PDP前调用 setActivePage('productBeingViewed'sSource')
-            // 不， это не так. productDetail.js 中的 showProductDetailFromOtherPage 函数会隐藏其他所有页面。
-            // 所以，当 PDP 显示时，previousPage 应该是打开 PDP 之前的页面。
-            // 因此，这里的 previousPage 应该是正确的。
-            showNewHomepage(); // 默认返回到主页，后续可以优化
-            break;
-        default:
-            showNewHomepage();
-            break;
+    const pageToGo = previousPage || 'newHomepage'; // Fallback to newHomepage
+    console.log("Going back. Previous page was:", previousPage, "Navigating to:", pageToGo);
+    switch (pageToGo) {
+        case 'newHomepage': showNewHomepage(); break;
+        case 'about': showAboutPage(); break;
+        case 'cakes': showCakesPage(); break;
+        case 'wishlist': showWishlistPage(); break;
+        // PDP 返回时，previousPage 应该是 PDP 打开前的页面，由setActivePage在显示PDP前设置。
+        // productDetail.js 中的返回按钮直接调用此函数。
+        case 'productDetail': 
+             // This case might be tricky. If productDetail was the *actual* previous page (e.g., user navigated payment -> pdp)
+             // then this is fine. But usually, productDetail calls this to go to *its* previous page.
+             // Let's assume setActivePage in showProductDetailFromOtherPage correctly sets previousPage to what was before PDP.
+             // The current setActivePage logic needs refinement for this to work perfectly.
+             // For now, this might default to homepage if previousPage was 'productDetail' due to PDP itself being previous.
+             // A better `previousPage` management would be a stack or more context.
+             // Simplified: if previousPage is 'productDetail', it means we were on PDP, and its own 'previousPage' should be used.
+             // This logic is flawed for PDP. PDP's back button should rely on `previousPage` set *before* PDP was shown.
+             // The current `setActivePage` has been updated to try and manage `previousPage` better.
+             showNewHomepage(); // Fallback, this needs robust previousPage management.
+             break;
+        case 'payment': showPaymentPage(); break;
+        default: showNewHomepage(); break;
     }
-    // previousPage 会在新页面显示的函数中被重置，所以这里不需要重置
 }
-
 
 // 主导航链接的事件监听器设置
 function setupNavigationListeners() {
