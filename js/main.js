@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileHomepageSections = [
     document.querySelector('.mobile-hero-section'),
     document.querySelector('.mobile-search-bar-container'),
-    document.querySelector('.mobile-recent-searches'),
     document.querySelector('.mobile-categories-section'),
     document.querySelector('.mobile-top-products-section'),
   ].filter(el => el !== null);
