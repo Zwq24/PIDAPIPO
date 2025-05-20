@@ -211,16 +211,32 @@ function showPaymentPage() {
         placeOrderBtn._clickHandlerAttached = true;
     }
     
+    // 设置支付方式选择事件监听
     const paymentOptions = document.querySelectorAll('#payment-page-content .payment-option');
     paymentOptions.forEach(option => {
         if (!option._paymentOptionClickHandlerAttached) {
             option.addEventListener('click', function() {
+                // 移除所有选择
                 paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                // 添加当前选择
                 this.classList.add('selected');
+                
+                // 处理信用卡表单显示/隐藏
+                const creditCardForm = document.querySelector('.credit-card-form');
+                if (creditCardForm) {
+                    if (this.dataset.method === 'creditcard') {
+                        creditCardForm.classList.add('active');
+                    } else {
+                        creditCardForm.classList.remove('active');
+                    }
+                }
             });
             option._paymentOptionClickHandlerAttached = true; 
         }
     });
+
+    // 设置信用卡表单验证
+    setupCreditCardFormValidation();
 
     window.scrollTo(0, 0);
 }
@@ -615,4 +631,73 @@ function showCartPage() {
     }
     
     window.scrollTo(0, 0);
+}
+
+// 设置信用卡表单验证
+function setupCreditCardFormValidation() {
+    // 获取表单元素
+    const cardNumberInput = document.getElementById('card-number');
+    const cardHolderInput = document.getElementById('card-holder');
+    const expiryDateInput = document.getElementById('expiry-date');
+    const cvvInput = document.getElementById('cvv');
+    
+    if (!cardNumberInput || !cardHolderInput || !expiryDateInput || !cvvInput) {
+        return;
+    }
+    
+    // 卡号格式化：添加空格分隔
+    cardNumberInput.addEventListener('input', function(e) {
+        // 移除所有非数字字符
+        let value = this.value.replace(/\D/g, '');
+        // 每4位添加一个空格
+        let formattedValue = '';
+        for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) {
+                formattedValue += ' ';
+            }
+            formattedValue += value[i];
+        }
+        // 更新输入框的值
+        this.value = formattedValue;
+    });
+    
+    // 到期日期格式化：MM/YY
+    expiryDateInput.addEventListener('input', function(e) {
+        // 移除所有非数字字符
+        let value = this.value.replace(/\D/g, '');
+        // 格式化为MM/YY
+        if (value.length > 2) {
+            this.value = value.substring(0, 2) + '/' + value.substring(2);
+        } else {
+            this.value = value;
+        }
+    });
+    
+    // CVV只允许输入数字
+    cvvInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '');
+    });
+    
+    // 提交表单时的验证
+    const placeOrderBtn = document.getElementById('place-order-btn');
+    if (placeOrderBtn && !placeOrderBtn._formValidationAttached) {
+        placeOrderBtn.addEventListener('click', function(e) {
+            // 如果选择了信用卡支付方式
+            const creditCardOption = document.querySelector('.payment-option[data-method="creditcard"]');
+            if (creditCardOption && creditCardOption.classList.contains('selected')) {
+                // 检查表单是否填写完整
+                const isCardNumberValid = cardNumberInput.value.replace(/\s/g, '').length >= 16;
+                const isCardHolderValid = cardHolderInput.value.trim() !== '';
+                const isExpiryDateValid = /^\d{2}\/\d{2}$/.test(expiryDateInput.value);
+                const isCvvValid = cvvInput.value.length === 3;
+                
+                if (!isCardNumberValid || !isCardHolderValid || !isExpiryDateValid || !isCvvValid) {
+                    alert('请填写完整的信用卡信息');
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+        placeOrderBtn._formValidationAttached = true;
+    }
 } 

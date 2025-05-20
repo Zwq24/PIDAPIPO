@@ -22,7 +22,7 @@ function createProductDetailHTML(product) {
       </div>
       <div class="pdp-top-icons">
         <img src="images/heart-outline.svg" alt="Toggle Wishlist" class="icon-heart wishlist-toggle-icon" data-product-id="${product.id}">
-        <span class="icon-bag">🛍️</span>
+        <img src="images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
       </div>
     </div>
     <div class="pdp-main-image-container">
