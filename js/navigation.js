@@ -185,9 +185,61 @@ function showPaymentPage() {
         paymentBackBtn._clickHandlerAttached = true;
     }
 
+    // 设置Edit按钮点击事件
+    const editCardBtn = document.querySelector('.edit-card-btn');
+    if (editCardBtn && !editCardBtn._clickHandlerAttached) {
+        editCardBtn.addEventListener('click', function() {
+            const creditCardForm = document.querySelector('.credit-card-form');
+            if (creditCardForm) {
+                creditCardForm.classList.toggle('active');
+                this.textContent = creditCardForm.classList.contains('active') ? 'Cancel' : 'Edit';
+            }
+        });
+        editCardBtn._clickHandlerAttached = true;
+    }
+    
+    // 设置下单按钮逻辑
     const placeOrderBtn = document.getElementById('place-order-btn');
     if (placeOrderBtn && !placeOrderBtn._clickHandlerAttached) {
-        placeOrderBtn.addEventListener('click', () => {
+        placeOrderBtn.addEventListener('click', function(e) {
+            // 检查是否为信用卡支付，且表单是否显示
+            const creditCardOption = document.querySelector('.payment-option[data-method="creditcard"]');
+            const creditCardForm = document.querySelector('.credit-card-form');
+            
+            if (creditCardOption && 
+                creditCardOption.classList.contains('selected') && 
+                creditCardForm && 
+                creditCardForm.classList.contains('active')) {
+                
+                // 验证表单完整性
+                const cardNumber = document.getElementById('card-number').value;
+                const cardHolder = document.getElementById('card-holder').value;
+                const expiryDate = document.getElementById('expiry-date').value;
+                const cvv = document.getElementById('cvv').value;
+                
+                // 检查每个字段是否填写
+                if (!cardNumber || cardNumber.replace(/\s/g, '').length < 16) {
+                    alert('Please enter a valid card number');
+                    return false;
+                }
+                
+                if (!cardHolder || cardHolder.trim() === '') {
+                    alert('Please enter the card holder name');
+                    return false;
+                }
+                
+                if (!expiryDate || !/^\d{2}\/\d{2}$/.test(expiryDate)) {
+                    alert('Please enter a valid expiry date (MM/YY)');
+                    return false;
+                }
+                
+                if (!cvv || cvv.length < 3) {
+                    alert('Please enter a valid security code');
+                    return false;
+                }
+            }
+            
+            // 所有验证通过，清空购物车并跳转到感谢页面
             // 清空购物车
             if (typeof cartItems !== 'undefined') {
                 cartItems = [];
@@ -223,18 +275,23 @@ function showPaymentPage() {
                 
                 // 处理信用卡表单显示/隐藏
                 const creditCardForm = document.querySelector('.credit-card-form');
+                const editCardBtn = document.querySelector('.edit-card-btn');
+                
                 if (creditCardForm) {
-                    if (this.dataset.method === 'creditcard') {
-                        creditCardForm.classList.add('active');
-                    } else {
+                    // 如果选择了非信用卡方式，隐藏表单和编辑按钮
+                    if (this.dataset.method !== 'creditcard') {
                         creditCardForm.classList.remove('active');
+                        if (editCardBtn) editCardBtn.style.display = 'none';
+                    } else {
+                        // 如果选择了信用卡，显示编辑按钮
+                        if (editCardBtn) editCardBtn.style.display = 'inline-block';
                     }
                 }
             });
             option._paymentOptionClickHandlerAttached = true; 
         }
     });
-
+    
     // 设置信用卡表单验证
     setupCreditCardFormValidation();
 
@@ -259,7 +316,7 @@ function showThankYouPage() {
         if (!mainSuccessIcon.querySelector('img')) {
             mainSuccessIcon.innerHTML = ''; // 清除文本内容
             const img = document.createElement('img');
-            img.src = 'mobile_images/image 30.png'; // 使用中间(满意)的表情
+            img.src = 'mobile_images/image 28.png'; // 使用最满意的表情
             img.alt = '笑脸';
             mainSuccessIcon.appendChild(img);
         }

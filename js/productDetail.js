@@ -184,6 +184,27 @@ function setupProductDetailPageEventListeners(product) {
       pdpWishlistIcon._wishlistClickHandler = newWishlistHandler;
   }
   
+  // 添加购物袋图标点击事件，跳转到购物车页面
+  const pdpCartIcon = document.querySelector('#product-detail-page .icon-bag');
+  if (pdpCartIcon) {
+    const cartIconHandler = () => {
+      if (typeof showCartPage === 'function') {
+        showCartPage();
+      } else {
+        console.error('showCartPage function is not defined');
+      }
+    };
+    
+    // 移除可能存在的旧事件监听器
+    if (pdpCartIcon._cartIconClickHandler) {
+      pdpCartIcon.removeEventListener('click', pdpCartIcon._cartIconClickHandler);
+    }
+    
+    // 添加新的事件监听器
+    pdpCartIcon.addEventListener('click', cartIconHandler);
+    pdpCartIcon._cartIconClickHandler = cartIconHandler;
+  }
+  
   // 更新数量选择器事件处理
   const decreaseBtn = document.getElementById('pdp-qty-decrease');
   const increaseBtn = document.getElementById('pdp-qty-increase');

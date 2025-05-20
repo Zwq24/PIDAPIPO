@@ -173,6 +173,28 @@
     color: #777777; 
 }
 
+.edit-card-btn {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+}
+
+.edit-card-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #aaa;
+}
+
+.payment-option.selected .edit-card-btn {
+    color: #51393A;
+    border-color: #51393A;
+}
+
 .payment-option.selected .payment-option-detail {
     color: #E0E0E0; 
 }

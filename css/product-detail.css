@@ -42,6 +42,9 @@
 .pdp-top-icons .icon-heart,
 .pdp-top-icons .icon-bag {
   cursor: pointer;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pdp-main-image-container {
