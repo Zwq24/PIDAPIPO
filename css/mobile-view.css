@@ -557,9 +557,9 @@ body.mobile-menu-open #mobile-main-app-view {
     width: 100% !important;
     height: 100vh !important;
     z-index: 500 !important;
-    background-color: #EAE4DD;
+    background-color: #A4DDD8; /* 使用设计稿中的浅蓝色背景 */
     overflow-y: auto;
-    padding: 0 !important;
+    padding: 0 0 60px 0 !important; /* 减少底部内边距 */
     margin: 0 !important;
     box-sizing: border-box;
   }
@@ -568,8 +568,8 @@ body.mobile-menu-open #mobile-main-app-view {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background-color: #EAE4DD;
+    padding: 12px;
+    background-color: transparent; /* 透明背景 */
     position: sticky;
     top: 0;
     z-index: 10;
@@ -580,71 +580,296 @@ body.mobile-menu-open #mobile-main-app-view {
     height: 24px;
     cursor: pointer;
   }
+  
+  .pdp-logo {
+    /* 隐藏中间的logo，设计稿中顶部没有 */
+    display: none;
+  }
+  
+  .pdp-logo-img {
+    height: 25px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+  .pdp-top-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pdp-top-icons .icon-heart,
+  .pdp-top-icons .icon-bag {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
 
   .pdp-main-image-container {
-    padding: 0 15px;
+    padding: 0;
     text-align: center;
+    margin-bottom: 0;
+    background-color: #A4DDD8;
   }
   
   .pdp-main-image {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
+    object-fit: cover;
   }
   
   .pdp-info-container {
     padding: 15px;
+    background-color: #EAE4DD; /* 设计稿中的奶白色背景 */
+    border-radius: 15px 15px 0 0; /* 顶部圆角 */
+    margin-top: -5px; /* 使info容器与图片稍微重叠 */
   }
   
   .pdp-title {
-    font-size: 24px;
-    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #000;
   }
   
   .pdp-description {
     font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 15px;
+    line-height: 1.3;
+    margin: 0 0 10px 0;
+    color: #333;
   }
   
   .pdp-price {
     font-size: 18px;
     font-weight: bold;
-    margin: 15px 0;
+    margin: 10px 0;
+    color: #000;
+  }
+  
+  .pdp-dimensions-container {
+    margin: 10px 0 15px 0;
+  }
+  
+  .pdp-dimensions-label {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 0 3px 0;
+    color: #000;
+  }
+  
+  .pdp-dimensions {
+    font-size: 12px;
+    line-height: 1.3;
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+  
+  .pdp-tips {
+    font-size: 12px;
+    line-height: 1.3;
+    margin: 5px 0 0 0;
+    color: #FF0000; /* 红色提示文字 */
+    font-weight: 500;
   }
   
   .pdp-actions {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
   }
   
   .pdp-quantity-selector {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background-color: #FFFFFF;
     border-radius: 8px;
-    padding: 8px 15px;
-    max-width: 150px;
+    padding: 8px 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 70px;
   }
   
-  .pdp-quantity-btn {
+  .pdp-quantity-value {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+  
+  .pdp-quantity-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .pdp-quantity-arrow-up,
+  .pdp-quantity-arrow-down {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 10px;
     cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    color: #555;
   }
   
   .pdp-add-to-cart-btn {
-    background-color: #000000;
+    background-color: #919191; /* 设计稿中的灰色按钮 */
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
-    padding: 12px;
-    font-size: 16px;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    width: 100%;
+    width: 60%;
+    text-align: center;
   }
+} 
+
+/* 移动端About页面样式 */
+#mobile-about-page-content {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  z-index: 500 !important;
+  background-color: #EAE4DD;
+  color: #000000;
+  font-family: 'Poppins', sans-serif;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding-bottom: 40px; /* 减少整个内容区域的底部空间为40px */
+}
+
+.mobile-about-page-top-bar {
+  margin-top: 0 !important;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #EAE4DD;
+}
+
+.mobile-about-back-btn,
+.mobile-about-location-btn {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-about-back-btn img,
+.mobile-about-location-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mobile-about-page-top-bar h1 {
+  margin: 0;
+  font-family: 'Playfair Display SC', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.mobile-page-container {
+  width: 100%;
+  height: 220px; /* 降低高度，更符合设计稿 */
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.mobile-page-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mobile-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  margin-bottom: 0; /* 减少底部间距 */
+  background-color: #EAE4DD;
+}
+
+.mobile-page-btn {
+  width: 24px; /* 减小按钮尺寸 */
+  height: 24px; /* 减小按钮尺寸 */
+  border-radius: 50%;
+  border: 1px solid #000;
+  background: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; /* 减小字体大小 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.mobile-page-btn.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.mobile-about-content {
+  padding: 10px 15px;
+}
+
+.mobile-about-content h2 {
+  font-family: 'Playfair Display SC', serif;
+  font-size: 20px; /* 减小标题字体大小 */
+  font-weight: 700;
+  margin: 0 0 5px 0; /* 减少底部间距 */
+  text-align: center;
+}
+
+.mobile-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; /* 减小字体大小 */
+  color: #666;
+  margin: 0 0 15px 0; /* 减少底部间距 */
+  text-align: center;
+}
+
+.mobile-about-intro p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; /* 减小字体大小 */
+  line-height: 1.4; /* 减小行高 */
+  margin-bottom: 12px; /* 减少段落间距 */
+  color: #333;
+}
+
+.mobile-about-footer {
+  padding: 20px 15px 40px 15px; /* 减少底部内边距为40px，防止底部导航栏遮挡但不过宽 */
+  margin-top: 20px;
+  background-color: #D5CCC6;
+}
+
+.mobile-about-footer p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  text-align: center;
+  margin: 0;
+  color: #333;
 } 

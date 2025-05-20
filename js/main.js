@@ -39,6 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('initWishlist is not defined. Check wishlist.js');
   }
   
+  // 初始化购物车功能
+  // 依赖: cart.js
+  if (typeof initCart === 'function') {
+    initCart();
+  } else {
+    console.error('initCart is not defined. Check cart.js');
+  }
+  
   // 注意: About页面的图片轮播器 (initializeAboutPageSlider from uiElements.js)
   // 在 showAboutPage (navigation.js) 中被调用,因为它只在About页面显示时才需要初始化。
 
@@ -127,13 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (targetPage === 'mobile-home-view') {
             showMobileHomepage(mobileHomepageSections, mobileCakesPage);
             // TODO: Hide other specific pages if they are open
+          } else if (targetPage === 'mobile-about-page') {
+            // 通过navigation.js中的函数切换到About页面
+            if (typeof showMobileAboutPage === 'function') {
+              showMobileAboutPage();
+            } else {
+              console.error('showMobileAboutPage function is not defined. Check navigation.js');
+            }
           } else {
             console.log("Placeholder navigation for:", targetPage);
             // For other pages, ensure they are defined and then call showMobilePage
-            // Example: const mobileAboutPage = document.getElementById('mobile-about-page');
-            // if (targetPage === 'mobile-about-page' && mobileAboutPage) { 
-            //   showMobilePage(mobileAboutPage, mobileHomepageSections.concat(mobileCakesPage));
-            // }
             if (mobileSideMenuElement) mobileSideMenuElement.classList.remove('open');
             body.classList.remove('mobile-menu-open');
           }

@@ -3,7 +3,7 @@
 
 // 记录导航到PDP或Wishlist之前的页面，方便返回
 let previousPage = 'newHomepage'; // 默认为新主页
-const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist', 'payment', 'thankYou', 'mobileHome', 'mobileCakes'];
+const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist', 'payment', 'thankYou', 'mobileHome', 'mobileCakes', 'mobileAbout', 'cart', 'mobileCart'];
 
 // --- 页面状态管理与导航 --- // 
 function setActivePage(pageId) {
@@ -28,7 +28,8 @@ function hideAllPages() {
         'cakes-page-content',
         'wishlist-page-content',
         'payment-page-content',
-        'thank-you-page-content'
+        'thank-you-page-content',
+        'cart-page-content'
     ];
     
     // 强制隐藏所有页面
@@ -44,6 +45,8 @@ function hideAllPages() {
     // Mobile Page Containers
     const mobileMainAppView = document.getElementById('mobile-main-app-view');
     const mobileCakesPageContent = document.getElementById('mobile-cakes-page-content');
+    const mobileAboutPageContent = document.getElementById('mobile-about-page-content');
+    const mobileCartPageContent = document.getElementById('mobile-cart-page-content');
     // Add other mobile page containers here if they exist, e.g., mobile-about-page, mobile-product-detail etc.
 
     if (mobileMainAppView) {
@@ -54,6 +57,12 @@ function hideAllPages() {
     }
     if (mobileCakesPageContent) {
         mobileCakesPageContent.style.display = 'none';
+    }
+    if (mobileAboutPageContent) {
+        mobileAboutPageContent.style.display = 'none';
+    }
+    if (mobileCartPageContent) {
+        mobileCartPageContent.style.display = 'none';
     }
 
     // 确保关闭侧边菜单
@@ -235,6 +244,19 @@ function goBackToPreviousPageOrHomepage() {
              break;
         case 'payment': showPaymentPage(); break;
         case 'thankYou': showNewHomepage(); break;
+        case 'mobileHome': showMobileHomePage(); break;
+        case 'mobileCakes': 
+            const mobileCakesPage = document.getElementById('mobile-cakes-page-content');
+            if (mobileCakesPage) {
+                hideAllPages();
+                mobileCakesPage.style.display = 'flex';
+            } else {
+                showMobileHomePage();
+            }
+            break;
+        case 'mobileAbout': showMobileAboutPage(); break;
+        case 'cart': showCartPage(); break;
+        case 'mobileCart': showCartPage(); break;
         default: showNewHomepage(); break;
     }
 }
@@ -283,4 +305,174 @@ function setupNavigationListeners() {
   } else {
     console.error("Navigation menu not found");
   }
+}
+
+// 新增：显示移动端About页面的函数
+function showMobileAboutPage() {
+    hideAllPages();
+    const mobileAboutElement = document.getElementById('mobile-about-page-content');
+    if (mobileAboutElement) {
+        mobileAboutElement.style.display = 'flex';
+        console.log("显示移动端About页面");
+    }
+    setActivePage('mobileAbout');
+    
+    // 初始化移动端About页面的图片轮播
+    initializeMobileAboutPageSlider();
+    
+    // 设置返回按钮事件
+    const mobileAboutBackBtn = document.querySelector('.mobile-about-back-btn');
+    if (mobileAboutBackBtn && !mobileAboutBackBtn._clickHandlerAttached) {
+        mobileAboutBackBtn.addEventListener('click', () => {
+            showMobileHomePage();
+        });
+        mobileAboutBackBtn._clickHandlerAttached = true;
+    }
+    
+    window.scrollTo(0, 0);
+}
+
+// 初始化移动端About页面的图片轮播
+function initializeMobileAboutPageSlider() {
+    const mobilePageContainer = document.getElementById('mobile-page-container');
+    const mobilePageBtns = document.querySelectorAll('.mobile-page-btn');
+    
+    if (!mobilePageContainer || mobilePageBtns.length === 0) {
+        console.error('移动端About页面的轮播元素未找到');
+        return;
+    }
+    
+    // 图片数据（使用移动端的图片）
+    const slidesData = [
+        { src: 'mobile_images/Rectangle 110 (1).jpg', alt: 'Easter Eggs 1' },
+        { src: 'mobile_images/Rectangle 114.jpg', alt: 'Easter Eggs 2' },
+        { src: 'mobile_images/Rectangle 114 (1).jpg', alt: 'Easter Eggs 3' },
+        { src: 'mobile_images/Rectangle 114 (2).jpg', alt: 'Easter Eggs 4' },
+    ];
+    
+    // 清空容器
+    mobilePageContainer.innerHTML = '';
+    
+    // 添加初始图片 - 使用第4张图片(index为3)
+    const initialPage = 3; // 设计稿显示第4张图片被激活
+    const img = document.createElement('img');
+    img.src = slidesData[initialPage].src;
+    img.alt = slidesData[initialPage].alt;
+    mobilePageContainer.appendChild(img);
+    
+    // 设置初始活动按钮
+    mobilePageBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (parseInt(btn.dataset.page) === initialPage) {
+            btn.classList.add('active');
+        }
+        
+        // 添加点击事件
+        btn.addEventListener('click', function() {
+            const pageIndex = parseInt(this.dataset.page);
+            
+            // 更新图片
+            mobilePageContainer.innerHTML = '';
+            const newImg = document.createElement('img');
+            newImg.src = slidesData[pageIndex].src;
+            newImg.alt = slidesData[pageIndex].alt;
+            mobilePageContainer.appendChild(newImg);
+            
+            // 更新按钮状态
+            mobilePageBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+// 显示移动端主页的函数
+function showMobileHomePage() {
+    hideAllPages();
+    const mobileMainAppView = document.getElementById('mobile-main-app-view');
+    if (mobileMainAppView) {
+        mobileMainAppView.style.display = 'flex';
+        // 显示主页的所有部分
+        const sections = mobileMainAppView.querySelectorAll(':scope > section');
+        sections.forEach(sec => sec.classList.remove('hidden'));
+        console.log("显示移动端主页");
+    }
+    setActivePage('mobileHome');
+    window.scrollTo(0, 0);
+}
+
+// 显示购物车页面
+function showCartPage() {
+    hideAllPages();
+    
+    // 检测设备类型
+    if (window.innerWidth <= 768) {
+        // 移动端
+        const mobileCartPage = document.getElementById('mobile-cart-page-content');
+        if (mobileCartPage) {
+            mobileCartPage.style.display = 'flex';
+            console.log("显示移动端购物车页面");
+            setActivePage('mobileCart');
+        }
+    } else {
+        // 桌面端
+        const cartPage = document.getElementById('cart-page-content');
+        if (cartPage) {
+            cartPage.style.display = 'block';
+            cartPage.classList.remove('hidden-page');
+            console.log("显示桌面端购物车页面");
+            setActivePage('cart');
+        }
+    }
+    
+    // 渲染购物车内容
+    if (typeof renderCartPage === 'function') {
+        renderCartPage();
+    }
+    
+    // 设置返回按钮事件监听
+    const cartBackBtn = document.getElementById('cart-back-btn');
+    if (cartBackBtn && !cartBackBtn._clickHandlerAttached) {
+        cartBackBtn.addEventListener('click', () => {
+            goBackToPreviousPageOrHomepage();
+        });
+        cartBackBtn._clickHandlerAttached = true;
+    }
+    
+    // 设置移动端返回按钮事件监听
+    const mobileCartBackBtn = document.querySelector('.mobile-cart-back-btn');
+    if (mobileCartBackBtn && !mobileCartBackBtn._clickHandlerAttached) {
+        mobileCartBackBtn.addEventListener('click', () => {
+            goBackToPreviousPageOrHomepage();
+        });
+        mobileCartBackBtn._clickHandlerAttached = true;
+    }
+    
+    // 设置继续购物按钮事件监听
+    const continueShoppingBtn = document.querySelector('.cart-continue-shopping-btn');
+    if (continueShoppingBtn && !continueShoppingBtn._clickHandlerAttached) {
+        continueShoppingBtn.addEventListener('click', () => {
+            showNewHomepage();
+        });
+        continueShoppingBtn._clickHandlerAttached = true;
+    }
+    
+    // 设置结账按钮事件监听
+    const checkoutBtn = document.getElementById('cart-checkout-btn');
+    if (checkoutBtn && !checkoutBtn._clickHandlerAttached) {
+        checkoutBtn.addEventListener('click', () => {
+            alert('结账功能暂未实现');
+        });
+        checkoutBtn._clickHandlerAttached = true;
+    }
+    
+    // 设置移动端结账按钮事件监听
+    const mobileCheckoutBtn = document.getElementById('mobile-cart-checkout-btn');
+    if (mobileCheckoutBtn && !mobileCheckoutBtn._clickHandlerAttached) {
+        mobileCheckoutBtn.addEventListener('click', () => {
+            alert('结账功能暂未实现');
+        });
+        mobileCheckoutBtn._clickHandlerAttached = true;
+    }
+    
+    window.scrollTo(0, 0);
 } 

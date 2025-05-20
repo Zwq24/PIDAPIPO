@@ -10,14 +10,16 @@ let currentProduct = null; // Stores the currently displayed product data
 
 function createProductDetailHTML(product) {
   const productDetailPage = document.getElementById('product-detail-page');
-  if (productDetailPage && product.detailPageBgColor) {
-    productDetailPage.style.backgroundColor = product.detailPageBgColor;
-  }
+  // 将背景色设置为浅蓝色，与设计稿一致
+  productDetailPage.style.backgroundColor = "#A4DDD8";
+  
   // 使用 img 标签作为心愿单图标，并添加 data-product-id
   return `
     <div class="pdp-top-bar">
       <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" class="pdp-back-btn" id="pdp-back-btn">
-      <div class="pdp-logo">LOGO</div>
+      <div class="pdp-logo">
+        <img src="mobile_images/logo_apple_black.svg" alt="Pidapipo Logo" class="pdp-logo-img">
+      </div>
       <div class="pdp-top-icons">
         <img src="images/heart-outline.svg" alt="Toggle Wishlist" class="icon-heart wishlist-toggle-icon" data-product-id="${product.id}">
         <span class="icon-bag">🛍️</span>
@@ -30,15 +32,20 @@ function createProductDetailHTML(product) {
       <h1 class="pdp-title">${product.name}</h1>
       <p class="pdp-description">${product.description}</p>
       <p class="pdp-price">${product.price}</p>
-      <hr class="pdp-divider">
-      <p class="pdp-dimensions">${product.dimensions}</p>
+      <div class="pdp-dimensions-container">
+        <p class="pdp-dimensions-label">DIMENSIONS:</p>
+        <p class="pdp-dimensions">${product.dimensions || 'BOXED:25CM(L) X (25)CM (W) X 20CM(H)<br>CAKE: 15CM(W) X 5CM(H)'}</p>
+        <p class="pdp-tips">TIPS:SERVES 6-8 PEOPLE. CONTAINS GLUTEN, DAIRY, EGGS, ALCOHOL.</p>
+      </div>
       <div class="pdp-actions">
         <div class="pdp-quantity-selector">
-          <button class="pdp-quantity-btn" id="pdp-qty-decrease">-</button>
-          <span class="pdp-quantity-value" id="pdp-quantity-value">01</span>
-          <button class="pdp-quantity-btn" id="pdp-qty-increase">+</button>
+          <span class="pdp-quantity-value" id="pdp-quantity-value">1</span>
+          <div class="pdp-quantity-buttons">
+            <button class="pdp-quantity-arrow-up" id="pdp-qty-increase">▲</button>
+            <button class="pdp-quantity-arrow-down" id="pdp-qty-decrease">▼</button>
+          </div>
         </div>
-        <button class="pdp-add-to-cart-btn" data-product-id="${product.id}">Add to cart</button>
+        <button class="pdp-add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
       </div>
     </div>
   `;
@@ -126,24 +133,25 @@ function showProductDetail(productId) {
   }
 
   // --- Hide other active page views --- (Moved from navigation.js for direct control)
-  if (typeof hideAllPages === 'function') hideAllPages(); // Hides desktop main pages
-  // Hide mobile views
-  const mobileMainView = document.getElementById('mobile-main-app-view');
-  const mobileCakesView = document.getElementById('mobile-cakes-page-content');
-  if (mobileMainView) {
-      const sections = mobileMainView.querySelectorAll(':scope > section');
-      sections.forEach(sec => sec.classList.add('hidden'));
-      // also hide the #mobile-main-app-view itself if it's a flex container for sections
-      // but product detail page should overlay, so sections are enough
+  if (typeof hideAllPages === 'function') {
+    hideAllPages(); // This adds 'hidden-page' to relevant containers
+  } else {
+    console.error("hideAllPages function is not defined. Critical for page transitions.");
+    // Fallback: manually hide other common pages if hideAllPages is missing
+    const otherPages = ['new-homepage-content', 'about-page-content', 'cakes-page-content', 'mobile-main-app-view', 'mobile-cakes-page-content', 'mobile-about-page-content'];
+    otherPages.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
   }
-  if (mobileCakesView) mobileCakesView.style.display = 'none';
-  // Ensure search overlay is closed
-  if(typeof closeSearchOverlay === 'function') closeSearchOverlay();
-  // --- End Hide --- 
 
+  // Ensure the product detail page is visible
   detailPage.innerHTML = createProductDetailHTML(currentProduct);
-  detailPage.style.display = 'flex';
-  document.body.classList.add('product-detail-active'); // For potential global styling
+  detailPage.classList.remove('hidden-page'); // Remove class that enforces display:none !important
+  detailPage.style.display = 'block'; // Set display to block (or flex if its internal styling requires it)
+  
+  document.body.classList.add('product-detail-active');
+  setActivePage('productDetail');
   window.scrollTo(0, 0);
 
   setupProductDetailPageEventListeners(currentProduct); // Set up listeners for this newly rendered page
@@ -175,30 +183,45 @@ function setupProductDetailPageEventListeners(product) {
       pdpWishlistIcon.addEventListener('click', newWishlistHandler);
       pdpWishlistIcon._wishlistClickHandler = newWishlistHandler;
   }
-  // ... (quantity, add to cart listeners as before) ...
-  const decreaseBtn = document.getElementById('decrease-quantity');
-  const increaseBtn = document.getElementById('increase-quantity');
-  const quantityVal = document.getElementById('quantity-value');
-  const addToCartBtnPDP = document.getElementById('add-to-cart-pdp');
-
+  
+  // 更新数量选择器事件处理
+  const decreaseBtn = document.getElementById('pdp-qty-decrease');
+  const increaseBtn = document.getElementById('pdp-qty-increase');
+  const quantityVal = document.getElementById('pdp-quantity-value');
+  
   if (decreaseBtn && increaseBtn && quantityVal) {
     let quantity = 1;
+    
     decreaseBtn.addEventListener('click', () => {
       if (quantity > 1) {
         quantity--;
-        quantityVal.textContent = quantity < 10 ? '0' + quantity : quantity;
+        quantityVal.textContent = quantity;
       }
     });
+    
     increaseBtn.addEventListener('click', () => {
       quantity++;
-      quantityVal.textContent = quantity < 10 ? '0' + quantity : quantity;
+      quantityVal.textContent = quantity;
     });
   }
-  if (addToCartBtnPDP && typeof addItemToCart === 'function') {
-    addToCartBtnPDP.addEventListener('click', () => {
-        addItemToCart(product, parseInt(quantityVal.textContent));
-        // Add some visual feedback if possible
-        alert(`${product.name} added to cart!`); 
+  
+  // Add to cart button
+  const addToCartBtn = document.querySelector('.pdp-add-to-cart-btn');
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', () => {
+      const quantityVal = document.getElementById('pdp-quantity-value');
+      const quantity = quantityVal ? parseInt(quantityVal.textContent) : 1;
+      
+      if (typeof addToCart === 'function') {
+        if (addToCart(product.id, quantity)) {
+          // 成功添加到购物车，显示提示信息
+          alert(`已将 ${product.name} 添加到购物车！`);
+        }
+      } else {
+        // fallback
+        console.error('addToCart function is not defined');
+        alert(`已将 ${product.name} 添加到购物车！`);
+      }
     });
   }
 }

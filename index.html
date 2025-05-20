@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/payment.css">
   <link rel="stylesheet" href="css/thankyou.css">
   <link rel="stylesheet" href="css/mobile-view.css">
+  <link rel="stylesheet" href="css/cart.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Poppins:wght@400;600&family=Abhaya+Libre:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -49,7 +50,7 @@
       <div class="search-overlay-topbar-icons">
         <!-- <span class="icon-heart">♥</span> -->
         <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="overlay-header">
-        <img src="images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
+        <img src="mobile_images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
         <span id="close-search-btn" class="icon-close-search">✖</span> <!-- 关闭按钮 -->
       </div>
     </div>
@@ -117,7 +118,7 @@
       <div class="nav-icons">
         <!-- <span class="icon-heart">♥</span> -->
         <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="navbar">
-        <img src="images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
+        <img src="mobile_images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
         <span id="open-search-btn" class="icon-search"><img src="images/放大镜.svg" alt="打开搜索" class="icon-search-img"></span> <!-- Ensure class for img -->
       </div>
     </nav>
@@ -303,6 +304,53 @@
       </main>
 
       <footer class="mobile-cakes-page-footer">
+        <p>PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
+      </footer>
+    </div>
+
+    <!-- 新增：移动版About页面内容容器 -->
+    <div id="mobile-about-page-content" style="display: none;">
+      <!-- 手机版About页面顶部栏 -->
+      <header class="mobile-about-page-top-bar">
+        <button class="mobile-about-back-btn">
+          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回">
+        </button>
+        <h1>ABOUT</h1>
+        <button class="mobile-about-location-btn">
+          <img src="mobile_images/location.svg" alt="位置">
+        </button>
+      </header>
+
+      <!-- 分页按钮在图片上方 -->
+      <nav class="mobile-pagination">
+        <button class="mobile-page-btn" data-page="0">1</button>
+        <button class="mobile-page-btn" data-page="1">2</button>
+        <button class="mobile-page-btn" data-page="2">3</button>
+        <button class="mobile-page-btn active" data-page="3">4</button>
+      </nav>
+
+      <!-- 图片轮播区域 -->
+      <div id="mobile-page-container" class="mobile-page-container">
+        <!-- 图片由JS动态渲染于此 -->
+      </div>
+
+      <!-- 内容区域 -->
+      <main class="mobile-about-content">
+        <h2>PIDAPIPO EASTER 2025</h2>
+        <p class="mobile-subtitle">Friday 28th March Chocolate, Events, Loves, News</p>
+        
+        <section class="mobile-about-intro">
+          <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
+          <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
+          <p>Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
+          <p>It wouldn't be a Pidapipo Easter without gelato, and on offer at all stores is a variety of chocolate-focussed gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate gelato with caramel swirl, dipped in milk chocolate.</p>
+          <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
+          <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
+        </section>
+      </main>
+
+      <!-- 页脚 -->
+      <footer class="mobile-about-footer">
         <p>PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
       </footer>
     </div>
@@ -531,6 +579,78 @@
       </footer>
     </div> <!-- end of #wishlist-page-content -->
 
+    <!-- Cart Page Content -->
+    <div id="cart-page-content" style="display: none;">
+      <header class="cart-header">
+        <div class="cart-top-bar">
+          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回" class="cart-back-btn common-back-button-img" id="cart-back-btn">
+          <h2>My Cart</h2>
+          <div class="cart-header-placeholder"></div> <!-- 平衡布局的占位元素 -->
+        </div>
+      </header>
+      <main class="cart-main-content">
+        <div class="cart-items-container">
+          <!-- 购物车项目将由JS动态渲染于此 -->
+          <!-- <p class="cart-empty-message">Your cart is currently empty.</p> -->
+        </div>
+      </main>
+
+      <!-- 购物车结算区域 -->
+      <div class="cart-summary">
+        <div class="summary-line">
+          <span class="summary-label">Subtotal</span>
+          <span class="summary-value" id="cart-subtotal">$0.00</span>
+        </div>
+        <hr class="summary-divider">
+        <div class="summary-line">
+          <span class="summary-label summary-label-total">Total</span>
+          <span class="summary-value summary-value-total" id="cart-total">$0.00</span>
+        </div>
+        <button class="checkout-btn" id="cart-checkout-btn">Check out</button>
+      </div>
+
+      <footer class="cart-footer">
+        <button class="cart-continue-shopping-btn">Continue Shopping</button>
+      </footer>
+    </div> <!-- end of #cart-page-content -->
+
+    <!-- 新增：移动端购物车页面 -->
+    <div id="mobile-cart-page-content" style="display: none;">
+      <header class="mobile-cart-header">
+        <div class="mobile-cart-top-bar">
+          <button class="mobile-cart-back-btn">
+            <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回">
+          </button>
+          <h2>MY CART</h2>
+          <div class="mobile-cart-header-placeholder"></div>
+        </div>
+      </header>
+
+      <main class="mobile-cart-items">
+        <!-- 购物车项目将由JS动态渲染于此 -->
+      </main>
+
+      <div class="mobile-cart-summary">
+        <div class="mobile-summary-line">
+          <span class="mobile-summary-label">Subtotal</span>
+          <span class="mobile-summary-value" id="mobile-cart-subtotal">$0.00</span>
+        </div>
+        <div class="mobile-summary-line">
+          <span class="mobile-summary-label">Shipping</span>
+          <span class="mobile-summary-value" id="mobile-cart-shipping">$0.00</span>
+        </div>
+        <hr class="mobile-summary-divider">
+        <div class="mobile-summary-line">
+          <span class="mobile-summary-label mobile-summary-label-total">Total</span>
+          <span class="mobile-summary-value mobile-summary-label-total" id="mobile-cart-total">$0.00</span>
+        </div>
+      </div>
+
+      <footer class="mobile-cart-footer">
+        <button class="mobile-checkout-btn" id="mobile-cart-checkout-btn">Check out</button>
+      </footer>
+    </div> <!-- end of #mobile-cart-page-content -->
+
     <!-- 新增：支付页面容器 -->
     <div id="payment-page-content" style="display: none;">
       <!-- 支付页面的内容将在这里构建 -->
@@ -643,9 +763,10 @@
   <script src="js/productData.js"></script>
   <script src="js/uiElements.js"></script>
   <script src="js/navigation.js"></script>
+  <script src="js/wishlist.js"></script>
   <script src="js/productDetail.js"></script>
   <script src="js/searchFunctionality.js"></script>
-  <script src="js/wishlist.js"></script>
+  <script src="js/cart.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html> 
