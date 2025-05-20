@@ -3,6 +3,7 @@
 
 // (依赖 uiElements.js -> openSearchOverlay, closeSearchOverlay)
 // (依赖 productDetail.js -> showProductDetailFromOtherPage)
+// (依赖 productData.js -> productsData 变量)
 
 function setupSearchFunctionality() {
   // 桌面端搜索相关元素
@@ -15,6 +16,7 @@ function setupSearchFunctionality() {
   // 移动端搜索相关元素
   const mobileSearchInput = document.querySelector('.mobile-search-input');
   const mobileSearchResults = document.querySelector('.mobile-search-results');
+  const mobileResultsList = mobileSearchResults ? mobileSearchResults.querySelector('.mobile-results-list') : null;
 
   // 桌面端搜索开关
   if (openSearchBtn) {
@@ -43,13 +45,17 @@ function setupSearchFunctionality() {
   }
 
   // 移动端搜索输入事件
-  if (mobileSearchInput && mobileSearchResults) {
+  if (mobileSearchInput && mobileSearchResults && mobileResultsList) {
     mobileSearchInput.addEventListener('input', function() {
+      // Instead of regenerating the list, simply show/hide it based on input
       if (this.value.length > 0) {
+        // Show the results panel
         mobileSearchResults.classList.add('active');
-        // 设置移动端搜索结果项的点击事件
+        
+        // Setup click events for the static results
         setupSearchResultsClickEvents('.mobile-result-item');
       } else {
+        // Hide the results panel when input is empty
         mobileSearchResults.classList.remove('active');
       }
     });
@@ -69,9 +75,29 @@ function setupSearchFunctionality() {
   }
 }
 
+// 辅助函数：搜索产品
+function searchProducts(query) {
+  // 确保productsData存在
+  if (typeof productsData === 'undefined' || !Array.isArray(productsData)) {
+    console.error('productsData is not defined or not an array');
+    return [];
+  }
+  
+  // 将查询词转为小写以进行不区分大小写的搜索
+  const lowerQuery = query.toLowerCase();
+  
+  // 过滤匹配产品
+  return productsData.filter(product => 
+    product.name.toLowerCase().includes(lowerQuery)
+  );
+}
+
 // 辅助函数：设置搜索结果项的点击事件
 function setupSearchResultsClickEvents(selector) {
   document.querySelectorAll(selector).forEach(item => {
+    // 跳过"没有找到匹配的产品"的提示项
+    if (item.classList.contains('no-results')) return;
+    
     const productId = item.getAttribute('data-product-id');
     if (productId) {
       // 移除可能存在的旧事件处理器

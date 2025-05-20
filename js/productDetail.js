@@ -235,13 +235,13 @@ function setupProductDetailPageEventListeners(product) {
       
       if (typeof addToCart === 'function') {
         if (addToCart(product.id, quantity)) {
-          // 成功添加到购物车，显示提示信息
-          alert(`已将 ${product.name} 添加到购物车！`);
+          // Success message when added to cart
+          alert(`Added ${product.name} to your cart!`);
         }
       } else {
         // fallback
         console.error('addToCart function is not defined');
-        alert(`已将 ${product.name} 添加到购物车！`);
+        alert(`Added ${product.name} to your cart!`);
       }
     });
   }

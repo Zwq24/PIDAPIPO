@@ -157,39 +157,29 @@
           <img src="mobile_images/filter.svg" alt="Filter">
         </button>
         
-        <!-- 添加移动端搜索结果下拉菜单容器 -->
+        <!-- 添加移动端搜索结果下拉菜单容器 - 默认隐藏，只在输入时显示 -->
         <div class="mobile-search-results">
-          <h3 class="mobile-results-title">搜索结果</h3>
+          <h3 class="mobile-results-title">Search Results</h3>
           <ul class="mobile-results-list">
-            <!-- 搜索结果将由JS动态添加 -->
-            <li class="mobile-result-item" data-product-id="tiramisu-cake">
+            <!-- Fixed set of search results to match desktop version -->
+            <li class="mobile-result-item" data-product-id="milk-chocolate-hazelnut">
               <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
-              <span class="mobile-result-item-name">Tiramisu' alla Pidapipó cake</span>
+              <span class="mobile-result-item-name">Milk Chocolate & Hazelnut</span>
+            </li>
+            <li class="mobile-result-item" data-product-id="the-great-rocher">
+              <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
+              <span class="mobile-result-item-name">The Great Rocher cake</span>
             </li>
             <li class="mobile-result-item" data-product-id="pb-brownie">
               <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
               <span class="mobile-result-item-name">Peanut Butter & Caramel Brownie</span>
             </li>
-            <li class="mobile-result-item" data-product-id="matcha-strawberry">
+            <li class="mobile-result-item" data-product-id="tiramisu-cake">
               <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
-              <span class="mobile-result-item-name">Matcha Strawberry</span>
-            </li>
-            <li class="mobile-result-item" data-product-id="banoffee-pie">
-              <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
-              <span class="mobile-result-item-name">Banoffee Pie</span>
+              <span class="mobile-result-item-name">Tiramisu' alla Pidapipó cake</span>
             </li>
           </ul>
         </div>
-      </section>
-
-      <!-- 手机版最近搜索/建议 -->
-      <section class="mobile-recent-searches">
-        <ul class="mobile-search-suggestions-list">
-          <li><img src="mobile_images/放大镜.svg" alt="">Banoffee Pie cake</li>
-          <li><img src="mobile_images/放大镜.svg" alt="">Matcha Strawberry cake</li>
-          <li><img src="mobile_images/放大镜.svg" alt="">Tiramisu' alia Pidapipó cake</li>
-          <li><img src="mobile_images/放大镜.svg" alt="">The Great Rocher cake</li>
-        </ul>
       </section>
 
       <!-- 手机版分类 -->
@@ -221,7 +211,9 @@
               <h3 class="js-view-product-detail" data-product-id="pb-brownie">Peanut Butter & Caramel Brownie cake</h3>
               <span class="mobile-product-price">$78</span>
             </div>
-            <button class="mobile-add-to-cart-btn">+</button>
+            <button class="mobile-add-to-cart-btn">
+              <img src="mobile_images/add.svg" alt="Add to cart">
+            </button>
           </div>
           <div class="mobile-product-card">
             <img src="mobile_images/image (28).png" alt="Milk Chocolate & Hazelnut" class="js-view-product-detail" data-product-id="milk-chocolate-hazelnut">
@@ -229,7 +221,9 @@
               <h3 class="js-view-product-detail" data-product-id="milk-chocolate-hazelnut">Milk Chocolate & Hazelnut</h3>
               <span class="mobile-product-price">$13.5</span>
             </div>
-            <button class="mobile-add-to-cart-btn">+</button>
+            <button class="mobile-add-to-cart-btn">
+              <img src="mobile_images/add.svg" alt="Add to cart">
+            </button>
           </div>
         </div>
       </section>
@@ -337,11 +331,11 @@
       <!-- 手机版About页面顶部栏 -->
       <header class="mobile-about-page-top-bar">
         <button class="mobile-about-back-btn">
-          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回">
+          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back">
         </button>
         <h1>ABOUT</h1>
         <button class="mobile-about-location-btn">
-          <img src="mobile_images/location.svg" alt="位置">
+          <img src="mobile_images/location.svg" alt="Location">
         </button>
       </header>
 
@@ -491,7 +485,7 @@
         <h1 class="cakes-page-title">CAKES</h1>
         
         <div class="cakes-title-bar">
-          <img src="images/back-arrow@2X 1 (1).png" alt="返回" class="cakes-back-btn common-back-button-img" id="cakes-back-btn">
+          <img src="images/back-arrow@2X 1 (1).png" alt="Back" class="cakes-back-btn common-back-button-img" id="cakes-back-btn">
         </div>
         
         <p class="cakes-description">
@@ -573,9 +567,9 @@
     <div id="wishlist-page-content" style="display: none;">
       <header class="wishlist-header">
         <div class="wishlist-top-bar">
-          <img src="images/back-arrow@2X 1 (1).png" alt="返回" class="wishlist-back-btn common-back-button-img" id="wishlist-back-btn">
+          <img src="images/back-arrow@2X 1 (1).png" alt="Back" class="wishlist-back-btn common-back-button-img" id="wishlist-back-btn">
           <h2>My Wishlist</h2>
-          <img src="images/购物袋.svg" alt="购物袋" class="wishlist-shopping-bag-icon"> <!-- 假设有一个购物袋图标 -->
+          <img src="images/购物袋.svg" alt="Shopping Bag" class="wishlist-shopping-bag-icon"> <!-- 假设有一个购物袋图标 -->
         </div>
       </header>
       <main class="wishlist-main-content">
@@ -608,7 +602,7 @@
     <div id="cart-page-content" style="display: none;">
       <header class="cart-header">
         <div class="cart-top-bar">
-          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回" class="cart-back-btn common-back-button-img" id="cart-back-btn">
+          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" class="cart-back-btn common-back-button-img" id="cart-back-btn">
           <h2>My Cart</h2>
           <div class="cart-header-placeholder"></div> <!-- 平衡布局的占位元素 -->
         </div>
@@ -644,7 +638,7 @@
       <header class="mobile-cart-header">
         <div class="mobile-cart-top-bar">
           <button class="mobile-cart-back-btn">
-            <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回">
+            <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back">
           </button>
           <h2>MY CART</h2>
           <div class="mobile-cart-header-placeholder"></div>
@@ -681,7 +675,7 @@
       <!-- 支付页面的内容将在这里构建 -->
       <header class="payment-header">
         <div class="payment-top-bar">
-          <img src="images/back-arrow@2X 1 (1).png" alt="返回" class="payment-back-btn common-back-button-img" id="payment-back-btn">
+          <img src="images/back-arrow@2X 1 (1).png" alt="Back" class="payment-back-btn common-back-button-img" id="payment-back-btn">
           <h2>Confirm Order</h2> <!-- 页面标题 -->
           <span class="payment-header-placeholder"></span> <!-- 占位，保持标题居中 -->
         </div>
@@ -785,7 +779,7 @@
     <!-- 感谢您页面容器 (严格按照新截图 "Confirmation of purchase") -->
     <div id="thank-you-page-content" class="thank-you-page" style="display: none;">
       <header class="thank-you-header">
-        <span class="thank-you-back-arrow" id="thank-you-back-arrow-btn"><img src="images/back-arrow@2X 1 (1).png" alt="返回" class="common-back-button-img"></span> <!-- Back arrow -->
+        <span class="thank-you-back-arrow" id="thank-you-back-arrow-btn"><img src="images/back-arrow@2X 1 (1).png" alt="Back" class="common-back-button-img"></span> <!-- Back arrow -->
         <h1 class="thank-you-confirmation-title">Confirmation of purchase</h1>
       </header>
       <main class="thank-you-main-content-wrapper">
