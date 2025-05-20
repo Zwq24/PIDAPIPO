@@ -333,4 +333,28 @@ if (typeof updateAllWishlistIcons === 'function') {
   updateAllWishlistIcons();
 } else {
   console.error("updateAllWishlistIcons function is not defined in wishlist.js");
+}
+
+// 从搜索结果跳转到产品详情页的函数
+function showProductDetailFromOtherPage(productId) {
+  // 记录当前页面状态
+  const currentPageId = document.body.dataset.currentPage || 'newHomepage';
+  sessionStorage.setItem('previousProductView', determinePreviousViewFromId(currentPageId));
+  
+  // 显示产品详情页
+  showProductDetail(productId);
+}
+
+// 辅助函数：根据页面ID确定视图类型
+function determinePreviousViewFromId(pageId) {
+  // 桌面端视图类型
+  if (pageId === 'newHomepage') return 'desktop-home';
+  if (pageId === 'cakes') return 'desktop-cakes';
+  
+  // 移动端视图类型
+  if (pageId === 'mobileHome') return 'mobile-home';
+  if (pageId === 'mobileCakes') return 'mobile-cakes';
+  
+  // 如果无法确定视图类型，根据设备宽度返回默认值
+  return window.innerWidth <= 768 ? 'mobile-home' : 'desktop-home';
 } 
