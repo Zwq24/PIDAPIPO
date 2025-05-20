@@ -6,6 +6,8 @@
 // (依赖 wishlist.js -> addToWishlist, updateAllWishlistIcons, toggleWishlistProduct 函数)
 // (依赖 uiElements.js -> closeSearchOverlay 函数)
 
+let currentProduct = null; // Stores the currently displayed product data
+
 function createProductDetailHTML(product) {
   const productDetailPage = document.getElementById('product-detail-page');
   if (productDetailPage && product.detailPageBgColor) {
@@ -42,187 +44,176 @@ function createProductDetailHTML(product) {
   `;
 }
 
-// 重命名函数
-function showProductDetailFromOtherPage(productId) {
-  const productDetailPage = document.getElementById('product-detail-page');
-  const pageWrapper = document.querySelector('.page-wrapper');
-  const searchOverlay = document.getElementById('search-overlay');
-  const newHomepageContent = document.getElementById('new-homepage-content');
-  const aboutPageContent = document.getElementById('about-page-content');
-  const cakesPageContent = document.getElementById('cakes-page-content');
-  const wishlistPageContent = document.getElementById('wishlist-page-content'); // 新增
+// Function to set up event listeners for product links
+function setupProductLinkListeners() {
+  const productLinks = document.querySelectorAll('.js-view-product-detail, .new-buy-now-btn, [data-product-id^="cake-"]');
+  productLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const productId = link.dataset.productId;
+      if (productId) {
+        let previousView = 'unknown';
+        const mobileMainAppView = document.getElementById('mobile-main-app-view');
+        const newHomepageContent = document.getElementById('new-homepage-content');
+        const cakesPageContent = document.getElementById('cakes-page-content'); // Desktop cakes
+        const mobileCakesPageContent = document.getElementById('mobile-cakes-page-content'); // Mobile cakes
 
-  if (!productDetailPage || !pageWrapper || !searchOverlay) {
-    console.error("PDP or Page Wrapper or Search Overlay not found");
-    return;
-  }
-
-  const product = productsData.find(p => p.id === productId);
-  if (!product) {
-    console.error('Product not found with ID:', productId);
-    return;
-  }
-
-  // navigation.js 中的 previousPage 应该在调用此函数前已被正确设置。
-  // 我们现在将当前页面标记为 'productDetail'，以便从PDP导航到其他地方（如心愿单）时，返回功能知道PDP是上一页。
-  // 注意: setActivePage 是在 navigation.js 中定义的。
-  if (typeof setActivePage === 'function') {
-    setActivePage('productDetail'); 
-  } else {
-    console.error("setActivePage function is not defined in navigation.js");
-  }
-
-
-  // 关闭搜索浮层并移除模糊效果 (如果它是开着的)
-  if (searchOverlay.classList.contains('active')) {
-      if (typeof closeSearchOverlay === 'function') {
-        closeSearchOverlay(); 
-      } else {
-        console.error("closeSearchOverlay function not defined in uiElements.js");
-      }
-  }
-  if (pageWrapper) pageWrapper.classList.remove('search-active');
-
-  // 隐藏其他主要内容区域
-  if (newHomepageContent) newHomepageContent.style.display = 'none';
-  if (aboutPageContent) aboutPageContent.style.display = 'none';
-  if (cakesPageContent) cakesPageContent.style.display = 'none';
-  if (wishlistPageContent) wishlistPageContent.style.display = 'none'; // 新增
-  if (pageWrapper) pageWrapper.style.display = 'none'; 
-  
-  document.body.style.overflow = ''; 
-
-  productDetailPage.innerHTML = createProductDetailHTML(product);
-  productDetailPage.style.display = 'flex';
-  document.body.style.overflow = 'hidden'; 
-
-  // PDP 返回按钮
-  const pdpBackBtn = document.getElementById('pdp-back-btn');
-  if (pdpBackBtn) {
-    // 清理旧的事件监听器
-    const existingHandler = pdpBackBtn._clickHandler;
-    if(existingHandler) pdpBackBtn.removeEventListener('click', existingHandler);
-
-    const newPdpBackHandler = () => {
-      productDetailPage.style.display = 'none';
-      productDetailPage.style.backgroundColor = ''; // 重置背景色
-      document.body.style.overflow = ''; // 恢复滚动
-      // 调用 navigation.js 中的返回函数
-      if (typeof goBackToPreviousPageOrHomepage === 'function') {
-        goBackToPreviousPageOrHomepage();
-      } else {
-        console.error("goBackToPreviousPageOrHomepage function is not defined, falling back to homepage.");
-        if(typeof showNewHomepage === 'function') showNewHomepage(); // Fallback
-      }
-      window.scrollTo(0, 0); 
-    };
-    pdpBackBtn.addEventListener('click', newPdpBackHandler);
-    pdpBackBtn._clickHandler = newPdpBackHandler;
-  }
-  
-  // PDP 心形图标特定逻辑：切换收藏并跳转到心愿单
-  const pdpHeartIcon = productDetailPage.querySelector('.wishlist-toggle-icon[data-product-id]');
-  if (pdpHeartIcon) {
-    // 移除可能存在的旧监听器，以防重复绑定
-    const existingPdpHeartHandler = pdpHeartIcon._clickHandler;
-    if (existingPdpHeartHandler) {
-      pdpHeartIcon.removeEventListener('click', existingPdpHeartHandler);
-    }
-
-    const newPdpHeartHandler = function() {
-      const currentProductId = this.dataset.productId;
-      if (currentProductId) {
-        if (typeof toggleWishlistProduct === 'function') {
-          toggleWishlistProduct(currentProductId); // 切换收藏状态
+        if (mobileMainAppView && getComputedStyle(mobileMainAppView).display !== 'none') {
+            const homeSections = mobileMainAppView.querySelectorAll(':scope > section:not(.hidden):not([style*="display: none"])');
+            if (homeSections.length > 0) previousView = 'mobile-home';
+        } else if (mobileCakesPageContent && getComputedStyle(mobileCakesPageContent).display !== 'none') {
+            previousView = 'mobile-cakes';
+        } else if (newHomepageContent && getComputedStyle(newHomepageContent).display !== 'none') {
+            previousView = 'desktop-home';
+        } else if (cakesPageContent && getComputedStyle(cakesPageContent).display !== 'none') {
+            previousView = 'desktop-cakes';
         }
-        if (typeof showWishlistPage === 'function') {
-          showWishlistPage(); // 跳转到心愿单页面
-        } else {
-          console.error("showWishlistPage function is not defined in navigation.js");
-        }
-      } else {
-        console.error("Product ID not found on PDP heart icon.");
-      }
-    };
-
-    pdpHeartIcon.addEventListener('click', newPdpHeartHandler);
-    pdpHeartIcon._clickHandler = newPdpHeartHandler; // 存储引用以便将来移除
-  }
-  
-  // 数量选择器逻辑 (保持不变)
-  let quantity = 1;
-  const qtyValueEl = document.getElementById('pdp-quantity-value');
-  const qtyIncreaseBtn = document.getElementById('pdp-qty-increase');
-  const qtyDecreaseBtn = document.getElementById('pdp-qty-decrease');
-
-  if(qtyValueEl && qtyIncreaseBtn && qtyDecreaseBtn){
-      // 克隆并替换按钮以移除旧监听器
-      const newIncreaseBtn = qtyIncreaseBtn.cloneNode(true);
-      qtyIncreaseBtn.parentNode.replaceChild(newIncreaseBtn, qtyIncreaseBtn);
-      const newDecreaseBtn = qtyDecreaseBtn.cloneNode(true);
-      qtyDecreaseBtn.parentNode.replaceChild(newDecreaseBtn, qtyDecreaseBtn);
-      
-      newIncreaseBtn.addEventListener('click', () => {
-          quantity++;
-          qtyValueEl.textContent = quantity < 10 ? '0' + quantity : quantity;
-      });
-      newDecreaseBtn.addEventListener('click', () => {
-          if(quantity > 1) {
-              quantity--;
-              qtyValueEl.textContent = quantity < 10 ? '0' + quantity : quantity;
-          }
-      });
-      qtyValueEl.textContent = '01'; 
-  }
-
-  // "添加到购物车"按钮事件监听器
-  const addToCartBtn = productDetailPage.querySelector('.pdp-add-to-cart-btn');
-  if (addToCartBtn) {
-    // 移除旧的监听器 (如果适用)
-    const existingCartHandler = addToCartBtn._clickHandler;
-    if (existingCartHandler) addToCartBtn.removeEventListener('click', existingCartHandler);
-    
-    const newCartHandler = function() {
-        const currentProductId = this.dataset.productId;
-        // Log pesan bahwa fitur keranjang belum diimplementasikan
-        console.log(`"Add to cart" button clicked for product ${currentProductId}. Cart functionality not yet implemented.`);
-        // Anda bisa menambahkan alert di sini jika mau, contoh: alert('Cart functionality coming soon!');
         
-    };
-    addToCartBtn.addEventListener('click', newCartHandler);
-    addToCartBtn._clickHandler = newCartHandler;
+        sessionStorage.setItem('previousProductView', previousView);
+        showProductDetail(productId);
+      }
+    });
+  });
+}
+
+// Function to actually display the product detail page
+function showProductDetail(productId) {
+  currentProduct = productsData.find(p => p.id === productId);
+  const detailPage = document.getElementById('product-detail-page');
+  
+  if (!currentProduct || !detailPage) {
+    console.error('Product data or detail page element not found.');
+    return;
   }
 
-  // 更新所有心愿单图标状态 (包括PDP上的)
-  if (typeof updateAllWishlistIcons === 'function') {
-    updateAllWishlistIcons();
-  } else {
-    console.error("updateAllWishlistIcons function is not defined in wishlist.js");
+  // --- Hide other active page views --- (Moved from navigation.js for direct control)
+  if (typeof hideAllPages === 'function') hideAllPages(); // Hides desktop main pages
+  // Hide mobile views
+  const mobileMainView = document.getElementById('mobile-main-app-view');
+  const mobileCakesView = document.getElementById('mobile-cakes-page-content');
+  if (mobileMainView) {
+      const sections = mobileMainView.querySelectorAll(':scope > section');
+      sections.forEach(sec => sec.classList.add('hidden'));
+      // also hide the #mobile-main-app-view itself if it's a flex container for sections
+      // but product detail page should overlay, so sections are enough
+  }
+  if (mobileCakesView) mobileCakesView.style.display = 'none';
+  // Ensure search overlay is closed
+  if(typeof closeSearchOverlay === 'function') closeSearchOverlay();
+  // --- End Hide --- 
+
+  detailPage.innerHTML = createProductDetailHTML(currentProduct);
+  detailPage.style.display = 'flex';
+  document.body.classList.add('product-detail-active'); // For potential global styling
+  window.scrollTo(0, 0);
+
+  setupProductDetailPageEventListeners(currentProduct); // Set up listeners for this newly rendered page
+}
+
+function setupProductDetailPageEventListeners(product) {
+  const backButton = document.getElementById('product-detail-back-btn');
+  if (backButton) {
+    const newBackButtonHandler = () => handleBackFromProductDetail();
+    if (backButton._clickHandler) backButton.removeEventListener('click', backButton._clickHandler);
+    backButton.addEventListener('click', newBackButtonHandler);
+    backButton._clickHandler = newBackButtonHandler;
+  }
+
+  // Add to wishlist from PDP
+  const pdpWishlistIcon = document.querySelector('#product-detail-page .product-detail-wishlist-icon');
+  if (pdpWishlistIcon && typeof handleWishlistToggle === 'function') {
+      // Update icon state based on current wishlist
+      if (typeof isProductInWishlist === 'function' && isProductInWishlist(product.id)) {
+          pdpWishlistIcon.src = wishlistFilledIconPath; // Ensure this path is defined
+          pdpWishlistIcon.classList.add('active');
+      } else {
+          pdpWishlistIcon.src = wishlistOutlineIconPath; // Ensure this path is defined
+          pdpWishlistIcon.classList.remove('active');
+      }
+      // Add click listener
+      const newWishlistHandler = () => handleWishlistToggle(product.id, pdpWishlistIcon);
+      if(pdpWishlistIcon._wishlistClickHandler) pdpWishlistIcon.removeEventListener('click', pdpWishlistIcon._wishlistClickHandler);
+      pdpWishlistIcon.addEventListener('click', newWishlistHandler);
+      pdpWishlistIcon._wishlistClickHandler = newWishlistHandler;
+  }
+  // ... (quantity, add to cart listeners as before) ...
+  const decreaseBtn = document.getElementById('decrease-quantity');
+  const increaseBtn = document.getElementById('increase-quantity');
+  const quantityVal = document.getElementById('quantity-value');
+  const addToCartBtnPDP = document.getElementById('add-to-cart-pdp');
+
+  if (decreaseBtn && increaseBtn && quantityVal) {
+    let quantity = 1;
+    decreaseBtn.addEventListener('click', () => {
+      if (quantity > 1) {
+        quantity--;
+        quantityVal.textContent = quantity < 10 ? '0' + quantity : quantity;
+      }
+    });
+    increaseBtn.addEventListener('click', () => {
+      quantity++;
+      quantityVal.textContent = quantity < 10 ? '0' + quantity : quantity;
+    });
+  }
+  if (addToCartBtnPDP && typeof addItemToCart === 'function') {
+    addToCartBtnPDP.addEventListener('click', () => {
+        addItemToCart(product, parseInt(quantityVal.textContent));
+        // Add some visual feedback if possible
+        alert(`${product.name} added to cart!`); 
+    });
   }
 }
 
-// 更新主页 "Buy Now" 按钮的事件监听器设置
-function setupProductLinkListeners() {
-    const newBuyNowBtns = document.querySelectorAll('.new-buy-now-btn');
-    newBuyNowBtns.forEach(btn => {
-        // 移除旧监听器以防重复绑定
-        const existingHandler = btn._clickHandler;
-        if (existingHandler) {
-            btn.removeEventListener('click', existingHandler);
-        }
+function handleBackFromProductDetail() {
+  const productDetailPage = document.getElementById('product-detail-page');
+  const previousView = sessionStorage.getItem('previousProductView');
+  
+  if(productDetailPage) productDetailPage.style.display = 'none';
+  document.body.classList.remove('product-detail-active');
 
-        const newClickHandler = function() {
-            const productId = this.getAttribute('data-product-id');
-            if (productId) {
-                // previousPage 应该由 showNewHomepage/showCakesPage 等设置
-                showProductDetailFromOtherPage(productId); // 调用重命名后的函数
-            }
-        };
-        btn.addEventListener('click', newClickHandler);
-        btn._clickHandler = newClickHandler; 
-    });
+  // Ensure all primary page containers are hidden before showing the target one
+  if (typeof hideAllPages === 'function') hideAllPages(); // Hides main desktop pages
+  const mobileMainAppView = document.getElementById('mobile-main-app-view');
+  const mobileCakesContent = document.getElementById('mobile-cakes-page-content');
+  if (mobileMainAppView) mobileMainAppView.style.display = 'none'; // Hide the whole container first
+  if (mobileCakesContent) mobileCakesContent.style.display = 'none';
+  
+  // Unhide all sections within mobile home if returning there
+  if (previousView === 'mobile-home' && mobileMainAppView) {
+      const sections = mobileMainAppView.querySelectorAll(':scope > section');
+      sections.forEach(sec => sec.classList.remove('hidden'));
+      mobileMainAppView.style.display = 'flex'; 
+  } else if (previousView === 'mobile-cakes' && mobileCakesContent) {
+      mobileCakesContent.style.display = 'flex'; 
+      if(mobileMainAppView) mobileMainAppView.style.display = 'flex'; // Parent container of mobile-cakes-page if needed
+  } else if (previousView === 'desktop-home') {
+      if (typeof showNewHomepage === 'function') showNewHomepage();
+  } else if (previousView === 'desktop-cakes') {
+      if (typeof showCakesPage === 'function') showCakesPage(); 
+  } else { // Fallback
+      if (window.innerWidth <= 768 && mobileMainAppView) {
+          const sections = mobileMainAppView.querySelectorAll(':scope > section');
+          sections.forEach(sec => sec.classList.remove('hidden'));
+          mobileMainAppView.style.display = 'flex';
+      } else if (typeof showNewHomepage === 'function') {
+          showNewHomepage();
+      }
+  }
+  sessionStorage.removeItem('previousProductView');
+  window.scrollTo(0, 0);
+}
 
-    // 为搜索结果中的产品项添加事件监听 (如果它们还没有的话)
-    // 这个逻辑之前可能在 searchFunctionality.js 中，需要确认是否需要在这里合并或确保它独立工作
-    // 暂时假设 searchFunctionality.js 会处理其结果项的点击事件
+// Helper to ensure these are available if not using modules
+// window.setupProductLinkListeners = setupProductLinkListeners;
+// window.showProductDetail = showProductDetail;
+
+// (The rest of the original productDetail.js content, including setupProductDetailListeners and its call within showProductDetail)
+// Make sure the original setupProductDetailListeners is now setupProductDetailPageEventListeners
+// and that showProductDetail (previously showProductDetailFromOtherPage) calls it.
+
+// 更新所有心愿单图标状态 (包括PDP上的)
+if (typeof updateAllWishlistIcons === 'function') {
+  updateAllWishlistIcons();
+} else {
+  console.error("updateAllWishlistIcons function is not defined in wishlist.js");
 } 

@@ -29,12 +29,12 @@
   <div id="mobile-side-menu" class="mobile-side-menu">
     <button id="mobile-close-menu-btn" class="mobile-close-menu-btn">&times;</button>
     <ul>
-      <li data-target="mobile-home-view">Shop</li>      {/* <!-- 假设 Shop = Home for now --> */}
-      <li data-target="mobile-gelato-page">gelato</li>    {/* <!-- Placeholder target --> */}
-      <li data-target="mobile-chocolate-page">Chocolate</li> {/* <!-- Placeholder target --> */}
+      <li data-target="mobile-home-view">Shop</li>
+      <li data-target="mobile-gelato-page">gelato</li>
+      <li data-target="mobile-chocolate-page">Chocolate</li>
       <li data-target="mobile-cakes-page">Cakes</li>
-      <li data-target="mobile-about-page">About</li>      {/* <!-- Placeholder target --> */}
-      <li data-target="mobile-lab-page">The lab</li>      {/* <!-- Placeholder target --> */}
+      <li data-target="mobile-about-page">About</li>
+      <li data-target="mobile-lab-page">The lab</li>
     </ul>
   </div>
 
@@ -191,17 +191,17 @@
         <h2>Top Products</h2>
         <div class="mobile-top-products-grid">
           <div class="mobile-product-card">
-            <img src="mobile_images/image (22).png" alt="Peanut Butter & Caramel Brownie cake">
+            <img src="mobile_images/image (22).png" alt="Peanut Butter & Caramel Brownie cake" class="js-view-product-detail" data-product-id="pb-brownie">
             <div class="mobile-product-info">
-              <h3>Peanut Butter & Caramel Brownie cake</h3>
+              <h3 class="js-view-product-detail" data-product-id="pb-brownie">Peanut Butter & Caramel Brownie cake</h3>
               <span class="mobile-product-price">$78</span>
             </div>
             <button class="mobile-add-to-cart-btn">+</button>
           </div>
           <div class="mobile-product-card">
-            <img src="mobile_images/image (28).png" alt="Milk Chocolate & Hazelnut">
+            <img src="mobile_images/image (28).png" alt="Milk Chocolate & Hazelnut" class="js-view-product-detail" data-product-id="milk-chocolate-hazelnut">
             <div class="mobile-product-info">
-              <h3>Milk Chocolate & Hazelnut</h3>
+              <h3 class="js-view-product-detail" data-product-id="milk-chocolate-hazelnut">Milk Chocolate & Hazelnut</h3>
               <span class="mobile-product-price">$13.5</span>
             </div>
             <button class="mobile-add-to-cart-btn">+</button>
@@ -246,7 +246,7 @@
       </div>
 
       <main class="mobile-cakes-grid-container">
-        <div class="mobile-cake-item">
+        <div class="mobile-cake-item js-view-product-detail" data-product-id="tiramisu-cake">
           <div class="mobile-cake-image-background">
             <img src="mobile_images/image (21).png" alt="Tiramisu' alla Pidapipo">
           </div>
@@ -255,7 +255,7 @@
             <p class="price">$65</p>
           </div>
         </div>
-        <div class="mobile-cake-item">
+        <div class="mobile-cake-item js-view-product-detail" data-product-id="pb-brownie">
           <div class="mobile-cake-image-background">
             <img src="mobile_images/image (22).png" alt="Peanut Butter & Caramel Brownie">
           </div>
@@ -264,7 +264,7 @@
             <p class="price">$78</p>
           </div>
         </div>
-        <div class="mobile-cake-item">
+        <div class="mobile-cake-item js-view-product-detail" data-product-id="matcha-strawberry">
           <div class="mobile-cake-image-background">
             <img src="mobile_images/image (23).png" alt="Matcha Strawberry">
           </div>
@@ -273,7 +273,7 @@
             <p class="price">$78</p>
           </div>
         </div>
-        <div class="mobile-cake-item">
+        <div class="mobile-cake-item js-view-product-detail" data-product-id="banoffee-pie">
           <div class="mobile-cake-image-background">
             <img src="mobile_images/image (24).png" alt="Banoffee Pie">
           </div>
@@ -282,7 +282,7 @@
             <p class="price">$59</p>
           </div>
         </div>
-        <div class="mobile-cake-item">
+        <div class="mobile-cake-item js-view-product-detail" data-product-id="the-great-rocher">
           <div class="mobile-cake-image-background">
             <img src="mobile_images/image (25).png" alt="The Great Rocher">
           </div>
@@ -291,7 +291,7 @@
             <p class="price">$78</p>
           </div>
         </div>
-        <div class="mobile-cake-item">
+        <div class="mobile-cake-item js-view-product-detail" data-product-id="bombe-alaska">
           <div class="mobile-cake-image-background">
             <img src="mobile_images/image (26).png" alt="Bombe Alaska">
           </div>
