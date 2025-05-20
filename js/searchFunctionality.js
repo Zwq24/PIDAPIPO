@@ -4,6 +4,7 @@
 // (依赖 uiElements.js -> openSearchOverlay, closeSearchOverlay)
 // (依赖 productDetail.js -> showProductDetailFromOtherPage)
 // (依赖 productData.js -> productsData 变量)
+// (依赖 navigation.js -> showCakesPage, showNewHomepage 函数)
 
 function setupSearchFunctionality() {
   // 桌面端搜索相关元素
@@ -12,6 +13,9 @@ function setupSearchFunctionality() {
   const searchOverlay = document.getElementById('search-overlay');
   const searchInput = searchOverlay ? searchOverlay.querySelector('input[type="text"]') : null;
   const searchResultsPreview = document.getElementById('search-results-preview');
+  
+  // 获取搜索页面的推荐搜索词按钮
+  const suggestionButtons = document.querySelectorAll('.search-overlay-suggestions button');
 
   // 移动端搜索相关元素
   const mobileSearchInput = document.querySelector('.mobile-search-input');
@@ -28,6 +32,38 @@ function setupSearchFunctionality() {
   if (closeSearchBtn) {
     closeSearchBtn.addEventListener('click', () => {
       if (typeof closeSearchOverlay === 'function') closeSearchOverlay();
+    });
+  }
+  
+  // 为搜索推荐按钮添加点击事件
+  if (suggestionButtons.length > 0) {
+    suggestionButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const buttonText = this.textContent.trim().toLowerCase();
+        
+        // 关闭搜索浮层
+        if (typeof closeSearchOverlay === 'function') {
+          closeSearchOverlay();
+        }
+        
+        // 根据按钮文本导航到相应页面
+        if (buttonText === 'cake') {
+          if (typeof showCakesPage === 'function') {
+            showCakesPage();
+          } else {
+            console.error('showCakesPage function is not defined');
+          }
+        } else if (buttonText === 'shop') {
+          if (typeof showNewHomepage === 'function') {
+            showNewHomepage();
+          } else {
+            console.error('showNewHomepage function is not defined');
+          }
+        } else {
+          // 对于其他按钮，可以添加相应的导航逻辑
+          console.log(`Navigation for ${buttonText} not yet implemented`);
+        }
+      });
     });
   }
 
