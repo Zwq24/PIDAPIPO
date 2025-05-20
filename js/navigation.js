@@ -178,7 +178,7 @@ function showPaymentPage() {
             } else if (currentPage === 'cart') {
                 showCartPage(); // 从桌面端购物车进入的，返回桌面端购物车
             } else {
-                showWishlistPage(); // 默认返回心愿单页面
+                showCartPage(); // 始终返回购物车页面，不再返回心愿单
             }
         };
         paymentBackBtn.addEventListener('click', newPaymentBackHandler);
@@ -617,12 +617,8 @@ function showCartPage() {
     const mobileCartBackBtn = document.querySelector('.mobile-cart-back-btn');
     if (mobileCartBackBtn && !mobileCartBackBtn._clickHandlerAttached) {
         mobileCartBackBtn.addEventListener('click', () => {
-            // 直接返回移动端主页，而不是使用goBackToPreviousPageOrHomepage
-            if (window.innerWidth <= 768) {
-                showMobileHomePage();
-            } else {
-                goBackToPreviousPageOrHomepage();
-            }
+            // 使用goBackToPreviousPageOrHomepage函数确定上一页
+            goBackToPreviousPageOrHomepage();
         });
         mobileCartBackBtn._clickHandlerAttached = true;
     }
