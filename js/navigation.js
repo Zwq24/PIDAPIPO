@@ -78,12 +78,20 @@ function hideAllPages() {
 }
 
 function showNewHomepage() {
+  // 检测设备类型
+  if (window.innerWidth <= 768) {
+    // 移动设备，显示移动端首页
+    showMobileHomePage();
+    return;
+  }
+
+  // 桌面设备，显示桌面端首页
   hideAllPages();
   const homepageElement = document.getElementById('new-homepage-content');
   if (homepageElement) {
     homepageElement.style.display = 'block';
     homepageElement.classList.remove('hidden-page');
-    console.log("显示主页");
+    console.log("显示桌面端主页");
   }
   setActivePage('newHomepage');
   window.scrollTo(0, 0);
@@ -276,7 +284,12 @@ function showThankYouPage() {
     const backHomeBtn = document.getElementById('thank-you-back-home-btn');
     if (backHomeBtn && !backHomeBtn._clickHandlerAttachedThankYouHome) {
         backHomeBtn.addEventListener('click', () => {
-            showNewHomepage();
+            // 根据设备类型选择正确的首页
+            if (window.innerWidth <= 768) {
+                showMobileHomePage();
+            } else {
+                showNewHomepage();
+            }
         });
         backHomeBtn._clickHandlerAttachedThankYouHome = true;
     }
@@ -316,6 +329,13 @@ function showThankYouPage() {
 function goBackToPreviousPageOrHomepage() {
     const pageToGo = previousPage || 'newHomepage'; 
     console.log("Going back. Previous page was:", previousPage, "Navigating to:", pageToGo);
+    
+    // 如果pageToGo是newHomepage且在移动设备上，则显示mobileHome
+    if (pageToGo === 'newHomepage' && window.innerWidth <= 768) {
+        showMobileHomePage();
+        return;
+    }
+    
     switch (pageToGo) {
         case 'newHomepage': showNewHomepage(); break;
         case 'about': showAboutPage(); break;
@@ -338,8 +358,15 @@ function goBackToPreviousPageOrHomepage() {
             break;
         case 'mobileAbout': showMobileAboutPage(); break;
         case 'cart': showCartPage(); break;
-        case 'mobileCart': showCartPage(); break;
-        default: showNewHomepage(); break;
+        case 'mobileCart': showMobileHomePage(); break;
+        default: 
+            // 如果是移动设备但没有找到对应页面，则返回移动端主页
+            if (window.innerWidth <= 768) {
+                showMobileHomePage();
+            } else {
+                showNewHomepage();
+            }
+            break;
     }
 }
 
@@ -473,10 +500,22 @@ function showMobileHomePage() {
     const mobileMainAppView = document.getElementById('mobile-main-app-view');
     if (mobileMainAppView) {
         mobileMainAppView.style.display = 'flex';
+        mobileMainAppView.classList.remove('hidden-page'); // 确保移除hidden-page类
         // 显示主页的所有部分
         const sections = mobileMainAppView.querySelectorAll(':scope > section');
         sections.forEach(sec => sec.classList.remove('hidden'));
         console.log("显示移动端主页");
+        
+        // 确保底部导航栏显示
+        const mobileBottomNav = document.querySelector('.mobile-bottom-nav');
+        if (mobileBottomNav) {
+            mobileBottomNav.style.display = 'flex';
+        }
+    } else {
+        console.error("移动端主页元素不存在");
+        // 如果移动端主页不存在，回退到桌面端主页
+        showNewHomepage();
+        return;
     }
     setActivePage('mobileHome');
     window.scrollTo(0, 0);
@@ -528,7 +567,12 @@ function showCartPage() {
     const mobileCartBackBtn = document.querySelector('.mobile-cart-back-btn');
     if (mobileCartBackBtn && !mobileCartBackBtn._clickHandlerAttached) {
         mobileCartBackBtn.addEventListener('click', () => {
-            goBackToPreviousPageOrHomepage();
+            // 直接返回移动端主页，而不是使用goBackToPreviousPageOrHomepage
+            if (window.innerWidth <= 768) {
+                showMobileHomePage();
+            } else {
+                goBackToPreviousPageOrHomepage();
+            }
         });
         mobileCartBackBtn._clickHandlerAttached = true;
     }
