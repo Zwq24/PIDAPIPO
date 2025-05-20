@@ -42,12 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // 注意: About页面的图片轮播器 (initializeAboutPageSlider from uiElements.js)
   // 在 showAboutPage (navigation.js) 中被调用,因为它只在About页面显示时才需要初始化。
 
-  // 初始显示新主页
-  // 依赖: navigation.js
-  if (typeof showNewHomepage === 'function') {
-    showNewHomepage(); 
+  // 根据设备尺寸决定初始显示的页面视图
+  if (window.innerWidth <= 768) {
+    // 移动设备 - 显示移动主视图
+    const mobileMainAppView = document.getElementById('mobile-main-app-view');
+    if (mobileMainAppView) {
+      hideAllPages(); // 确保先隐藏所有页面
+      mobileMainAppView.style.display = 'flex';
+      const sections = mobileMainAppView.querySelectorAll(':scope > section');
+      sections.forEach(sec => sec.classList.remove('hidden'));
+      console.log("初始化为移动端视图");
+    }
   } else {
-    console.error('showNewHomepage is not defined. Check navigation.js');
+    // 桌面设备 - 显示桌面主页
+    if (typeof showNewHomepage === 'function') {
+      showNewHomepage(); 
+      console.log("初始化为桌面端视图");
+    } else {
+      console.error('showNewHomepage is not defined. Check navigation.js');
+    }
   }
 
   // -------- 移动端菜单交互 和 页面导航逻辑 (合并和调整) --------
@@ -142,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // -------- 结束：移动端菜单交互 和 页面导航逻辑 --------
 
-  console.log("Main.js loaded and initialized. Modules coordinated.");
+  console.log("Main.js loaded and initialized. Modules coordinated."); 
 });
 
 // 注意：

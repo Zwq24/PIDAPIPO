@@ -36,10 +36,29 @@ body {
     vertical-align: middle; /* 帮助对齐 */
 }
 
+/* 新增：隐藏页面的通用类，强制保证元素不可见 */
+.hidden-page {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    z-index: -1 !important;
+}
+
 /* ---------- 新增媒体查询 ---------- */
 
 /* 移动设备样式 (例如：屏幕宽度 <= 768px) */
 @media (max-width: 768px) {
+  body, .page-wrapper { /* 新增：强制移除body和page-wrapper在移动端的顶部空白 */
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
   .navbar { /* 隐藏桌面导航栏 */
     display: none !important; /* 使用 !important确保覆盖其他样式 */
   }

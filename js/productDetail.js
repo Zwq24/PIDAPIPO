@@ -16,7 +16,7 @@ function createProductDetailHTML(product) {
   // 使用 img 标签作为心愿单图标，并添加 data-product-id
   return `
     <div class="pdp-top-bar">
-      <img src="images/back-arrow.svg" alt="返回" class="pdp-back-btn" id="pdp-back-btn">
+      <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" class="pdp-back-btn" id="pdp-back-btn">
       <div class="pdp-logo">LOGO</div>
       <div class="pdp-top-icons">
         <img src="images/heart-outline.svg" alt="Toggle Wishlist" class="icon-heart wishlist-toggle-icon" data-product-id="${product.id}">
@@ -46,34 +46,73 @@ function createProductDetailHTML(product) {
 
 // Function to set up event listeners for product links
 function setupProductLinkListeners() {
-  const productLinks = document.querySelectorAll('.js-view-product-detail, .new-buy-now-btn, [data-product-id^="cake-"]');
+  // 获取所有可点击进入产品详情页的元素
+  const productLinks = document.querySelectorAll('.js-view-product-detail, .new-buy-now-btn, [data-product-id^="cake-"], .cake-item');
+  
+  // 为每个产品链接添加点击事件
   productLinks.forEach(link => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      const productId = link.dataset.productId;
-      if (productId) {
-        let previousView = 'unknown';
-        const mobileMainAppView = document.getElementById('mobile-main-app-view');
-        const newHomepageContent = document.getElementById('new-homepage-content');
-        const cakesPageContent = document.getElementById('cakes-page-content'); // Desktop cakes
-        const mobileCakesPageContent = document.getElementById('mobile-cakes-page-content'); // Mobile cakes
-
-        if (mobileMainAppView && getComputedStyle(mobileMainAppView).display !== 'none') {
-            const homeSections = mobileMainAppView.querySelectorAll(':scope > section:not(.hidden):not([style*="display: none"])');
-            if (homeSections.length > 0) previousView = 'mobile-home';
-        } else if (mobileCakesPageContent && getComputedStyle(mobileCakesPageContent).display !== 'none') {
-            previousView = 'mobile-cakes';
-        } else if (newHomepageContent && getComputedStyle(newHomepageContent).display !== 'none') {
-            previousView = 'desktop-home';
-        } else if (cakesPageContent && getComputedStyle(cakesPageContent).display !== 'none') {
-            previousView = 'desktop-cakes';
+      
+      // 获取产品ID - 首先尝试data-product-id属性
+      let productId = link.dataset.productId;
+      
+      // 如果当前元素没有产品ID，尝试查找它的子元素或父元素
+      if (!productId) {
+        // 向下查找子元素
+        const childWithId = link.querySelector('[data-product-id]');
+        if (childWithId) {
+          productId = childWithId.dataset.productId;
+        } else {
+          // 向上查找父元素
+          let parent = link.closest('[data-product-id]');
+          if (parent) {
+            productId = parent.dataset.productId;
+          }
         }
+      }
+      
+      // 如果找到产品ID，则显示产品详情页
+      if (productId) {
+        console.log("准备显示产品:", productId);
         
+        // 存储当前所在视图类型，以便后续返回
+        let previousView = determinePreviousView();
         sessionStorage.setItem('previousProductView', previousView);
+        
+        // 显示产品详情页
         showProductDetail(productId);
+      } else {
+        console.error("无法确定产品ID");
       }
     });
   });
+}
+
+// 辅助函数：确定用户当前所在的视图
+function determinePreviousView() {
+  // 检查各种可能的视图
+  const mobileMainAppView = document.getElementById('mobile-main-app-view');
+  const mobileCakesContent = document.getElementById('mobile-cakes-page-content');
+  const newHomepageContent = document.getElementById('new-homepage-content');
+  const cakesPageContent = document.getElementById('cakes-page-content');
+  
+  // 检查元素是否存在并且可见
+  const isVisible = (element) => element && getComputedStyle(element).display !== 'none';
+  
+  // 按优先级返回视图类型
+  if (isVisible(mobileCakesContent)) {
+    return 'mobile-cakes';
+  } else if (isVisible(mobileMainAppView)) {
+    return 'mobile-home';
+  } else if (isVisible(cakesPageContent)) {
+    return 'desktop-cakes';
+  } else if (isVisible(newHomepageContent)) {
+    return 'desktop-home';
+  }
+  
+  // 默认返回值
+  return window.innerWidth <= 768 ? 'mobile-home' : 'desktop-home';
 }
 
 // Function to actually display the product detail page
@@ -111,7 +150,7 @@ function showProductDetail(productId) {
 }
 
 function setupProductDetailPageEventListeners(product) {
-  const backButton = document.getElementById('product-detail-back-btn');
+  const backButton = document.getElementById('pdp-back-btn');
   if (backButton) {
     const newBackButtonHandler = () => handleBackFromProductDetail();
     if (backButton._clickHandler) backButton.removeEventListener('click', backButton._clickHandler);
@@ -120,7 +159,7 @@ function setupProductDetailPageEventListeners(product) {
   }
 
   // Add to wishlist from PDP
-  const pdpWishlistIcon = document.querySelector('#product-detail-page .product-detail-wishlist-icon');
+  const pdpWishlistIcon = document.querySelector('#product-detail-page .wishlist-toggle-icon');
   if (pdpWishlistIcon && typeof handleWishlistToggle === 'function') {
       // Update icon state based on current wishlist
       if (typeof isProductInWishlist === 'function' && isProductInWishlist(product.id)) {
@@ -171,35 +210,69 @@ function handleBackFromProductDetail() {
   if(productDetailPage) productDetailPage.style.display = 'none';
   document.body.classList.remove('product-detail-active');
 
-  // Ensure all primary page containers are hidden before showing the target one
-  if (typeof hideAllPages === 'function') hideAllPages(); // Hides main desktop pages
-  const mobileMainAppView = document.getElementById('mobile-main-app-view');
-  const mobileCakesContent = document.getElementById('mobile-cakes-page-content');
-  if (mobileMainAppView) mobileMainAppView.style.display = 'none'; // Hide the whole container first
-  if (mobileCakesContent) mobileCakesContent.style.display = 'none';
+  // 确保所有页面容器都隐藏，以便只显示目标页面
+  if (typeof hideAllPages === 'function') hideAllPages();
   
-  // Unhide all sections within mobile home if returning there
-  if (previousView === 'mobile-home' && mobileMainAppView) {
-      const sections = mobileMainAppView.querySelectorAll(':scope > section');
-      sections.forEach(sec => sec.classList.remove('hidden'));
-      mobileMainAppView.style.display = 'flex'; 
-  } else if (previousView === 'mobile-cakes' && mobileCakesContent) {
-      mobileCakesContent.style.display = 'flex'; 
-      if(mobileMainAppView) mobileMainAppView.style.display = 'flex'; // Parent container of mobile-cakes-page if needed
-  } else if (previousView === 'desktop-home') {
-      if (typeof showNewHomepage === 'function') showNewHomepage();
-  } else if (previousView === 'desktop-cakes') {
-      if (typeof showCakesPage === 'function') showCakesPage(); 
-  } else { // Fallback
-      if (window.innerWidth <= 768 && mobileMainAppView) {
+  console.log("从产品详情页返回到:", previousView);
+
+  // 基于存储的previousView决定返回到哪个视图
+  switch(previousView) {
+    case 'mobile-home':
+      const mobileMainAppView = document.getElementById('mobile-main-app-view');
+      if (mobileMainAppView) {
+        // 显示移动主视图
+        mobileMainAppView.style.display = 'flex';
+        // 显示其所有部分
+        const sections = mobileMainAppView.querySelectorAll(':scope > section');
+        sections.forEach(sec => sec.classList.remove('hidden'));
+      }
+      break;
+      
+    case 'mobile-cakes':
+      const mobileCakesContent = document.getElementById('mobile-cakes-page-content');
+      if (mobileCakesContent) {
+        mobileCakesContent.style.display = 'flex';
+      }
+      break;
+      
+    case 'desktop-home':
+      if (typeof showNewHomepage === 'function') {
+        showNewHomepage();
+      } else {
+        document.getElementById('new-homepage-content').style.display = 'block';
+      }
+      break;
+      
+    case 'desktop-cakes':
+      if (typeof showCakesPage === 'function') {
+        showCakesPage();
+      } else {
+        document.getElementById('cakes-page-content').style.display = 'block';
+      }
+      break;
+      
+    default:
+      // 如果没有有效的previousView或无法确定，根据设备宽度决定返回到哪个主页
+      if (window.innerWidth <= 768) {
+        const mobileMainAppView = document.getElementById('mobile-main-app-view');
+        if (mobileMainAppView) {
+          mobileMainAppView.style.display = 'flex';
           const sections = mobileMainAppView.querySelectorAll(':scope > section');
           sections.forEach(sec => sec.classList.remove('hidden'));
-          mobileMainAppView.style.display = 'flex';
-      } else if (typeof showNewHomepage === 'function') {
+        }
+      } else {
+        if (typeof showNewHomepage === 'function') {
           showNewHomepage();
+        } else {
+          document.getElementById('new-homepage-content').style.display = 'block';
+        }
       }
   }
+  
+  // 清除存储的previousView
   sessionStorage.removeItem('previousProductView');
+  
+  // 滚动到页面顶部
   window.scrollTo(0, 0);
 }
 
