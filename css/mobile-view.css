@@ -85,6 +85,8 @@ body {
   align-items: center;
   padding: 15px;
   background-color: #FFFFFF; /* Figma显示搜索栏区域为白色背景 */
+  position: relative; /* 添加相对定位，作为搜索结果的参考点 */
+  z-index: 50; /* 确保搜索栏和结果在其他内容之上 */
 }
 
 .mobile-search-input-wrapper {
@@ -122,6 +124,72 @@ body {
 .mobile-filter-btn img {
   width: 24px; /* 根据实际图标大小调整 */
   height: 24px;
+}
+
+/* 新增：移动端搜索结果下拉菜单样式 */
+.mobile-search-results {
+  position: absolute;
+  top: 100%; /* 位于搜索栏下方 */
+  left: 0;
+  right: 0;
+  background-color: #FFFFFF;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 0 15px;
+  padding: 10px 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 49; /* 低于搜索栏，但高于其他内容 */
+  display: none; /* 默认不显示 */
+}
+
+.mobile-search-results.active {
+  display: block; /* 当添加active类时显示 */
+}
+
+.mobile-results-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.mobile-result-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-result-item:hover {
+  background-color: #f9f9f9;
+}
+
+.mobile-result-item-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  opacity: 0.5;
+}
+
+.mobile-result-item-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #333;
 }
 
 /* 手机版最近搜索/建议 */
