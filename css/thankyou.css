@@ -44,7 +44,6 @@
     white-space: nowrap;
 }
 
-
 .thank-you-main-content-wrapper {
     display: flex;
     flex-direction: column;
@@ -61,6 +60,15 @@
     font-size: 70px; /* Large smiley icon */
     color: #51393A; /* Dark brown/purple color from image */
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-success-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 }
 
 .order-status-title {
@@ -96,9 +104,22 @@
     cursor: pointer;
     transition: transform 0.2s ease;
     color: #51393A; /* Match icon color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji-option img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 .emoji-option:hover {
+    transform: scale(1.2);
+}
+
+.emoji-option.selected {
     transform: scale(1.2);
 }
 
@@ -127,4 +148,54 @@
 
 .thank-you-action-button:hover {
     background-color: #d0c6c0; /* Slightly darker on hover */
+}
+
+/* 移动端样式优化 */
+@media (max-width: 768px) {
+    #thank-you-page-content {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        z-index: 500 !important;
+        overflow-y: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .thank-you-header {
+        padding: 15px;
+    }
+
+    .thank-you-confirmation-title {
+        font-size: 14px;
+    }
+
+    .thank-you-main-content-wrapper {
+        padding: 20px;
+    }
+
+    .main-success-icon img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .order-status-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .satisfaction-emojis {
+        gap: 20px;
+    }
+
+    .emoji-option img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .thank-you-actions {
+        max-width: 250px;
+    }
 } 

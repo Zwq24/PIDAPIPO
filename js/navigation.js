@@ -130,24 +130,48 @@ function showWishlistPage() {
 
 function showPaymentPage() {
     hideAllPages();
-    document.getElementById('payment-page-content').style.display = 'flex'; 
+    const paymentPageElement = document.getElementById('payment-page-content'); // 获取元素
+    if (paymentPageElement) {
+        paymentPageElement.style.display = 'flex'; 
+        paymentPageElement.classList.remove('hidden-page'); // 移除 hidden-page 类
+    } else {
+        console.error('Payment page element not found!');
+        return; // 如果元素未找到，则提前返回
+    }
     setActivePage('payment');
     
-    if (typeof calculateWishlistTotals === 'function') {
+    // 根据购物车总额更新支付页面金额
+    if (typeof calculateCartTotal === 'function') {
+        const totals = calculateCartTotal();
+        const subtotalEl = document.getElementById('payment-subtotal');
+        const totalEl = document.getElementById('payment-total');
+        if (subtotalEl) subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
+        if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`;
+    } else if (typeof calculateWishlistTotals === 'function') {
+        // 兼容从心愿单进入支付页面的情况
         const totals = calculateWishlistTotals(); 
         const subtotalEl = document.getElementById('payment-subtotal');
         const totalEl = document.getElementById('payment-total');
         if (subtotalEl) subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
-        if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`; 
+        if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`;
     } else {
-        console.error('calculateWishlistTotals function is not defined. Check wishlist.js');
+        console.error('购物车或心愿单计算函数未定义');
     }
 
     const paymentBackBtn = document.getElementById('payment-back-btn');
     if (paymentBackBtn && !paymentBackBtn._clickHandlerAttached) {
         const newPaymentBackHandler = (e) => { 
-            e.preventDefault(); 
-            showWishlistPage(); 
+            e.preventDefault();
+            
+            // 根据前一页面返回
+            const currentPage = document.body.dataset.currentPage || 'payment';
+            if (currentPage === 'mobileCart') {
+                showCartPage(); // 从移动端购物车进入的，返回移动端购物车
+            } else if (currentPage === 'cart') {
+                showCartPage(); // 从桌面端购物车进入的，返回桌面端购物车
+            } else {
+                showWishlistPage(); // 默认返回心愿单页面
+            }
         };
         paymentBackBtn.addEventListener('click', newPaymentBackHandler);
         paymentBackBtn._clickHandlerAttached = true;
@@ -156,8 +180,20 @@ function showPaymentPage() {
     const placeOrderBtn = document.getElementById('place-order-btn');
     if (placeOrderBtn && !placeOrderBtn._clickHandlerAttached) {
         placeOrderBtn.addEventListener('click', () => {
+            // 清空购物车
+            if (typeof cartItems !== 'undefined') {
+                cartItems = [];
+                if (typeof saveCartToLocalStorage === 'function') {
+                    saveCartToLocalStorage();
+                }
+                if (typeof updateCartIcon === 'function') {
+                    updateCartIcon();
+                }
+            }
+            
+            // 清空心愿单（兼容从心愿单进入的情况）
             if (typeof wishlistItems !== 'undefined') { 
-              wishlistItems = []; 
+                wishlistItems = []; 
             }
             if (typeof renderWishlistPage === 'function') renderWishlistPage(); 
             if (typeof updateAllWishlistIcons === 'function') updateAllWishlistIcons(); 
@@ -187,9 +223,55 @@ function showThankYouPage() {
     const thankYouPage = document.getElementById('thank-you-page-content');
     if (thankYouPage) {
         thankYouPage.style.display = 'flex'; 
+        thankYouPage.classList.remove('hidden-page');
     }
     setActivePage('thankYou');
     document.body.style.overflow = 'auto';
+
+    // 更新主要笑脸图标为图片
+    const mainSuccessIcon = document.querySelector('.main-success-icon');
+    if (mainSuccessIcon) {
+        // 检查是否已经包含图片
+        if (!mainSuccessIcon.querySelector('img')) {
+            mainSuccessIcon.innerHTML = ''; // 清除文本内容
+            const img = document.createElement('img');
+            img.src = 'mobile_images/image 30.png'; // 使用中间(满意)的表情
+            img.alt = '笑脸';
+            mainSuccessIcon.appendChild(img);
+        }
+    }
+
+    // 更新表情选项
+    const emojisContainer = document.querySelector('.satisfaction-emojis');
+    if (emojisContainer) {
+        // 检查是否已经包含图片
+        if (!emojisContainer.querySelector('img')) {
+            // 清空现有内容
+            emojisContainer.innerHTML = '';
+            
+            // 创建5个表情图片
+            const emojiImages = [
+                { src: 'mobile_images/image 28.png', rating: 5, alt: '非常满意' },
+                { src: 'mobile_images/image 29.png', rating: 4, alt: '满意' },
+                { src: 'mobile_images/image 30.png', rating: 3, alt: '一般' },
+                { src: 'mobile_images/image 31.png', rating: 2, alt: '不满意' },
+                { src: 'mobile_images/image 32.png', rating: 1, alt: '非常不满意' }
+            ];
+            
+            emojiImages.forEach(emoji => {
+                const emojiOption = document.createElement('span');
+                emojiOption.className = 'emoji-option';
+                emojiOption.dataset.rating = emoji.rating;
+                
+                const img = document.createElement('img');
+                img.src = emoji.src;
+                img.alt = emoji.alt;
+                
+                emojiOption.appendChild(img);
+                emojisContainer.appendChild(emojiOption);
+            });
+        }
+    }
 
     const backHomeBtn = document.getElementById('thank-you-back-home-btn');
     if (backHomeBtn && !backHomeBtn._clickHandlerAttachedThankYouHome) {
@@ -210,7 +292,7 @@ function showThankYouPage() {
     const viewOrderBtn = document.getElementById('thank-you-view-order-btn');
     if (viewOrderBtn && !viewOrderBtn._clickHandlerAttachedThankYouView) {
         viewOrderBtn.addEventListener('click', () => {
-            alert('"View Order" functionality is not yet implemented. Returning to homepage.');
+            alert('查看订单功能暂未实现，将返回首页');
             showNewHomepage();
         });
         viewOrderBtn._clickHandlerAttachedThankYouView = true;
@@ -220,9 +302,9 @@ function showThankYouPage() {
     emojis.forEach(emoji => {
         if (!emoji._emojiClickHandlerAttached) {
             emoji.addEventListener('click', function() {
-                emojis.forEach(em => em.classList.remove('selected-emoji'));
-                this.classList.add('selected-emoji');
-                console.log('Satisfaction rating:', this.dataset.rating);
+                emojis.forEach(em => em.classList.remove('selected'));
+                this.classList.add('selected');
+                console.log('用户满意度评分:', this.dataset.rating);
             });
             emoji._emojiClickHandlerAttached = true;
         }
@@ -424,9 +506,13 @@ function showCartPage() {
         }
     }
     
-    // 渲染购物车内容
+    // 渲染购物车内容 - 同时更新桌面端和移动端
     if (typeof renderCartPage === 'function') {
         renderCartPage();
+    }
+    
+    if (typeof renderMobileCartPage === 'function') {
+        renderMobileCartPage();
     }
     
     // 设置返回按钮事件监听
@@ -460,7 +546,12 @@ function showCartPage() {
     const checkoutBtn = document.getElementById('cart-checkout-btn');
     if (checkoutBtn && !checkoutBtn._clickHandlerAttached) {
         checkoutBtn.addEventListener('click', () => {
-            alert('结账功能暂未实现');
+            if (typeof showPaymentPage === 'function') {
+                showPaymentPage();
+            } else {
+                console.error('showPaymentPage function is not defined');
+                alert('结账功能暂未实现');
+            }
         });
         checkoutBtn._clickHandlerAttached = true;
     }
@@ -469,7 +560,12 @@ function showCartPage() {
     const mobileCheckoutBtn = document.getElementById('mobile-cart-checkout-btn');
     if (mobileCheckoutBtn && !mobileCheckoutBtn._clickHandlerAttached) {
         mobileCheckoutBtn.addEventListener('click', () => {
-            alert('结账功能暂未实现');
+            if (typeof showPaymentPage === 'function') {
+                showPaymentPage();
+            } else {
+                console.error('showPaymentPage function is not defined');
+                alert('结账功能暂未实现');
+            }
         });
         mobileCheckoutBtn._clickHandlerAttached = true;
     }
