@@ -1,0 +1,49 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" width="128" height="128" style="font-size: 128px;">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        mask: url(#mask);
+      }
+
+      .cls-5 {
+        fill: #333;
+        fill-rule: evenodd;
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect class="cls-2" width="256" height="256"></rect>
+    </clipPath>
+    <mask id="mask" x="18.37" y="-0.42" width="219.5" height="257.06" maskUnits="userSpaceOnUse">
+      <g id="mask0_12_44584" data-name="mask0 12 44584">
+        <g id="clipEmfPath1">
+          <path id="path2" class="cls-1" d="M18.37-.42h219.5V256.64H18.37Z"></path>
+        </g>
+      </g>
+    </mask>
+  </defs>
+  <g class="cls-3">
+    <g id="å_é_æ__10741056680.è_æ_" data-name="åé¢æ§_10741056680.è¹æ">
+      <g id="Group">
+        <g id="Group_2" data-name="Group 2">
+          <g id="Clip_path_group" data-name="Clip path group">
+            <g class="cls-4">
+              <path id="path8" class="cls-5" d="M82.6,60.58a60.87,60.87,0,0,1,28.48,6C129.83,74.83,143,70.12,143,70.12c4.8-2.31,19.53-6.69,19.53-6.69,44.2-12.94,67.21,23.16,67.21,23.16-33.46,17.25-28.39,54.9-28.39,54.9,5.38,36.91,35.89,46.6,35.89,46.6-23,53.34-48.43,64.81-48.43,64.81-14.88,7.43-30.06-1.6-30.06-1.6-2.07-1.56-10.68-4.2-10.68-4.2-26.1-6.6-42.3,4.86-42.3,4.86-16.9,8.8-30,.49-30,.49-32.64-15.34-50.88-74.56-50.88-74.56-13.92-47.71.54-76.78.54-76.78C39.85,70.69,65.14,64,65.14,64A54.9,54.9,0,0,1,82.6,60.58ZM176.45,0c0,61.51-52.26,62.59-52.26,62.59C121,8.46,176.45,0,176.45,0Z"></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
