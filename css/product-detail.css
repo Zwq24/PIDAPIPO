@@ -146,19 +146,55 @@
 }
 
 .pdp-add-to-cart-btn {
-  background-color: #AEA19D; /* Figma 背景 */
-  color: #000000; /* Figma 文字颜色 */
+  background-color: #51393A; /* 深棕色，与整体网站风格一致 */
+  color: #FFFFFF; /* 白色文字 */
   font-family: 'Inter', sans-serif;
-  font-size: 28px; /* Figma 字体大小 */
+  font-size: 22px; /* 适当减小字体大小 */
+  font-weight: 600; /* 稍微加粗 */
   border: none;
-  border-radius: 25px; /* Figma 圆角 */
+  border-radius: 12px; /* 适当减小圆角 */
   padding: 15px 30px;
   cursor: pointer;
   flex-grow: 1; /* 占据剩余空间 */
   text-align: center;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease; /* 完整过渡效果 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* 添加阴影 */
+  position: relative;
+  overflow: hidden; /* 用于波纹效果 */
 }
 
 .pdp-add-to-cart-btn:hover {
-  background-color: #998f8c; /* 加深颜色 */
+  background-color: #694b4c; /* 稍微浅一点的棕色 */
+  transform: translateY(-3px); /* 悬停时上移 */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* 增强阴影 */
+}
+
+.pdp-add-to-cart-btn:active {
+  transform: translateY(1px); /* 点击时微微下移 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 减弱阴影 */
+  background-color: #3e2c2d; /* 点击时更深的颜色 */
+}
+
+/* 点击时添加波纹效果 */
+.pdp-add-to-cart-btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.8s;
+}
+
+.pdp-add-to-cart-btn:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
 } 

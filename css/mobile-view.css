@@ -811,16 +811,56 @@ body.mobile-menu-open #mobile-main-app-view {
   }
   
   .pdp-add-to-cart-btn {
-    background-color: #919191; /* 设计稿中的灰色按钮 */
+    background-color: #51393A; /* 深棕色，与整体网站风格一致 */
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 15px;
-    font-weight: 500;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     width: 60%;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pdp-add-to-cart-btn:hover {
+    background-color: #694b4c; /* 稍微浅一点的棕色 */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  }
+  
+  .pdp-add-to-cart-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    background-color: #3e2c2d; /* 按下时更深的颜色 */
+  }
+  
+  /* 点击时添加波纹效果 */
+  .pdp-add-to-cart-btn::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.8s;
+  }
+  
+  .pdp-add-to-cart-btn:active::after {
+    transform: scale(0, 0);
+    opacity: 0.3;
+    transition: 0s;
   }
 } 
 

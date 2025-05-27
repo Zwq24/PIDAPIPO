@@ -234,14 +234,11 @@ function setupProductDetailPageEventListeners(product) {
       const quantity = quantityVal ? parseInt(quantityVal.textContent) : 1;
       
       if (typeof addToCart === 'function') {
-        if (addToCart(product.id, quantity)) {
-          // Success message when added to cart
-          alert(`Added ${product.name} to your cart!`);
-        }
+        // 添加到购物车，不再显示弹窗
+        addToCart(product.id, quantity);
       } else {
         // fallback
         console.error('addToCart function is not defined');
-        alert(`Added ${product.name} to your cart!`);
       }
     });
   }

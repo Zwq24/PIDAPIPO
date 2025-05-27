@@ -394,10 +394,8 @@ function initCart() {
       const quantityInput = document.getElementById('pdp-quantity-value');
       const quantity = quantityInput ? parseInt(quantityInput.textContent) : 1;
       
-      if (addToCart(productId, quantity)) {
-        // 显示添加成功提示
-        alert(`已将 ${productsData.find(p => p.id === productId).name} 添加到购物车！`);
-      }
+      // 添加到购物车，不再显示弹窗提示
+      addToCart(productId, quantity);
     });
   });
   
