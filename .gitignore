@@ -1,3 +1,4 @@
 /要求
 *.zip
 ./.cursorrules
+./translate.py
