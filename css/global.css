@@ -1,42 +1,42 @@
-/* 全局基础样式 */
+/* Global Base Styles */
 body {
   margin: 0;
   padding: 0;
-  background: #EAE4DD; /* 主背景色 */
-  font-family: 'Poppins', 'Abhaya Libre', Arial, sans-serif; /* 主字体 */
-  color: #000; /* 主文字色 */
+  background: #EAE4DD; /* Main background color */
+  font-family: 'Poppins', 'Abhaya Libre', Arial, sans-serif; /* Main font */
+  color: #000; /* Main text color */
 }
 
-/* 页面主要内容包裹器 */
+/* Page Main Content Wrapper */
 .page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  transition: filter 0.3s ease-in-out; /* 为背景模糊添加过渡 */
-  scroll-behavior: smooth; /* 平滑滚动 */
+  transition: filter 0.3s ease-in-out; /* Transition for background blur */
+  scroll-behavior: smooth; /* Smooth scrolling */
 }
 .page-wrapper.search-active {
-  filter: blur(5px); /* 当搜索激活时，背景内容模糊 */
+  filter: blur(5px); /* Blur background content when search is active */
 }
 
-/* 新增：通用站点Logo图片样式 */
+/* New: Common Site Logo Image Style */
 .site-logo {
-    height: 40px; /* 默认Logo高度 */
+    height: 40px; /* Default Logo height */
     width: auto;
     object-fit: contain;
-    vertical-align: middle; /* 帮助垂直对齐 */
+    vertical-align: middle; /* Help with vertical alignment */
 }
 
-/* 新增：通用返回按钮图片样式 */
+/* New: Common Back Button Image Style */
 .common-back-button-img {
     width: 24px;
     height: 24px;
     object-fit: contain;
     cursor: pointer;
-    vertical-align: middle; /* 帮助对齐 */
+    vertical-align: middle; /* Help with alignment */
 }
 
-/* 新增：隐藏页面的通用类，强制保证元素不可见 */
+/* New: Common Class for Hidden Pages, Ensures Element is Not Visible */
 .hidden-page {
     display: none !important;
     visibility: hidden !important;
@@ -50,63 +50,63 @@ body {
     z-index: -1 !important;
 }
 
-/* ---------- 新增媒体查询 ---------- */
+/* ---------- New Media Queries ---------- */
 
-/* 移动设备样式 (例如：屏幕宽度 <= 768px) */
+/* Mobile Device Styles (e.g., screen width <= 768px) */
 @media (max-width: 768px) {
-  body, .page-wrapper { /* 新增：强制移除body和page-wrapper在移动端的顶部空白 */
+  body, .page-wrapper { /* New: Force remove body and page-wrapper top whitespace on mobile */
     padding-top: 0 !important;
     margin-top: 0 !important;
   }
 
-  .navbar { /* 隐藏桌面导航栏 */
-    display: none !important; /* 使用 !important确保覆盖其他样式 */
+  .navbar { /* Hide desktop navigation bar */
+    display: none !important; /* Use !important to override other styles */
   }
 
-  #new-homepage-content { /* 隐藏桌面版主页内容 */
+  #new-homepage-content { /* Hide desktop main page content */
     display: none !important;
   }
 
-  #mobile-main-app-view { /* 显示手机版主应用视图 */
-    display: flex !important; /* 使用 flex 因为其内部是 flex 布局 */
+  #mobile-main-app-view { /* Show mobile main app view */
+    display: flex !important; /* Use flex because its internal is flex layout */
   }
 
-  /* 如果搜索浮层在移动端不需要，也可以在这里隐藏它 */
+  /* If search overlay is not needed on mobile, it can be hidden here */
   /* #search-overlay {
     display: none !important;
   } */
 
-  /* 其他所有特定于"页面"的容器在移动端初始时也应该隐藏，除非它们是移动视图的一部分 */
-  /* 例如，如果产品详情页等不是立即在移动首页上展示的 */
+  /* All other specific to "page" containers should be hidden on mobile unless they are part of mobile view */
+  /* For example, if product details page etc are not immediately shown on mobile homepage */
   #product-detail-page,
   #about-page-content,
   #cakes-page-content,
   #wishlist-page-content,
   #payment-page-content,
   #thank-you-page-content {
-    /* 确保这些在移动视图优先时不会意外显示 */
-    /* display: none; */ /* 这个可能需要JS来控制哪个页面显示 */
+    /* Ensure these are not accidentally displayed in mobile view when mobile view is priority */
+    /* display: none; */ /* This may need JS to control which page to display */
   }
 }
 
-/* 平板和桌面设备样式 (例如：屏幕宽度 > 768px) */
+/* Tablet and Desktop Device Styles (e.g., screen width > 768px) */
 @media (min-width: 769px) {
-  #mobile-main-app-view { /* 隐藏手机版主应用视图 */
+  #mobile-main-app-view { /* Hide mobile main app view */
     display: none !important;
   }
 
-  /* 确保桌面元素是可见的 (如果它们之前被全局隐藏了) */
+  /* Ensure desktop elements are visible (if they were previously globally hidden) */
   .navbar {
-    display: flex !important; /* 或者 table, block 等，取决于原始的 display 类型 */
+    display: flex !important; /* Or table, block etc, depending on original display type */
   }
 
   #new-homepage-content {
-    display: block !important; /* 或者其他原始 display 类型 */
+    display: block !important; /* Or other original display type */
   }
 }
 
-/* 你可能还需要为 #search-overlay 添加特定的显示/隐藏逻辑，
-   因为它可能在桌面和移动端都有，但触发方式和样式不同。
-   目前，#search-overlay 本身有自己的关闭按钮和通过JS控制的显示逻辑，
-   这里的媒体查询主要是为了确保主页面布局的切换。
+/* You may also need to add specific display/hide logic for #search-overlay,
+    because it may be present in both desktop and mobile but trigger and style differently.
+    Currently, #search-overlay has its own close button and display logic controlled by JS,
+    these media queries are mainly for ensuring main page layout switch.
 */ 

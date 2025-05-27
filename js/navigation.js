@@ -1,26 +1,26 @@
 // js/navigation.js
-// 处理导航相关的逻辑 (如About页切换，Logo点击返回主页等)
+// Handle navigation-related logic (such as About page switching, Logo click to return to homepage, etc.)
 
-// 记录导航到PDP或Wishlist之前的页面，方便返回
-let previousPage = 'newHomepage'; // 默认为新主页
+// Record the page before navigating to PDP or Wishlist, for easy return
+let previousPage = 'newHomepage'; // Default to new homepage
 const VALID_PAGE_IDS = ['newHomepage', 'about', 'cakes', 'productDetail', 'wishlist', 'payment', 'thankYou', 'mobileHome', 'mobileCakes', 'mobileAbout', 'cart', 'mobileCart'];
 
-// --- 页面状态管理与导航 --- // 
+// --- Page State Management and Navigation --- //
 function setActivePage(pageId) {
-    // 在切换到新页面之前，记录当前显示的页面ID
+    // Record the current page ID before switching to new page
     const currentPage = document.body.dataset.currentPage || 'newHomepage'; 
     if (VALID_PAGE_IDS.includes(currentPage) && currentPage !== pageId) {
         previousPage = currentPage;
         console.log("Previous page was:", previousPage);
     }
     if (VALID_PAGE_IDS.includes(pageId)) {
-        document.body.dataset.currentPage = pageId; // 使用body的dataset存储当前页面
+        document.body.dataset.currentPage = pageId; // Store current page in body dataset
         console.log("Active page set to:", pageId);
     }
 }
 
 function hideAllPages() {
-    // Desktop Pages - 使用较强的隐藏方式
+    // Desktop Pages - Use stronger hiding method
     const pages = [
         'new-homepage-content',
         'about-page-content',
@@ -32,12 +32,12 @@ function hideAllPages() {
         'cart-page-content'
     ];
     
-    // 强制隐藏所有页面
+    // Force hide all pages
     pages.forEach(pageId => {
         const element = document.getElementById(pageId);
         if (element) {
             element.style.display = 'none';
-            // 添加隐藏类以确保彻底隐藏
+            // Add hidden class to ensure complete hiding
             element.classList.add('hidden-page');
         }
     });
@@ -65,33 +65,33 @@ function hideAllPages() {
         mobileCartPageContent.style.display = 'none';
     }
 
-    // 确保关闭侧边菜单
+    // Ensure close side menu
     const mobileSideMenu = document.getElementById('mobile-side-menu');
     if (mobileSideMenu && mobileSideMenu.classList.contains('open')) {
         mobileSideMenu.classList.remove('open');
     }
 
     const pageWrapper = document.querySelector('.page-wrapper');
-    if (pageWrapper) pageWrapper.style.display = 'flex'; // 通常 pageWrapper 保持 flex
-    document.body.style.overflow = ''; // 恢复默认滚动
+    if (pageWrapper) pageWrapper.style.display = 'flex'; // Usually keep pageWrapper flex
+    document.body.style.overflow = ''; // Restore default scrolling
     document.body.classList.remove('product-detail-active', 'mobile-menu-open'); // Remove any global state classes
 }
 
 function showNewHomepage() {
-  // 检测设备类型
+  // Detect device type
   if (window.innerWidth <= 768) {
-    // 移动设备，显示移动端首页
+    // Mobile device, show mobile homepage
     showMobileHomePage();
     return;
   }
 
-  // 桌面设备，显示桌面端首页
+  // Desktop device, show desktop homepage
   hideAllPages();
   const homepageElement = document.getElementById('new-homepage-content');
   if (homepageElement) {
     homepageElement.style.display = 'block';
     homepageElement.classList.remove('hidden-page');
-    console.log("显示桌面端主页");
+    console.log("Showing desktop homepage");
   }
   setActivePage('newHomepage');
   window.scrollTo(0, 0);
@@ -103,7 +103,7 @@ function showAboutPage() {
   if (aboutElement) {
     aboutElement.style.display = 'block';
     aboutElement.classList.remove('hidden-page');
-    console.log("显示About页面");
+    console.log("Showing About page");
   }
   setActivePage('about');
   if (typeof initializeAboutPageSlider === 'function') initializeAboutPageSlider();
@@ -116,7 +116,7 @@ function showCakesPage() {
   if (cakesElement) {
     cakesElement.style.display = 'block';
     cakesElement.classList.remove('hidden-page');
-    console.log("显示Cakes页面");
+    console.log("Showing Cakes page");
   }
   setActivePage('cakes');
   const cakesBackBtn = document.getElementById('cakes-back-btn');
@@ -138,17 +138,17 @@ function showWishlistPage() {
 
 function showPaymentPage() {
     hideAllPages();
-    const paymentPageElement = document.getElementById('payment-page-content'); // 获取元素
+    const paymentPageElement = document.getElementById('payment-page-content');
     if (paymentPageElement) {
         paymentPageElement.style.display = 'flex'; 
-        paymentPageElement.classList.remove('hidden-page'); // 移除 hidden-page 类
+        paymentPageElement.classList.remove('hidden-page');
     } else {
         console.error('Payment page element not found!');
-        return; // 如果元素未找到，则提前返回
+        return;
     }
     setActivePage('payment');
     
-    // 根据购物车总额更新支付页面金额
+    // Update payment page amounts based on cart total
     if (typeof calculateCartTotal === 'function') {
         const totals = calculateCartTotal();
         const subtotalEl = document.getElementById('payment-subtotal');
@@ -156,14 +156,14 @@ function showPaymentPage() {
         if (subtotalEl) subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
         if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`;
     } else if (typeof calculateWishlistTotals === 'function') {
-        // 兼容从心愿单进入支付页面的情况
+        // Compatible with entering payment page from wishlist
         const totals = calculateWishlistTotals(); 
         const subtotalEl = document.getElementById('payment-subtotal');
         const totalEl = document.getElementById('payment-total');
         if (subtotalEl) subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
         if (totalEl) totalEl.textContent = `$${totals.total.toFixed(2)}`;
     } else {
-        console.error('购物车或心愿单计算函数未定义');
+        console.error('Cart or wishlist calculation function not defined');
     }
 
     const paymentBackBtn = document.getElementById('payment-back-btn');
@@ -171,21 +171,21 @@ function showPaymentPage() {
         const newPaymentBackHandler = (e) => { 
             e.preventDefault();
             
-            // 根据前一页面返回
+            // Return based on previous page
             const currentPage = document.body.dataset.currentPage || 'payment';
             if (currentPage === 'mobileCart') {
-                showCartPage(); // 从移动端购物车进入的，返回移动端购物车
+                showCartPage(); // Return to mobile cart if entered from mobile cart
             } else if (currentPage === 'cart') {
-                showCartPage(); // 从桌面端购物车进入的，返回桌面端购物车
+                showCartPage(); // Return to desktop cart if entered from desktop cart
             } else {
-                showCartPage(); // 始终返回购物车页面，不再返回心愿单
+                showCartPage(); // Always return to cart page, no longer return to wishlist
             }
         };
         paymentBackBtn.addEventListener('click', newPaymentBackHandler);
         paymentBackBtn._clickHandlerAttached = true;
     }
 
-    // 设置Edit按钮点击事件
+    // Set Edit button click event
     const editCardBtn = document.querySelector('.edit-card-btn');
     if (editCardBtn && !editCardBtn._clickHandlerAttached) {
         editCardBtn.addEventListener('click', function() {
@@ -198,25 +198,25 @@ function showPaymentPage() {
         editCardBtn._clickHandlerAttached = true;
     }
     
-    // 设置下单按钮逻辑
+    // Set place order button logic
     const placeOrderBtn = document.getElementById('place-order-btn');
     if (placeOrderBtn && !placeOrderBtn._clickHandlerAttached) {
         placeOrderBtn.addEventListener('click', function(e) {
             const creditCardOption = document.querySelector('.payment-option[data-method="creditcard"]');
             const creditCardForm = document.querySelector('.credit-card-form');
 
-            // 检查是否选择了信用卡支付，并且表单处于激活（编辑）状态
+            // Check if credit card payment is selected and form is in edit mode
             if (creditCardOption && creditCardOption.classList.contains('selected') && 
                 creditCardForm && creditCardForm.classList.contains('active')) {
-                // 如果表单无效，则阻止默认行为并返回，停留在支付页面
+                // If form is invalid, prevent default and stay on payment page
                 if (!isCreditCardFormValid()) {
-                    e.preventDefault(); // 阻止任何可能的后续跳转或提交
-                    return; // 停留在当前页面让用户修改
+                    e.preventDefault(); // Prevent any potential redirects or submissions
+                    return; // Stay on current page for user to modify
                 }
             }
             
-            // 如果是Apple Pay或其他非信用卡支付，或信用卡验证通过（或未使用表单），则继续支付流程
-            // 清空购物车
+            // If using Apple Pay or other non-credit card payment, or credit card validation passed (or form not used), proceed with payment
+            // Clear cart
             if (typeof cartItems !== 'undefined') {
                 cartItems = [];
                 if (typeof saveCartToLocalStorage === 'function') {
@@ -227,40 +227,40 @@ function showPaymentPage() {
                 }
             }
             
-            // 清空心愿单（兼容从心愿单进入的情况）
+            // Clear wishlist (compatible with entering from wishlist)
             if (typeof wishlistItems !== 'undefined') { 
                 wishlistItems = []; 
             }
             if (typeof renderWishlistPage === 'function') renderWishlistPage(); 
             if (typeof updateAllWishlistIcons === 'function') updateAllWishlistIcons(); 
             
-            // 跳转到感谢页面
+            // Navigate to thank you page
             showThankYouPage();
         });
         placeOrderBtn._clickHandlerAttached = true;
     }
     
-    // 设置支付方式选择事件监听
+    // Set payment option selection event listener
     const paymentOptions = document.querySelectorAll('#payment-page-content .payment-option');
     paymentOptions.forEach(option => {
         if (!option._paymentOptionClickHandlerAttached) {
             option.addEventListener('click', function() {
-                // 移除所有选择
+                // Remove all selections
                 paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                // 添加当前选择
+                // Add current selection
                 this.classList.add('selected');
                 
-                // 处理信用卡表单显示/隐藏
+                // Handle credit card form display/hide
                 const creditCardForm = document.querySelector('.credit-card-form');
                 const editCardBtn = document.querySelector('.edit-card-btn');
                 
                 if (creditCardForm) {
-                    // 如果选择了非信用卡方式，隐藏表单和编辑按钮
+                    // If non-credit card payment is selected, hide form and edit button
                     if (this.dataset.method !== 'creditcard') {
                         creditCardForm.classList.remove('active');
                         if (editCardBtn) editCardBtn.style.display = 'none';
                     } else {
-                        // 如果选择了信用卡，显示编辑按钮
+                        // If credit card is selected, show edit button
                         if (editCardBtn) editCardBtn.style.display = 'inline-block';
                     }
                 }
@@ -269,7 +269,7 @@ function showPaymentPage() {
         }
     });
     
-    // 设置信用卡表单验证
+    // Set credit card form validation
     setupCreditCardFormValidation();
 
     window.scrollTo(0, 0);
@@ -286,34 +286,34 @@ function showThankYouPage() {
     setActivePage('thankYou');
     document.body.style.overflow = 'auto';
 
-    // 更新主要笑脸图标为图片
+    // Update main smiley icon to image
     const mainSuccessIcon = document.querySelector('.main-success-icon');
     if (mainSuccessIcon) {
-        // 检查是否已经包含图片
+        // Check if already contains image
         if (!mainSuccessIcon.querySelector('img')) {
-            mainSuccessIcon.innerHTML = ''; // 清除文本内容
+            mainSuccessIcon.innerHTML = ''; // Clear text content
             const img = document.createElement('img');
-            img.src = 'mobile_images/image 28.png'; // 使用最满意的表情
-            img.alt = '笑脸';
+            img.src = 'mobile_images/image 28.png'; // Use most satisfied emoji
+            img.alt = 'Smiley Face';
             mainSuccessIcon.appendChild(img);
         }
     }
 
-    // 更新表情选项
+    // Update emoji options
     const emojisContainer = document.querySelector('.satisfaction-emojis');
     if (emojisContainer) {
-        // 检查是否已经包含图片
+        // Check if already contains images
         if (!emojisContainer.querySelector('img')) {
-            // 清空现有内容
+            // Clear existing content
             emojisContainer.innerHTML = '';
             
-            // 创建5个表情图片
+            // Create 5 emoji images
             const emojiImages = [
-                { src: 'mobile_images/image 28.png', rating: 5, alt: '非常满意' },
-                { src: 'mobile_images/image 29.png', rating: 4, alt: '满意' },
-                { src: 'mobile_images/image 30.png', rating: 3, alt: '一般' },
-                { src: 'mobile_images/image 31.png', rating: 2, alt: '不满意' },
-                { src: 'mobile_images/image 32.png', rating: 1, alt: '非常不满意' }
+                { src: 'mobile_images/image 28.png', rating: 5, alt: 'Very Satisfied' },
+                { src: 'mobile_images/image 29.png', rating: 4, alt: 'Satisfied' },
+                { src: 'mobile_images/image 30.png', rating: 3, alt: 'Neutral' },
+                { src: 'mobile_images/image 31.png', rating: 2, alt: 'Dissatisfied' },
+                { src: 'mobile_images/image 32.png', rating: 1, alt: 'Very Dissatisfied' }
             ];
             
             emojiImages.forEach(emoji => {
@@ -355,7 +355,7 @@ function showThankYouPage() {
     const viewOrderBtn = document.getElementById('thank-you-view-order-btn');
     if (viewOrderBtn && !viewOrderBtn._clickHandlerAttachedThankYouView) {
         viewOrderBtn.addEventListener('click', () => {
-            alert('查看订单功能暂未实现，将返回首页');
+            alert('View order function not yet implemented, returning to homepage');
             showNewHomepage();
         });
         viewOrderBtn._clickHandlerAttachedThankYouView = true;
@@ -367,7 +367,7 @@ function showThankYouPage() {
             emoji.addEventListener('click', function() {
                 emojis.forEach(em => em.classList.remove('selected'));
                 this.classList.add('selected');
-                console.log('用户满意度评分:', this.dataset.rating);
+                console.log('User satisfaction rating:', this.dataset.rating);
             });
             emoji._emojiClickHandlerAttached = true;
         }
@@ -424,19 +424,18 @@ function goBackToPreviousPageOrHomepage() {
         case 'cakes': showCakesPage(); break;
         case 'wishlist': showWishlistPage(); break;
         case 'productDetail': 
-             showNewHomepage(); 
+             // if coming from mobile cakes, go back to mobile cakes
+            if (previousPage === 'mobileCakes') {
+                showMobileCakesPage();
+            } else {
+                showNewHomepage(); 
+            }
              break;
         case 'payment': showPaymentPage(); break;
         case 'thankYou': showNewHomepage(); break;
         case 'mobileHome': showMobileHomePage(); break;
         case 'mobileCakes': 
-            const mobileCakesPage = document.getElementById('mobile-cakes-page-content');
-            if (mobileCakesPage) {
-                hideAllPages();
-                mobileCakesPage.style.display = 'flex';
-            } else {
-                showMobileHomePage();
-            }
+            showMobileCakesPage(); // Use the new function
             break;
         case 'mobileAbout': showMobileAboutPage(); break;
         case 'cart': showCartPage(); break;
@@ -498,16 +497,16 @@ function setupNavigationListeners() {
   }
 }
 
-// 新增：显示移动端About页面的函数
+// Add: Show mobile About page function
 function showMobileAboutPage() {
-    console.log('=== 显示移动端About页面 (滑动版) ===');
+    console.log('=== Showing mobile About page (slide version) ===');
     
     hideAllPages();
     
     const oldAboutPage = document.getElementById('emergency-about-page');
     if (oldAboutPage) {
         document.body.removeChild(oldAboutPage);
-        console.log('移除旧的独立About页面');
+        console.log('Removed old standalone About page');
     }
     
     const images = [
@@ -516,7 +515,7 @@ function showMobileAboutPage() {
         'mobile_images/Rectangle 114 (1).jpg',
         'mobile_images/Rectangle 114 (2).jpg'
     ];
-    let currentImageIndex = 3; // 默认显示第4张图片
+    let currentImageIndex = 3; // Default show 4th image
     
     const emergencyAboutPage = document.createElement('div');
     emergencyAboutPage.id = 'emergency-about-page';
@@ -530,20 +529,20 @@ function showMobileAboutPage() {
     `;
     emergencyAboutPage.style.cssText = pageStyle;
 
-    // --- 头部 --- (保持不变)
+    // --- Header --- (keep unchanged)
     const headerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #EAE4DD; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <button id="emergency-back-btn" style="width: 30px; height: 30px; background: none; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回" style="width: 100%; height: 100%;">
+                <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" style="width: 100%; height: 100%;">
             </button>
             <h1 style="margin: 0; font-size: 22px; color: #000; font-family: 'Playfair Display SC', serif;">ABOUT</h1>
             <div style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
-                <img src="mobile_images/location.svg" alt="位置" style="width: 24px; height: 24px;">
+                <img src="mobile_images/location.svg" alt="Location" style="width: 24px; height: 24px;">
             </div>
         </div>
     `;
 
-    // --- 图片轮播区域 (重构以支持滑动) ---
+    // --- Image Carousel Area (restructured to support sliding) ---
     let imageStripHTML = '';
     images.forEach(src => {
         imageStripHTML += `
@@ -595,14 +594,14 @@ function showMobileAboutPage() {
         </div>
     `;
 
-    // --- 分页按钮 --- (保持不变)
+    // --- Pagination Buttons --- (keep unchanged)
     const paginationHTML = `
         <div style="display: flex; justify-content: center; gap: 10px; margin: 10px 0; padding: 5px 0;">
             ${images.map((_, index) => `<button id="page-btn-${index}" class="about-page-btn" data-index="${index}" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: ${index === currentImageIndex ? '#000' : 'none'}; color: ${index === currentImageIndex ? '#fff' : '#000'}; padding: 0; cursor: pointer;">${index + 1}</button>`).join('')}
         </div>
     `;
 
-    // --- 主要内容和页脚区域 --- (保持不变)
+    // --- Main Content and Footer Area --- (keep unchanged)
     const contentHTML = `
         <div style="padding: 15px; background-color: #EAE4DD; flex: 1;">
             <h2 style="text-align: center; margin-bottom: 10px; color: #000; font-family: 'Playfair Display SC', serif; font-size: 20px;">PIDAPIPO EASTER 2025</h2>
@@ -623,7 +622,7 @@ function showMobileAboutPage() {
 
     emergencyAboutPage.innerHTML = headerHTML + imageSliderHTML + paginationHTML + contentHTML + footerHTML;
     document.body.appendChild(emergencyAboutPage);
-    console.log('✅ 独立About页面(滑动版)创建成功');
+    console.log('✅ Standalone About page (slide version) created successfully');
 
     const backBtn = document.getElementById('emergency-back-btn');
     if (backBtn) {
@@ -636,7 +635,7 @@ function showMobileAboutPage() {
     const imageStrip = document.getElementById('image-strip');
     const pageButtons = document.querySelectorAll('.about-page-btn');
 
-    // 初始化第一张图片的位置
+    // Initialize first image position
     if (imageStrip) {
         imageStrip.style.transform = `translateX(-${currentImageIndex * 100}%)`;
     }
@@ -656,11 +655,11 @@ function showMobileAboutPage() {
                 btn.style.background = btnIndex === currentImageIndex ? '#000' : 'none';
                 btn.style.color = btnIndex === currentImageIndex ? '#fff' : '#000';
             });
-            console.log(`切换到图片 ${currentImageIndex + 1}`);
+            console.log(`Switched to image ${currentImageIndex + 1}`);
         });
     });
     
-    // 强制确保图片容器和图片可见性
+    // Force ensure image container and image visibility
     setTimeout(() => {
         const viewport = document.getElementById('image-slider-viewport');
         const strip = document.getElementById('image-strip');
@@ -671,14 +670,14 @@ function showMobileAboutPage() {
             viewport.style.visibility = 'visible';
             viewport.style.opacity = '1';
             viewport.style.minHeight = '180px';
-            console.log('强制显示轮播容器');
+            console.log('Force show carousel container');
         }
         
         if (strip) {
             strip.style.display = 'flex';
             strip.style.visibility = 'visible';
             strip.style.opacity = '1';
-            console.log('强制显示图片条');
+            console.log('Force show image strip');
         }
         
         allImages.forEach((img, index) => {
@@ -688,46 +687,46 @@ function showMobileAboutPage() {
             img.style.minWidth = '50px';
             img.style.minHeight = '50px';
             
-            // 添加图片加载监听
+            // Add image load listener
             img.onload = function() {
-                console.log(`图片 ${index + 1} 加载成功`);
+                console.log(`Image ${index + 1} loaded successfully`);
                 this.style.display = 'block';
                 this.style.visibility = 'visible';
             };
             
             img.onerror = function() {
-                console.log(`图片 ${index + 1} 加载失败，使用备用图片`);
+                console.log(`Image ${index + 1} failed to load, using fallback image`);
                 this.src = 'mobile_images/image (22).png';
             };
         });
         
-        console.log('强制显示所有图片元素');
+        console.log('Force show all image elements');
     }, 100);
     
     setActivePage('mobileAbout');
-    console.log('=== 独立About页面(滑动版)显示完成 ===');
+    console.log('=== Standalone About page (slide version) display complete ===');
 }
 
-// 显示移动端主页的函数
+// Show mobile homepage function
 function showMobileHomePage() {
     hideAllPages();
     const mobileMainAppView = document.getElementById('mobile-main-app-view');
     if (mobileMainAppView) {
         mobileMainAppView.style.display = 'flex';
-        mobileMainAppView.classList.remove('hidden-page'); // 确保移除hidden-page类
-        // 显示主页的所有部分
+        mobileMainAppView.classList.remove('hidden-page'); // Ensure hidden-page class is removed
+        // Show all sections of homepage
         const sections = mobileMainAppView.querySelectorAll(':scope > section');
         sections.forEach(sec => sec.classList.remove('hidden'));
-        console.log("显示移动端主页");
+        console.log("Showing mobile homepage");
         
-        // 确保底部导航栏显示
+        // Ensure bottom navigation bar is visible
         const mobileBottomNav = document.querySelector('.mobile-bottom-nav');
         if (mobileBottomNav) {
             mobileBottomNav.style.display = 'flex';
         }
     } else {
-        console.error("移动端主页元素不存在");
-        // 如果移动端主页不存在，回退到桌面端主页
+        console.error("Mobile homepage element does not exist");
+        // Fallback to desktop homepage if mobile homepage doesn't exist
         showNewHomepage();
         return;
     }
@@ -735,31 +734,31 @@ function showMobileHomePage() {
     window.scrollTo(0, 0);
 }
 
-// 显示购物车页面
+// Show cart page
 function showCartPage() {
     hideAllPages();
     
-    // 检测设备类型
+    // Detect device type
     if (window.innerWidth <= 768) {
-        // 移动端
+        // Mobile
         const mobileCartPage = document.getElementById('mobile-cart-page-content');
         if (mobileCartPage) {
             mobileCartPage.style.display = 'flex';
-            console.log("显示移动端购物车页面");
+            console.log("Showing mobile cart page");
             setActivePage('mobileCart');
         }
     } else {
-        // 桌面端
+        // Desktop
         const cartPage = document.getElementById('cart-page-content');
         if (cartPage) {
             cartPage.style.display = 'block';
             cartPage.classList.remove('hidden-page');
-            console.log("显示桌面端购物车页面");
+            console.log("Showing desktop cart page");
             setActivePage('cart');
         }
     }
     
-    // 渲染购物车内容 - 同时更新桌面端和移动端
+    // Render cart content - update both desktop and mobile
     if (typeof renderCartPage === 'function') {
         renderCartPage();
     }
@@ -768,7 +767,7 @@ function showCartPage() {
         renderMobileCartPage();
     }
     
-    // 设置返回按钮事件监听
+    // Set back button event listener
     const cartBackBtn = document.getElementById('cart-back-btn');
     if (cartBackBtn && !cartBackBtn._clickHandlerAttached) {
         cartBackBtn.addEventListener('click', () => {
@@ -777,17 +776,17 @@ function showCartPage() {
         cartBackBtn._clickHandlerAttached = true;
     }
     
-    // 设置移动端返回按钮事件监听
+    // Set mobile back button event listener
     const mobileCartBackBtn = document.querySelector('.mobile-cart-back-btn');
     if (mobileCartBackBtn && !mobileCartBackBtn._clickHandlerAttached) {
         mobileCartBackBtn.addEventListener('click', () => {
-            // 使用goBackToPreviousPageOrHomepage函数确定上一页
+            // Use goBackToPreviousPageOrHomepage function to determine previous page
             goBackToPreviousPageOrHomepage();
         });
         mobileCartBackBtn._clickHandlerAttached = true;
     }
     
-    // 设置继续购物按钮事件监听
+    // Set continue shopping button event listener
     const continueShoppingBtn = document.querySelector('.cart-continue-shopping-btn');
     if (continueShoppingBtn && !continueShoppingBtn._clickHandlerAttached) {
         continueShoppingBtn.addEventListener('click', () => {
@@ -796,7 +795,7 @@ function showCartPage() {
         continueShoppingBtn._clickHandlerAttached = true;
     }
     
-    // 设置结账按钮事件监听
+    // Set checkout button event listener
     const checkoutBtn = document.getElementById('cart-checkout-btn');
     if (checkoutBtn && !checkoutBtn._clickHandlerAttached) {
         checkoutBtn.addEventListener('click', () => {
@@ -804,13 +803,13 @@ function showCartPage() {
                 showPaymentPage();
             } else {
                 console.error('showPaymentPage function is not defined');
-                alert('结账功能暂未实现');
+                alert('Checkout function not yet implemented');
             }
         });
         checkoutBtn._clickHandlerAttached = true;
     }
     
-    // 设置移动端结账按钮事件监听
+    // Set mobile checkout button event listener
     const mobileCheckoutBtn = document.getElementById('mobile-cart-checkout-btn');
     if (mobileCheckoutBtn && !mobileCheckoutBtn._clickHandlerAttached) {
         mobileCheckoutBtn.addEventListener('click', () => {
@@ -818,7 +817,7 @@ function showCartPage() {
                 showPaymentPage();
             } else {
                 console.error('showPaymentPage function is not defined');
-                alert('结账功能暂未实现');
+                alert('Checkout function not yet implemented');
             }
         });
         mobileCheckoutBtn._clickHandlerAttached = true;
@@ -827,7 +826,7 @@ function showCartPage() {
     window.scrollTo(0, 0);
 }
 
-// 新增：信用卡表单验证辅助函数
+// Helper function: Credit card form validation
 function isCreditCardFormValid() {
     const cardNumberInput = document.getElementById('card-number');
     const cardHolderInput = document.getElementById('card-holder');
@@ -857,14 +856,14 @@ function isCreditCardFormValid() {
         alert('Please enter a valid expiry date in MM/YY format.');
         return false;
     }
-    if (!cvv || cvv.length < 3) { // Assuming CVV is typically 3 digits
+    if (!cvv || cvv.length < 3) {
         alert('Please enter a valid 3-digit security code (CVV).');
         return false;
     }
     return true;
 }
 
-// 修改后的 setupCreditCardFormValidation 函数
+// Modified setupCreditCardFormValidation function
 function setupCreditCardFormValidation() {
     const cardNumberInput = document.getElementById('card-number');
     const cardHolderInput = document.getElementById('card-holder'); 
@@ -900,4 +899,61 @@ function setupCreditCardFormValidation() {
     cvvInput.addEventListener('input', function(e) {
         this.value = this.value.replace(/\D/g, '');
     });
+}
+
+// Add function to show mobile cakes page
+function showMobileCakesPage() {
+    hideAllPages();
+    const mobileCakesElement = document.getElementById('mobile-cakes-page-content');
+    if (mobileCakesElement) {
+        mobileCakesElement.style.display = 'flex'; // Use flex for column layout
+        mobileCakesElement.classList.remove('hidden-page');
+        console.log("Showing mobile Cakes page");
+
+        // Dynamically load cake items for mobile view
+        const cakesContainer = mobileCakesElement.querySelector('.mobile-cakes-grid-container');
+        if (cakesContainer) {
+            cakesContainer.innerHTML = ''; // Clear previous content
+            if (typeof productsData !== 'undefined' && Array.isArray(productsData)) {
+                const cakeProducts = productsData.filter(p => p.category === 'cake');
+
+                if (cakeProducts.length > 0) {
+                    cakeProducts.forEach(cake => {
+                        const cakeItemHTML = `
+                            <div class="mobile-cake-card js-view-product-detail" data-product-id="${cake.id}">
+                                <div class="mobile-cake-image-container">
+                                    <img src="${cake.image}" alt="${cake.name}" class="mobile-cake-image">
+                                </div>
+                                <div class="mobile-cake-info">
+                                    <h3 class="mobile-cake-name">${cake.name}</h3>
+                                    <p class="mobile-cake-price">${cake.price}</p>
+                                </div>
+                            </div>
+                        `;
+                        cakesContainer.innerHTML += cakeItemHTML;
+                    });
+                    // Re-setup product link listeners for newly added items
+                    if (typeof setupProductLinkListeners === 'function') {
+                        setupProductLinkListeners(); 
+                    }
+                } else {
+                    cakesContainer.innerHTML = '<p style="text-align: center; padding: 20px;">No cakes available at the moment.</p>';
+                }
+            } else {
+                cakesContainer.innerHTML = '<p style="text-align: center; padding: 20px;">Error loading cake data.</p>';
+            }
+        }
+    }
+    setActivePage('mobileCakes');
+    
+    const mobileCakesBackBtn = document.querySelector('#mobile-cakes-page-content .mobile-cakes-back-btn');
+    if (mobileCakesBackBtn && !mobileCakesBackBtn._clickHandlerAttached) {
+        const newMobileCakesBackHandler = (e) => { 
+            e.preventDefault(); 
+            showMobileHomePage(); // Or goBackToPreviousPageOrHomepage(); if more dynamic return is needed
+        };
+        mobileCakesBackBtn.addEventListener('click', newMobileCakesBackHandler);
+        mobileCakesBackBtn._clickHandlerAttached = true; 
+    }
+    window.scrollTo(0, 0);
 } 

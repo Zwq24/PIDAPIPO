@@ -21,16 +21,15 @@
 }
 
 .thank-you-back-arrow {
-    font-size: 28px; /* Make arrow larger - 此样式不再直接作用于箭头，因为箭头是图片 */
-    /* font-weight: bold; */ /* Arrow is not typically bold */
-    /* color: #000000; */ /* - 图片有自己的颜色 */
-    cursor: pointer; /* 这个可以保留给 span 容器 */
+    font-size: 28px; /* Make arrow larger - this style no longer directly affects the arrow since it's an image */
+    /* color: #000000; */ /* - image has its own color */
+    cursor: pointer; /* This can be kept for the span container */
     margin-right: auto; /* Pushes title to center if flex is used correctly */
-    display: inline-flex; /* 让 span 包裹图片并表现得像内联块 */
-    align-items: center; /* 垂直居中图片 */
+    display: inline-flex; /* Let span wrap the image and behave like an inline block */
+    align-items: center; /* Vertically center the image */
 }
 
-/* .thank-you-back-arrow img 或 .common-back-button-img 的样式已在 global.css 定义 */
+/* .thank-you-back-arrow img or .common-back-button-img styles are defined in global.css */
 
 .thank-you-confirmation-title {
     font-size: 16px; /* "Confirmation of purchase" text - smaller as per image */
@@ -150,7 +149,7 @@
     background-color: #d0c6c0; /* Slightly darker on hover */
 }
 
-/* 移动端样式优化 */
+/* Mobile Style Optimization */
 @media (max-width: 768px) {
     #thank-you-page-content {
         position: fixed !important;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,12 +21,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Poppins:wght@400;600&family=Abhaya+Libre:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- 产品详情页容器 -->
+  <!-- Product Detail Page Container -->
   <div id="product-detail-page" class="product-detail-page">
-    <!-- 内容将由JS动态填充 -->
+    <!-- Content will be dynamically populated by JS -->
   </div>
 
-  <!-- 新增：手机版侧边导航菜单 -->
+  <!-- Mobile Side Navigation Menu -->
   <div id="mobile-side-menu" class="mobile-side-menu">
     <button id="mobile-close-menu-btn" class="mobile-close-menu-btn">&times;</button>
     <ul>
@@ -39,27 +39,26 @@
     </ul>
   </div>
 
-  <!-- 搜索浮层 -->
+  <!-- Search Overlay -->
   <div id="search-overlay" class="search-overlay">
-    <!-- 浮层顶部 -->
+    <!-- Overlay Top Bar -->
     <div class="search-overlay-topbar">
       <div class="logo">
-        <!-- LOGO SVG 或图片 -->
+        <!-- LOGO SVG or Image -->
         <img src="images/pidapipo-logo.svg" alt="Pidapipo Logo" class="site-logo">
       </div>
       <div class="search-overlay-topbar-icons">
-        <!-- <span class="icon-heart">♥</span> -->
         <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="overlay-header">
         <img src="mobile_images/shopping_bag.svg" alt="Shopping Bag" class="icon-bag">
-        <span id="close-search-btn" class="icon-close-search">✖</span> <!-- 关闭按钮 -->
+        <span id="close-search-btn" class="icon-close-search">✖</span> <!-- Close Button -->
       </div>
     </div>
-    <!-- 搜索输入区域 -->
+    <!-- Search Input Area -->
     <div class="search-overlay-input-area">
-      <span class="search-overlay-icon-search"><img src="images/Magnifying_glass.svg" alt="搜索图标"></span>
+      <span class="search-overlay-icon-search"><img src="images/Magnifying_glass.svg" alt="Search Icon"></span>
       <input type="text" placeholder="What do you want?">
     </div>
-    <!-- 推荐搜索词 -->
+    <!-- Suggested Search Terms -->
     <div class="search-overlay-suggestions">
       <button>Cake</button>
       <button>Chocolate</button>
@@ -67,29 +66,29 @@
       <button>Shop</button>
     </div>
 
-    <!-- 搜索结果预览区 -->
+    <!-- Search Results Preview Area -->
     <div id="search-results-preview" class="search-results-preview">
-      <!-- 搜索词标题 -->
+      <!-- Search Term Title -->
       <h3 class="results-title">Cake</h3>
-      <!-- 结果列表 -->
+      <!-- Results List -->
       <ul class="results-list">
-        <!-- 单个结果项 - 更新为新产品 -->
+        <!-- Single Result Item - Updated for New Products -->
         <li class="result-item" data-product-id="milk-chocolate-hazelnut">
-          <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon"> <!-- 暂时用通用搜索图标替代产品图 -->
+          <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon"> <!-- Temporarily using generic search icon instead of product image -->
           <span class="result-item-name">Milk Chocolate & Hazelnut</span>
-          <!-- 根据Figma，这里可能还有价格或其他信息，暂时省略 -->
+          <!-- According to Figma, there might be price or other information here, temporarily omitted -->
         </li>
-        <!-- 单个结果项 - 示例2 -->
+        <!-- Single Result Item - Example 2 -->
         <li class="result-item">
           <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon">
           <span class="result-item-name">The Great Rocher cake</span>
         </li>
-        <!-- 单个结果项 - 示例3 -->
+        <!-- Single Result Item - Example 3 -->
         <li class="result-item" data-product-id="pb-brownie">
           <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon">
           <span class="result-item-name">Peanut Butter & Caramel Brownie</span>
         </li>
-        <!-- 单个结果项 - 示例4 -->
+        <!-- Single Result Item - Example 4 -->
         <li class="result-item" data-product-id="tiramisu-cake">
           <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon">
           <span class="result-item-name">Tiramisu' alla Pidapipó cake</span>
@@ -98,13 +97,13 @@
     </div>
   </div>
 
-  <!-- 页面主要内容包裹器 -->
+  <!-- Page Main Content Wrapper -->
   <div class="page-wrapper">
-    <!-- 顶部导航栏 -->
+    <!-- Top Navigation Bar -->
     <nav class="navbar">
-      <!-- LOGO区域 -->
+      <!-- Logo Area -->
       <div class="logo" id="logo-btn"><img src="images/pidapipo-logo.svg" alt="Pidapipo Logo" class="site-logo"></div>
-      <!-- 菜单栏 -->
+      <!-- Menu Bar -->
       <ul class="nav-menu">
         <li id="nav-link-shop">Shop</li>
         <li id="nav-link-Gelato">Gelato</li>
@@ -113,18 +112,17 @@
         <li id="nav-link-about">About</li>
         <li id="nav-link-lab">The lab</li>
       </ul>
-      <!-- 图标区：心形、购物袋、搜索 -->
+      <!-- Icon Area: Heart, Shopping Bag, Search -->
       <div class="nav-icons">
-        <!-- <span class="icon-heart">♥</span> -->
         <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="navbar">
         <img src="mobile_images/shopping_bag.svg" alt="Shopping Bag" class="icon-bag">
-        <span id="open-search-btn" class="icon-search"><img src="images/Magnifying_glass.svg" alt="打开搜索" class="icon-search-img"></span> <!-- Ensure class for img -->
+        <span id="open-search-btn" class="icon-search"><img src="images/Magnifying_glass.svg" alt="Open Search" class="icon-search-img"></span> <!-- Ensure class for img -->
       </div>
     </nav>
 
-    <!-- 新增：手机版主应用视图容器 -->
+    <!-- Mobile Main App View Container -->
     <div id="mobile-main-app-view" style="display: none;">
-      <!-- 手机版顶部栏 -->
+      <!-- Mobile Top Bar -->
       <header class="mobile-top-bar">
         <button class="mobile-menu-btn">
           <img src="mobile_images/menu.svg" alt="Menu">
@@ -137,7 +135,7 @@
         </button>
       </header>
 
-      <!-- 手机版英雄区域 -->
+      <!-- Mobile Hero Section -->
       <section class="mobile-hero-section">
         <img src="mobile_images/Rectangle 110.jpg" alt="Pidapipo Easter 2025" class="mobile-hero-image">
         <div class="mobile-hero-text-overlay">
@@ -146,14 +144,14 @@
         </div>
       </section>
 
-      <!-- 手机版搜索栏 -->
+      <!-- Mobile Search Bar -->
       <section class="mobile-search-bar-container">
         <div class="mobile-search-input-wrapper">
           <img src="mobile_images/Magnifying_glass.svg" alt="Search" class="mobile-search-icon">
           <input type="text" placeholder="Cake" class="mobile-search-input">
         </div>
         
-        <!-- 添加移动端搜索结果下拉菜单容器 - 默认隐藏，只在输入时显示 -->
+        <!-- Mobile Search Results Dropdown Container - Hidden by default, only shown on input -->
         <div class="mobile-search-results">
           <h3 class="mobile-results-title">Search Results</h3>
           <ul class="mobile-results-list">
@@ -178,7 +176,7 @@
         </div>
       </section>
 
-      <!-- 手机版分类 -->
+      <!-- Mobile Categories -->
       <section class="mobile-categories-section">
         <h2>Categories</h2>
         <div class="mobile-categories-grid">
@@ -201,7 +199,7 @@
         </div>
       </section>
 
-      <!-- 手机版热门产品 -->
+      <!-- Mobile Top Products -->
       <section class="mobile-top-products-section">
         <h2>Top Products</h2>
         <div class="mobile-top-products-grid">
@@ -232,7 +230,7 @@
         </div>
       </section>
 
-      <!-- 手机版底部导航栏 -->
+      <!-- Mobile Bottom Navigation Bar -->
       <nav class="mobile-bottom-nav">
         <a href="#" class="mobile-nav-item active">
           <img src="mobile_images/home.svg" alt="Home">
@@ -249,90 +247,9 @@
       </nav>
     </div>
 
-    <!-- 新增：手机版Cakes页面内容容器 -->
-    <div id="mobile-cakes-page-content" style="display: none;">
-      <!-- 手机版Cakes页面顶部栏 -->
-      <header class="mobile-cakes-page-top-bar">
-        <button class="mobile-cakes-back-btn">
-          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back">
-        </button>
-        <h1>CAKES</h1>
-        <button class="mobile-cakes-location-btn">
-          <img src="mobile_images/location.svg" alt="Location">
-        </button>
-      </header>
-
-      <div class="mobile-cakes-page-description">
-        <p>
-          Our latest range of Gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.
-        </p>
-      </div>
-
-      <main class="mobile-cakes-grid-container">
-        <div class="mobile-cake-item js-view-product-detail" data-product-id="tiramisu-cake">
-          <div class="mobile-cake-image-background">
-            <img src="mobile_images/image (21).png" alt="Tiramisu' alla Pidapipo">
-          </div>
-          <div class="mobile-cake-info">
-            <h3>Tiramisu' alla Pidapipo</h3>
-            <p class="price">$65</p>
-          </div>
-        </div>
-        <div class="mobile-cake-item js-view-product-detail" data-product-id="pb-brownie">
-          <div class="mobile-cake-image-background">
-            <img src="mobile_images/image (22).png" alt="Peanut Butter & Caramel Brownie">
-          </div>
-          <div class="mobile-cake-info">
-            <h3>Peanut Butter & Caramel Brownie</h3>
-            <p class="price">$78</p>
-          </div>
-        </div>
-        <div class="mobile-cake-item js-view-product-detail" data-product-id="matcha-strawberry">
-          <div class="mobile-cake-image-background">
-            <img src="mobile_images/image (23).png" alt="Matcha Strawberry">
-          </div>
-          <div class="mobile-cake-info">
-            <h3>Matcha Strawberry</h3>
-            <p class="price">$78</p>
-          </div>
-        </div>
-        <div class="mobile-cake-item js-view-product-detail" data-product-id="banoffee-pie">
-          <div class="mobile-cake-image-background">
-            <img src="mobile_images/image (24).png" alt="Banoffee Pie">
-          </div>
-          <div class="mobile-cake-info">
-            <h3>Banoffee Pie</h3>
-            <p class="price">$59</p>
-          </div>
-        </div>
-        <div class="mobile-cake-item js-view-product-detail" data-product-id="the-great-rocher">
-          <div class="mobile-cake-image-background">
-            <img src="mobile_images/image (25).png" alt="The Great Rocher">
-          </div>
-          <div class="mobile-cake-info">
-            <h3>The Great Rocher</h3>
-            <p class="price">$78</p>
-          </div>
-        </div>
-        <div class="mobile-cake-item js-view-product-detail" data-product-id="bombe-alaska">
-          <div class="mobile-cake-image-background">
-            <img src="mobile_images/image (26).png" alt="Bombe Alaska">
-          </div>
-          <div class="mobile-cake-info">
-            <h3>Bombe Alaska</h3>
-            <p class="price">$59</p>
-          </div>
-        </div>
-      </main>
-
-      <footer class="mobile-cakes-page-footer">
-        <p>PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
-      </footer>
-    </div>
-
-    <!-- 新增：移动版About页面内容容器 -->
+    <!-- Mobile About Page Content -->
     <div id="mobile-about-page-content" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 500; background-color: #EAE4DD; color: #000; overflow-y: auto; padding-bottom: 40px;">
-      <!-- 手机版About页面顶部栏 -->
+      <!-- Mobile About Page Top Bar -->
       <header class="mobile-about-page-top-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 15px; width: 100%; box-sizing: border-box; position: sticky; top: 0; z-index: 10; background-color: #EAE4DD;">
         <button class="mobile-about-back-btn" style="width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer;">
           <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" style="width: 100%; height: 100%;">
@@ -343,39 +260,41 @@
         </button>
       </header>
 
-      <!-- 静态图片展示 - 完全替换原有轮播 -->
+      <!-- Static Image Display - Completely Replace Original Carousel -->
       <div style="width: 100%; height: 180px; position: relative; margin: 15px 0; background-color: #f5f5f5; border: 2px solid #999; overflow: hidden;">
         <img src="mobile_images/image (22).png" alt="Easter Egg" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        <div style="position: absolute; top: 10px; left: 10px; background-color: yellow; color: black; padding: 5px; font-size: 12px; z-index: 100;">测试图片显示</div>
+        <div style="position: absolute; top: 10px; left: 10px; background-color: yellow; color: black; padding: 5px; font-size: 12px; z-index: 100;">Test Image Display</div>
       </div>
 
-      <!-- 分页按钮 - 简化结构 -->
-      <div style="display: flex; justify-content: center; gap: 10px; margin: 10px 0;">
-        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: none; padding: 0; cursor: pointer;">1</button>
-        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: none; padding: 0; cursor: pointer;">2</button>
-        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: none; padding: 0; cursor: pointer;">3</button>
-        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: #000; color: #fff; padding: 0; cursor: pointer;">4</button>
+      <!-- Pagination Buttons - Simplified Structure -->
+      <div class="mobile-pagination" style="display: flex; justify-content: center; gap: 10px; margin: 15px 0;">
+        <button class="page-btn" data-page="1" style="width: 10px; height: 10px; border-radius: 50%; border: none; background-color: #D5CCC6; cursor: pointer;"></button>
+        <button class="page-btn" data-page="2" style="width: 10px; height: 10px; border-radius: 50%; border: none; background-color: #D5CCC6; cursor: pointer;"></button>
+        <button class="page-btn" data-page="3" style="width: 10px; height: 10px; border-radius: 50%; border: none; background-color: #D5CCC6; cursor: pointer;"></button>
+        <button class="page-btn" data-page="4" style="width: 10px; height: 10px; border-radius: 50%; border: none; background-color: #D5CCC6; cursor: pointer;"></button>
       </div>
 
-      <!-- 内容区域 - 简化结构 -->
-      <div style="padding: 10px 15px;">
-        <h2 style="font-family: 'Playfair Display SC', serif; font-size: 20px; font-weight: 700; margin: 0 0 5px 0; text-align: center;">PIDAPIPO EASTER 2025</h2>
-        <p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #666; margin: 0 0 15px 0; text-align: center;">Friday 28th March Chocolate, Events, Loves, News</p>
-        
+      <!-- About Content - Simplified Structure -->
+      <div style="padding: 20px 15px;">
+        <h2 style="font-family: 'Playfair Display SC', serif; font-size: 20px; font-weight: 700; margin: 0 0 5px 0; text-align: center;">EASTER EGGS</h2>
+        <div style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #666; margin: 0 0 15px 0; text-align: center;">
+          <p style="margin: 0;">PIDAPIPO EASTER EGGS</p>
+          <p style="margin: 0;">AVAILABLE IN STORE AND ONLINE</p>
+        </div>
         <div style="font-family: 'Poppins', sans-serif; font-size: 12px; line-height: 1.4; color: #333;">
           <p style="margin-bottom: 12px;">Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
           <p style="margin-bottom: 12px;">For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
         </div>
       </div>
 
-      <!-- 页脚 - 简化结构 -->
+      <!-- Footer - Simplified Structure -->
       <div style="padding: 20px 15px; margin-top: 20px; background-color: #D5CCC6;">
         <p style="font-family: 'Poppins', sans-serif; font-size: 10px; text-align: center; margin: 0; color: #333;">PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
       </div>
     </div>
 
-    <!-- 新主页内容容器 -->
-    <div id="new-homepage-content">
+    <!-- New Homepage Content Container -->
+    <div id="new-homepage-content" style="display: none;">
       <header class="new-hero-section">
         <img src="images/Rectangle 129.jpg" alt="Pidapipo Main Banner" class="new-hero-image">
         <div class="new-hero-date">
@@ -605,17 +524,17 @@
         <div class="cart-top-bar">
           <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" class="cart-back-btn common-back-button-img" id="cart-back-btn">
           <h2>My Cart</h2>
-          <div class="cart-header-placeholder"></div> <!-- 平衡布局的占位元素 -->
+          <div class="cart-header-placeholder"></div> <!-- Placeholder element for layout balance -->
         </div>
       </header>
       <main class="cart-main-content">
         <div class="cart-items-container">
-          <!-- 购物车项目将由JS动态渲染于此 -->
+          <!-- Cart items will be dynamically rendered here by JS -->
           <!-- <p class="cart-empty-message">Your cart is currently empty.</p> -->
         </div>
       </main>
 
-      <!-- 购物车结算区域 -->
+      <!-- Cart Checkout Area -->
       <div class="cart-summary">
         <div class="summary-line">
           <span class="summary-label">Subtotal</span>
@@ -670,6 +589,32 @@
         <button class="mobile-checkout-btn" id="mobile-cart-checkout-btn">Check out</button>
       </footer>
     </div> <!-- end of #mobile-cart-page-content -->
+
+    <!-- Mobile Cakes Page Content (Updated Structure) -->
+    <div id="mobile-cakes-page-content" class="mobile-page-layout" style="display: none;">
+      <header class="mobile-cakes-header">
+        <button class="mobile-cakes-back-btn">
+          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back">
+        </button>
+        <h1 class="mobile-cakes-title">CAKES</h1>
+        <button class="mobile-cakes-location-btn">
+            <img src="mobile_images/location.svg" alt="Location">
+        </button>
+      </header>
+      
+      <div class="mobile-cakes-description-container">
+        <p>Our latest range of Gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.</p>
+      </div>
+
+      <main class="mobile-cakes-grid-container">
+        <!-- Cake items will be dynamically loaded here by JavaScript -->
+        <!-- Example structure is now handled by JS and styled by CSS -->
+      </main>
+
+      <footer class="mobile-cakes-footer">
+        <p>PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
+      </footer>
+    </div>
 
     <!-- 新增：支付页面容器 -->
     <div id="payment-page-content" style="display: none;">

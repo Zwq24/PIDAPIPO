@@ -1,28 +1,28 @@
 // js/searchFunctionality.js
-// 搜索输入、结果显示相关的逻辑
+// Search input and results display logic
 
-// (依赖 uiElements.js -> openSearchOverlay, closeSearchOverlay)
-// (依赖 productDetail.js -> showProductDetailFromOtherPage)
-// (依赖 productData.js -> productsData 变量)
-// (依赖 navigation.js -> showCakesPage, showNewHomepage 函数)
+// (Depends on uiElements.js -> openSearchOverlay, closeSearchOverlay)
+// (Depends on productDetail.js -> showProductDetailFromOtherPage)
+// (Depends on productData.js -> productsData variable)
+// (Depends on navigation.js -> showCakesPage, showNewHomepage functions)
 
 function setupSearchFunctionality() {
-  // 桌面端搜索相关元素
+  // Desktop search related elements
   const openSearchBtn = document.getElementById('open-search-btn');
   const closeSearchBtn = document.getElementById('close-search-btn');
   const searchOverlay = document.getElementById('search-overlay');
   const searchInput = searchOverlay ? searchOverlay.querySelector('input[type="text"]') : null;
   const searchResultsPreview = document.getElementById('search-results-preview');
   
-  // 获取搜索页面的推荐搜索词按钮
+  // Get search page suggestion buttons
   const suggestionButtons = document.querySelectorAll('.search-overlay-suggestions button');
 
-  // 移动端搜索相关元素
+  // Mobile search related elements
   const mobileSearchInput = document.querySelector('.mobile-search-input');
   const mobileSearchResults = document.querySelector('.mobile-search-results');
   const mobileResultsList = mobileSearchResults ? mobileSearchResults.querySelector('.mobile-results-list') : null;
 
-  // 桌面端搜索开关
+  // Desktop search toggle
   if (openSearchBtn) {
     openSearchBtn.addEventListener('click', () => {
       if (typeof openSearchOverlay === 'function') openSearchOverlay();
@@ -35,18 +35,18 @@ function setupSearchFunctionality() {
     });
   }
   
-  // 为搜索推荐按钮添加点击事件
+  // Add click events for search suggestion buttons
   if (suggestionButtons.length > 0) {
     suggestionButtons.forEach(button => {
       button.addEventListener('click', function() {
         const buttonText = this.textContent.trim().toLowerCase();
         
-        // 关闭搜索浮层
+        // Close search overlay
         if (typeof closeSearchOverlay === 'function') {
           closeSearchOverlay();
         }
         
-        // 根据按钮文本导航到相应页面
+        // Navigate to corresponding page based on button text
         if (buttonText === 'cake') {
           if (typeof showCakesPage === 'function') {
             showCakesPage();
@@ -60,19 +60,19 @@ function setupSearchFunctionality() {
             console.error('showNewHomepage function is not defined');
           }
         } else {
-          // 对于其他按钮，可以添加相应的导航逻辑
+          // Add navigation logic for other buttons
           console.log(`Navigation for ${buttonText} not yet implemented`);
         }
       });
     });
   }
 
-  // 桌面端搜索输入事件
+  // Desktop search input event
   if (searchInput && searchResultsPreview) {
     searchInput.addEventListener('input', function() {
       if (this.value.length > 0) {
         searchResultsPreview.classList.add('active');
-        // 设置搜索结果项的点击事件
+        // Set click events for search result items
         setupSearchResultsClickEvents('#search-results-preview .result-item');
       } else {
         searchResultsPreview.classList.remove('active');
@@ -80,7 +80,7 @@ function setupSearchFunctionality() {
     });
   }
 
-  // 移动端搜索输入事件
+  // Mobile search input event
   if (mobileSearchInput && mobileSearchResults && mobileResultsList) {
     mobileSearchInput.addEventListener('input', function() {
       // Instead of regenerating the list, simply show/hide it based on input
@@ -96,7 +96,7 @@ function setupSearchFunctionality() {
       }
     });
 
-    // 设置点击搜索框以外区域隐藏搜索结果
+    // Set up hiding search results when clicking outside search bar
     document.addEventListener('click', function(event) {
       const isClickInsideSearchBar = event.target.closest('.mobile-search-bar-container');
       if (!isClickInsideSearchBar && mobileSearchResults.classList.contains('active')) {
@@ -104,58 +104,58 @@ function setupSearchFunctionality() {
       }
     });
     
-    // 防止点击搜索结果时关闭搜索结果面板
+    // Prevent closing search results panel when clicking on results
     mobileSearchResults.addEventListener('click', function(event) {
       event.stopPropagation();
     });
   }
 }
 
-// 辅助函数：搜索产品
+// Helper function: Search products
 function searchProducts(query) {
-  // 确保productsData存在
+  // Ensure productsData exists
   if (typeof productsData === 'undefined' || !Array.isArray(productsData)) {
     console.error('productsData is not defined or not an array');
     return [];
   }
   
-  // 将查询词转为小写以进行不区分大小写的搜索
+  // Convert query to lowercase for case-insensitive search
   const lowerQuery = query.toLowerCase();
   
-  // 过滤匹配产品
+  // Filter matching products
   return productsData.filter(product => 
     product.name.toLowerCase().includes(lowerQuery)
   );
 }
 
-// 辅助函数：设置搜索结果项的点击事件
+// Helper function: Set up click events for search result items
 function setupSearchResultsClickEvents(selector) {
   document.querySelectorAll(selector).forEach(item => {
-    // 跳过"没有找到匹配的产品"的提示项
+    // Skip "no matching products found" prompt item
     if (item.classList.contains('no-results')) return;
     
     const productId = item.getAttribute('data-product-id');
     if (productId) {
-      // 移除可能存在的旧事件处理器
+      // Remove possible existing event handlers
       const existingHandler = item._clickHandler;
       if (existingHandler) {
         item.removeEventListener('click', existingHandler);
       }
       
-      // 添加新的事件处理器
+      // Add new event handler
       const newItemClickHandler = () => {
         if (typeof showProductDetailFromOtherPage === 'function') {
-          // 隐藏搜索结果
+          // Hide search results
           const searchResults = item.closest('.mobile-search-results') || 
                                 document.getElementById('search-results-preview');
           if (searchResults) {
             searchResults.classList.remove('active');
           }
           
-          // 跳转到商品详情页
+          // Navigate to product detail page
           showProductDetailFromOtherPage(productId);
           
-          // 清空搜索框
+          // Clear search input
           const searchInput = item.closest('.mobile-search-bar-container') ? 
                               document.querySelector('.mobile-search-input') : 
                               document.querySelector('#search-overlay input[type="text"]');
@@ -163,7 +163,7 @@ function setupSearchResultsClickEvents(selector) {
             searchInput.value = '';
           }
           
-          // 如果是桌面端搜索，关闭搜索浮层
+          // If desktop search, close search overlay
           if (!item.closest('.mobile-search-bar-container') && typeof closeSearchOverlay === 'function') {
             closeSearchOverlay();
           }
@@ -172,7 +172,7 @@ function setupSearchResultsClickEvents(selector) {
         }
       };
       
-      // 注册点击事件
+      // Register click event
       item.addEventListener('click', newItemClickHandler);
       item._clickHandler = newItemClickHandler;
     }

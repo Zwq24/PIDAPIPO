@@ -342,16 +342,16 @@ function showProductDetailFromOtherPage(productId) {
   showProductDetail(productId);
 }
 
-// 辅助函数：根据页面ID确定视图类型
+// Helper function: Determine view type based on page ID
 function determinePreviousViewFromId(pageId) {
-  // 桌面端视图类型
+  // Desktop view types
   if (pageId === 'newHomepage') return 'desktop-home';
   if (pageId === 'cakes') return 'desktop-cakes';
   
-  // 移动端视图类型
+  // Mobile view types
   if (pageId === 'mobileHome') return 'mobile-home';
   if (pageId === 'mobileCakes') return 'mobile-cakes';
   
-  // 如果无法确定视图类型，根据设备宽度返回默认值
+  // If view type cannot be determined, return default based on device width
   return window.innerWidth <= 768 ? 'mobile-home' : 'desktop-home';
 } 

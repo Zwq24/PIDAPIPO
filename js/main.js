@@ -130,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log("Menu item clicked, target:", targetPage); // Debugging information
 
           if (targetPage === 'mobile-cakes-page') {
-            showMobilePage(mobileCakesPage, mobileHomepageSections);
+            if (typeof showMobileCakesPage === 'function') {
+              showMobileCakesPage();
+            } else {
+              console.error('showMobileCakesPage function is not defined. Check navigation.js');
+            }
              // Ensure setActivePage is called to update page state
             if (typeof setActivePage === 'function') {
                 setActivePage('mobileCakes');
@@ -182,7 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cakeCategoryItem && mobileCakesPage) {
       cakeCategoryItem.addEventListener('click', () => {
         console.log("Cake category clicked, navigating to mobile cakes page.");
-        showMobilePage(mobileCakesPage, mobileHomepageSections);
+        if (typeof showMobileCakesPage === 'function') {
+          showMobileCakesPage();
+        } else {
+          console.error('showMobileCakesPage function is not defined. Check navigation.js');
+        }
          // Ensure setActivePage is called to update page state
         if (typeof setActivePage === 'function') {
             setActivePage('mobileCakes');

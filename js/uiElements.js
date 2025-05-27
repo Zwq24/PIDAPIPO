@@ -1,17 +1,17 @@
 // js/uiElements.js
-// 包含可复用的UI组件逻辑，如图片轮播器、搜索浮层的显示/隐藏
+// Contains reusable UI component logic, such as image carousel and search overlay display/hide
 
-// --- About页面图片切换功能 --- //
-let currentImageIndex = 1; // 默认显示第二张 (索引1)
+// --- About Page Image Switching Function --- //
+let currentImageIndex = 1; // Default show second image (index 1)
 const aboutPageImages = [
-  'images/Rectangle 129.jpg',       // 对应按钮 1 (旧主页的图)
-  'images/Rectangle 134 (1).jpg',  // 对应按钮 2
-  'images/Rectangle 134 (2).jpg',  // 对应按钮 3
-  'images/Rectangle 134 (3).jpg'   // 对应按钮 4
+  'images/Rectangle 129.jpg',       // Corresponds to button 1 (old homepage image)
+  'images/Rectangle 134 (1).jpg',  // Corresponds to button 2
+  'images/Rectangle 134 (2).jpg',  // Corresponds to button 3
+  'images/Rectangle 134 (3).jpg'   // Corresponds to button 4
 ];
 
 function initializeAboutPageSlider() {
-  // 获取About页内的图片切换元素
+  // Get image switching elements within About page
   const aboutPageContent = document.getElementById('about-page-content');
   if (!aboutPageContent) return;
 
@@ -23,15 +23,15 @@ function initializeAboutPageSlider() {
     return;
   }
 
-  renderAboutImage(currentImageIndex, null, imageContainer, imagePageBtns); // 初始渲染
+  renderAboutImage(currentImageIndex, null, imageContainer, imagePageBtns); // Initial render
 
   imagePageBtns.forEach(btn => {
-    btn.removeEventListener('click', handleAboutPageBtnClickWrapper); // 使用包装器移除
-    btn.addEventListener('click', handleAboutPageBtnClickWrapper); // 使用包装器添加
+    btn.removeEventListener('click', handleAboutPageBtnClickWrapper); // Use wrapper to remove
+    btn.addEventListener('click', handleAboutPageBtnClickWrapper); // Use wrapper to add
   });
 }
 
-// 创建一个包装函数，以便能正确传递 imageContainer 和 imagePageBtns
+// Create a wrapper function to correctly pass imageContainer and imagePageBtns
 function handleAboutPageBtnClickWrapper() {
   const aboutPageContent = document.getElementById('about-page-content');
   if (!aboutPageContent) return;
@@ -56,21 +56,21 @@ function renderAboutImage(imageIndex, slideDirection = null, imageContainer, ima
   }
 
   if (!slideDirection) {
-    imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img">`;
+    imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo Product Image ${imageIndex + 1}" class="switch-img">`;
   } else {
     const oldImg = imageContainer.querySelector('img');
     if (oldImg) {
       const slideOutClass = slideDirection === 'left' ? 'slide-out-left' : 'slide-out-right';
       oldImg.className = 'switch-img ' + slideOutClass;
       oldImg.addEventListener('animationend', function handler() {
-        oldImg.removeEventListener('animationend', handler); // 清理
+        oldImg.removeEventListener('animationend', handler); // Cleanup
         const slideInClass = slideDirection === 'left' ? 'slide-in-right' : 'slide-in-left';
-        imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
+        imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo Product Image ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
         updateActiveAboutPageButton(imageIndex, imagePageBtns);
       }, { once: true });
     } else {
       const slideInClass = slideDirection === 'left' ? 'slide-in-right' : 'slide-in-left';
-      imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo 产品图片 ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
+      imageContainer.innerHTML = `<img src="${imgPath}" alt="Pidapipo Product Image ${imageIndex + 1}" class="switch-img ${slideInClass}">`;
     }
   }
   updateActiveAboutPageButton(imageIndex, imagePageBtns);
@@ -83,7 +83,7 @@ function updateActiveAboutPageButton(activeIndex, imagePageBtns) {
   });
 }
 
-// --- 搜索浮层显示/隐藏功能 --- //
+// --- Search Overlay Display/Hide Function --- //
 function openSearchOverlay() {
   const searchOverlay = document.getElementById('search-overlay');
   const pageWrapper = document.querySelector('.page-wrapper');

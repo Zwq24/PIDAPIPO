@@ -1,28 +1,28 @@
 /* css/mobile-view.css */
-/* 全局和基本设置 */
+/* Global and basic settings */
 body {
-  /* 确保移动视图时，如果内容溢出，不会影响桌面布局 */
+  /* Ensure mobile view, if content overflows, it won't affect desktop layout */
 }
 
 #mobile-main-app-view {
-  /* 移动端主容器 */
-  font-family: 'Poppins', sans-serif; /* 根据Figma选择合适的字体 */
-  background-color: #EAE4DD; /* 更新：与桌面版和Figma主框架一致的背景色 */
-  display: none; /* 默认隐藏，将由媒体查询控制 */
+  /* Mobile main container */
+  font-family: 'Poppins', sans-serif; /* Choose appropriate font based on Figma */
+  background-color: #EAE4DD; /* Updated: Background color consistent with desktop version and Figma main frame */
+  display: none; /* Default hidden, controlled by media query */
   flex-direction: column;
-  min-height: 100vh; /* 确保至少占满整个屏幕高度 */
-  padding-bottom: 70px; /* 为底部导航栏留出空间 */
-  padding-top: 0 !important; /* 如果它在显示cakes page时仍然以某种方式影响布局 */
+  min-height: 100vh; /* Ensure at least fills the entire screen height */
+  padding-bottom: 70px; /* Space for bottom navigation bar */
+  padding-top: 0 !important; /* If it still affects layout in some way when displaying cakes page */
 }
 
-/* 手机版顶部栏 */
+/* Mobile top bar */
 .mobile-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: #FFFFFF; /* Figma显示为白色背景 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 轻微阴影 */
+  background-color: #FFFFFF; /* Figma shows white background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Light shadow */
 }
 
 .mobile-menu-btn,
@@ -34,25 +34,25 @@ body {
 
 .mobile-menu-btn img,
 .mobile-location-btn img {
-  width: 24px; /* 根据实际图标大小调整 */
+  width: 24px; /* Adjust based on actual icon size */
   height: 24px;
 }
 
 .mobile-logo img {
-  height: 30px; /* 根据实际Logo大小调整 */
+  height: 30px; /* Adjust based on actual Logo size */
 }
 
-/* 手机版英雄区域 */
+/* Mobile hero section */
 .mobile-hero-section {
   position: relative;
   text-align: center;
-  color: white; /* 文字颜色，如果图片是暗色的 */
+  color: white; /* Text color, if image is dark */
 }
 
 .mobile-hero-image {
   width: 100%;
-  height: auto; /* 或固定高度，根据Figma调整 */
-  max-height: 200px; /* 示例最大高度 */
+  height: auto; /* Or fixed height, adjust based on Figma */
+  max-height: 200px; /* Example max height */
   object-fit: cover;
 }
 
@@ -61,40 +61,40 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0,0,0,0.3); /* 轻微的背景遮罩使文字更清晰 */
+  background-color: rgba(0,0,0,0.3); /* Light background mask to make text clearer */
   padding: 10px 20px;
   border-radius: 8px;
 }
 
 .mobile-hero-text-overlay h1 {
-  font-family: 'Playfair Display SC', serif; /* 示例字体 */
-  font-size: 28px; /* 根据Figma调整 */
+  font-family: 'Playfair Display SC', serif; /* Example font */
+  font-size: 28px; /* Adjust based on Figma */
   margin: 0 0 5px 0;
   font-weight: bold;
 }
 
 .mobile-hero-text-overlay p {
-  font-size: 14px; /* 根据Figma调整 */
+  font-size: 14px; /* Adjusted according to Figma */
   margin: 0;
   font-weight: normal;
 }
 
-/* 手机版搜索栏 */
+/* Mobile Search Bar */
 .mobile-search-bar-container {
   display: flex;
   align-items: center;
   padding: 15px;
-  background-color: #FFFFFF; /* Figma显示搜索栏区域为白色背景 */
-  position: relative; /* 添加相对定位，作为搜索结果的参考点 */
-  z-index: 50; /* 确保搜索栏和结果在其他内容之上 */
+  background-color: #FFFFFF; /* White background for search bar area as shown in Figma */
+  position: relative; /* Add relative positioning as reference point for search results */
+  z-index: 50; /* Ensure search bar and results are above other content */
 }
 
 .mobile-search-input-wrapper {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  background-color: #F0F0F0; /* Figma中搜索框背景色 */
-  border-radius: 20px; /* 圆角 */
+  background-color: #F0F0F0; /* Search box background color from Figma */
+  border-radius: 20px; /* Rounded corners */
   padding: 8px 12px;
   margin-right: 10px;
 }
@@ -114,10 +114,10 @@ body {
   font-size: 16px;
 }
 
-/* 新增：移动端搜索结果下拉菜单样式 */
+/* New: Mobile Search Results Dropdown Styles */
 .mobile-search-results {
   position: absolute;
-  top: 100%; /* 位于搜索栏下方 */
+  top: 100%; /* Position below search bar */
   left: 0;
   right: 0;
   background-color: #FFFFFF;
@@ -127,12 +127,12 @@ body {
   padding: 10px 15px;
   max-height: 300px;
   overflow-y: auto;
-  z-index: 49; /* 低于搜索栏，但高于其他内容 */
-  display: none; /* 默认不显示，移除!important */
+  z-index: 49; /* Below search bar but above other content */
+  display: none; /* Hidden by default, remove !important */
 }
 
 .mobile-search-results.active {
-  display: block !important; /* 当添加active类时显示，保留!important以确保覆盖其他样式 */
+  display: block !important; /* Show when active class is added, keep !important to override other styles */
 }
 
 .mobile-results-title {
@@ -180,13 +180,13 @@ body {
   color: #333;
 }
 
-/* 手机版最近搜索/建议 */
+/* Mobile Recent Searches/Suggestions */
 .mobile-recent-searches {
-  padding: 15px; /* 保持一致的内边距 */
-  background-color: #D5CCC6; /* 更新：Figma中建议列表的背景色 */
-  margin: 0 15px 15px 15px; /* 根据Figma在主背景色上添加边距，使其看起来像一个卡片 */
-  border-radius: 10px; /* 根据Figma添加圆角 */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* 轻微阴影 */
+  padding: 15px; /* Consistent padding */
+  background-color: #D5CCC6; /* Updated: Suggestion list background color from Figma */
+  margin: 0 15px 15px 15px; /* Add margin on main background to make it look like a card */
+  border-radius: 10px; /* Add rounded corners from Figma */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Light shadow */
 }
 
 .mobile-search-suggestions-list {
@@ -201,7 +201,7 @@ body {
   color: #555;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #F0F0F0; /* 分隔线 */
+  border-bottom: 1px solid #F0F0F0; /* Separator line */
 }
 
 .mobile-search-suggestions-list li:last-child {
@@ -215,10 +215,10 @@ body {
   opacity: 0.5;
 }
 
-/* 手机版分类 */
+/* Mobile Categories */
 .mobile-categories-section {
   padding: 20px 15px;
-  /* background-color: #F9F9F9; */ /* 移除，使其继承 #mobile-main-app-view 的背景色 */
+  /* background-color: #F9F9F9; */ /* Removed to inherit background color from #mobile-main-app-view */
 }
 
 .mobile-categories-section h2 {
@@ -229,37 +229,38 @@ body {
 }
 
 .mobile-categories-grid {
-  display: flex; /* 或 grid，根据Figma中是滚动还是固定网格 */
+  display: flex; /* or grid, depending on whether it's scrolling or fixed grid in Figma */
   gap: 15px;
-  overflow-x: auto; /* 如果是横向滚动 */
-  padding-bottom: 10px; /* 为滚动条或阴影留空间 */
-  /* 去除背景色，让父元素背景透出 */
+  overflow-x: auto; /* For horizontal scrolling */
+  padding-bottom: 10px; /* Space for scrollbar or shadow */
+  /* Remove background color to let parent background show through */
 }
 
 .mobile-category-item {
   text-align: center;
-  min-width: 80px; /* 调整min-width以容纳更多项，或根据需要调整 */
-  padding: 15px 5px; /* 调整padding以适应更小的宽度 */
-  background-color: #D5CCC6; /* 更新：Figma中分类卡片的背景色 */
-  border-radius: 10px; /* Figma中分类卡片的圆角 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 轻微阴影 */
-  display: flex; /* 使用flex布局 */
-  flex-direction: column; /* 垂直排列子元素 */
-  align-items: center; /* 水平居中子元素 */
-  justify-content: center; /* 垂直居中内容 */
+  min-width: 80px; /* Adjust min-width to accommodate more items, or adjust as needed */
+  padding: 15px 5px; /* Adjust padding to accommodate smaller width */
+  background-color: #D5CCC6; /* Updated: Background color from Figma */
+  border-radius: 10px; /* Rounded corners from Figma */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Light shadow */
+  display: flex; /* Use flex layout */
+  flex-direction: column; /* Vertical arrangement of sub-elements */
+  align-items: center; /* Horizontal center sub-elements */
+  justify-content: center; /* Vertical center content */
+  cursor: pointer; /* Add pointer for better UX */
 }
 
 .mobile-category-item img {
-  width: 60px; /* 根据Figma调整 */
+  width: 60px; /* Adjust based on Figma */
   height: 60px;
-  border-radius: 50%; /* 圆形图片 */
+  border-radius: 50%; /* Circular image */
   object-fit: cover;
   margin-bottom: 8px;
-  background-color: #E0E0E0; /* 图片占位背景 */
+  background-color: #E0E0E0; /* Image placeholder background */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  display: block; /* 确保图片是块级元素 */
-  margin-left: auto; /* 水平居中图片 */
-  margin-right: auto; /* 水平居中图片 */
+  display: block; /* Ensure image is block-level element */
+  margin-left: auto; /* Horizontal center image */
+  margin-right: auto; /* Horizontal center image */
 }
 
 .mobile-category-item span {
@@ -267,10 +268,10 @@ body {
   color: #444;
 }
 
-/* 手机版热门产品 */
+/* Mobile top products section */
 .mobile-top-products-section {
   padding: 20px 15px;
-  /* background-color: #F9F9F9; */ /* 移除，使其继承 #mobile-main-app-view 的背景色 */
+  /* background-color: #F9F9F9; */ /* Removed to inherit background color from #mobile-main-app-view */
 }
 
 .mobile-top-products-section h2 {
@@ -285,34 +286,35 @@ body {
   overflow-x: auto; /* Enable horizontal scrolling */
   gap: 15px;
   padding-bottom: 10px; /* Add some padding for the scrollbar if it appears */
-  /* 去除背景色 */
+  /* Remove background color */
 }
 
 .mobile-product-card {
-  background-color: #D5CCC6; /* 更新：产品卡片底部信息区域的背景色，与Figma Frame 20一致 */
-  border-radius: 10px; /* Figma中产品卡片的圆角 */
+  background-color: #D5CCC6; /* Updated: Background color for product card bottom information area, consistent with Figma Frame 20 */
+  border-radius: 10px; /* Rounded corners from Figma */
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  position: relative; /* 新增：确保绝对定位的子元素相对于此元素定位 */
+  position: relative; /* Added: Ensure absolute positioning of sub-elements relative to this element */
   width: 200px; /* Set a fixed width for each card */
   flex-shrink: 0; /* Prevent cards from shrinking */
+  cursor: pointer; /* Add pointer for better UX */
 }
 
 .mobile-product-card img {
   width: 100%;
-  height: 120px; /* 产品图片高度 */
+  height: 120px; /* Product image height */
   object-fit: cover;
-  background-color: #E0E0E0; /* 图片占位背景 */
+  background-color: #E0E0E0; /* Image placeholder background */
 }
 
 .mobile-product-info {
-  padding: 10px; /* 统一内边距 */
-  flex-grow: 1; /* 让信息部分占据剩余空间 */
-  display: flex; /* 使用flex布局 */
-  justify-content: space-between; /* 名称在左，价格和按钮在右 */
-  align-items: center; /* 垂直居中对齐所有子项 */
+  padding: 10px; /* Uniform padding */
+  flex-grow: 1; /* Let information section take up remaining space */
+  display: flex; /* Use flex layout */
+  justify-content: space-between; /* Name on left, price and button on right */
+  align-items: center; /* Vertical center alignment of all sub-items */
 }
 
 .mobile-product-info h3 {
@@ -321,93 +323,93 @@ body {
   margin: 0;
   color: #333;
   line-height: 1.3;
-  flex-grow: 1; /* 产品名称占据可用空间 */
-  padding-right: 8px; /* 与右侧内容（价格+按钮）保持间距 */
+  flex-grow: 1; /* Product name takes up available space */
+  padding-right: 8px; /* Keep spacing with right content (price+button) */
 }
 
 .mobile-product-price {
   font-size: 16px;
   color: #555;
-  font-weight: 600; /* 加粗价格 */
-  margin-right: 8px; /* 与加号按钮保持间距 */
+  font-weight: 600; /* Bold price */
+  margin-right: 8px; /* Keep spacing with plus button */
 }
 
-/* 手机版添加到购物车按钮 */
+/* Mobile Add to Cart Button */
 .mobile-add-to-cart-btn {
   width: 36px;
   height: 36px;
-  min-width: 36px; /* 防止按钮被压缩变小 */
-  min-height: 36px; /* 防止按钮被压缩变小 */
-  flex-shrink: 0; /* 防止在flex布局中被压缩 */
-  aspect-ratio: 1 / 1; /* 强制保持1:1的宽高比 */
+  min-width: 36px; /* Prevent button from being compressed */
+  min-height: 36px; /* Prevent button from being compressed */
+  flex-shrink: 0; /* Prevent compression in flex layout */
+  aspect-ratio: 1 / 1; /* Force 1:1 aspect ratio */
   border: none;
   padding: 0;
   cursor: pointer;
-  background-color: #3A291F; /* 深棕色背景 */
-  border-radius: 50%; /* 圆形按钮 */
+  background-color: #3A291F; /* Dark brown background */
+  border-radius: 50%; /* Circular button */
   position: relative;
-  margin-left: 8px; /* 与价格保持间距 */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微阴影效果 */
-  transition: transform 0.1s ease, background-color 0.2s ease; /* 添加过渡效果 */
+  margin-left: 8px; /* Keep spacing with price */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Light shadow effect */
+  transition: transform 0.1s ease, background-color 0.2s ease; /* Add transition effect */
 }
 
-/* 创建水平透明加号线 */
+/* Create horizontal transparent line */
 .mobile-add-to-cart-btn::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 14px; /* 加号宽度 */
-  height: 2px; /* 加号厚度 */
-  background-color: white; /* 白色加号 */
-  transition: background-color 0.2s ease; /* 过渡效果 */
+  width: 14px; /* Plus width */
+  height: 2px; /* Plus thickness */
+  background-color: white; /* White plus */
+  transition: background-color 0.2s ease; /* Transition effect */
 }
 
-/* 创建垂直透明加号线 */
+/* Create vertical transparent line */
 .mobile-add-to-cart-btn::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 2px; /* 加号厚度 */
-  height: 14px; /* 加号高度 */
-  background-color: white; /* 白色加号 */
-  transition: background-color 0.2s ease; /* 过渡效果 */
+  width: 2px; /* Plus thickness */
+  height: 14px; /* Plus height */
+  background-color: white; /* White plus */
+  transition: background-color 0.2s ease; /* Transition effect */
 }
 
-/* 点击效果 */
+/* Click effect */
 .mobile-add-to-cart-btn:active {
-  transform: scale(0.9); /* 点击时缩小 */
-  background-color: #51393A; /* 点击时背景变深一些 */
+  transform: scale(0.9); /* Shrink on click */
+  background-color: #51393A; /* Darker background on click */
 }
 
-/* 添加成功后的临时效果 (JS会添加移除这个类) */
+/* Temporary effect after adding (JS will add/remove this class) */
 .mobile-add-to-cart-btn.item-added {
-  background-color: #2A1A0F; /* 比激活状态更深一点的棕色，作为快速反馈 */
-  transform: scale(1.05); /* 轻微放大一下 */
+  background-color: #2A1A0F; /* Darker brown than active state, for quick feedback */
+  transform: scale(1.05); /* Slightly enlarge */
 }
 
 .mobile-add-to-cart-btn.item-added::before,
 .mobile-add-to-cart-btn.item-added::after {
-  background-color: white; /* 确保加号在背景变化时仍然可见 */
+  background-color: white; /* Ensure plus remains visible during background change */
 }
 
-/* 手机版底部导航栏 */
+/* Mobile bottom navigation bar */
 .mobile-bottom-nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #FFFFFF; /* Figma显示为白色背景 */
+  background-color: #FFFFFF; /* Figma shows white background */
   border-top: 1px solid #E0E0E0;
   padding: 10px 0;
-  position: fixed; /* 固定在底部 */
+  position: fixed; /* Fixed at bottom */
   bottom: 0;
   left: 0;
   width: 100%;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-  z-index: 1000; /* 确保在最上层 */
+  z-index: 1000; /* Ensure on top layer */
 }
 
 .mobile-nav-item {
@@ -415,40 +417,40 @@ body {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #888; /* 非激活状态图标和文字颜色 */
-  flex: 1; /* 均匀分配空间 */
+  color: #888; /* Non-active state icon and text color */
+  flex: 1; /* Evenly distribute space */
   padding: 5px 0;
 }
 
 .mobile-nav-item img {
-  width: 24px; /* 根据Figma图标大小调整 */
+  width: 24px; /* Adjust based on Figma icon size */
   height: 24px;
-  margin-bottom: 2px; /* 图标和文字间距 */
+  margin-bottom: 2px; /* Icon and text spacing */
 }
 
 .mobile-nav-item span {
-  font-size: 10px; /* 文字大小 */
+  font-size: 10px; /* Text size */
 }
 
 .mobile-nav-item.active {
-  color: #000000; /* 激活状态颜色 */
+  color: #000000; /* Active state color */
 }
 
-/* 如果激活状态下图标不同，可以在JS中切换图片，或者使用CSS filter来改变颜色 */
+/* If active state icon is different, can switch image in JS or use CSS filter to change color */
 /* .mobile-nav-item.active img { filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(90deg); } */
 
-/* ---------- 新增：手机版侧边导航菜单样式 ---------- */
+/* ---------- New: Mobile Side Navigation Menu Styles ---------- */
 .mobile-side-menu {
-  position: fixed; /* 固定位置，覆盖整个屏幕 */
+  position: fixed; /* Fixed position, cover entire screen */
   top: 0;
-  left: -100%; /* 初始状态在屏幕左侧外 */
-  width: 80%; /* 菜单宽度，可调整 */
-  max-width: 300px; /* 最大宽度 */
+  left: -100%; /* Initial state outside screen left */
+  width: 80%; /* Menu width, adjustable */
+  max-width: 300px; /* Maximum width */
   height: 100%;
-  background-color: #FFFFFF; /* 菜单背景色，根据Figma调整，通常为白色或深色 */
-  box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* 右侧阴影 */
-  z-index: 2000; /* 确保在最上层，高于底部导航栏 */
-  transition: left 0.3s ease-in-out; /* 滑动动画 */
+  background-color: #FFFFFF; /* Menu background color, adjust based on Figma, usually white or dark */
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* Right shadow */
+  z-index: 2000; /* Ensure on top layer, above bottom navigation bar */
+  transition: left 0.3s ease-in-out; /* Slide animation */
   padding: 20px;
   box-sizing: border-box;
   display: flex;
@@ -456,16 +458,16 @@ body {
 }
 
 .mobile-side-menu.open {
-  left: 0; /* 打开状态，滑入屏幕 */
+  left: 0; /* Open state, slide into screen */
 }
 
 .mobile-close-menu-btn {
   background: none;
   border: none;
-  font-size: 28px; /* 关闭按钮大小 */
-  color: #333; /* 关闭按钮颜色 */
+  font-size: 28px; /* Close button size */
+  color: #333; /* Close button color */
   cursor: pointer;
-  align-self: flex-end; /* 按钮靠右 */
+  align-self: flex-end; /* Button right */
   padding: 0 0 15px 0;
 }
 
@@ -477,9 +479,9 @@ body {
 
 .mobile-side-menu li {
   padding: 15px 10px;
-  font-size: 18px; /* 菜单项字体大小 */
-  color: #333; /* 菜单项文字颜色 */
-  border-bottom: 1px solid #E0E0E0; /* 分隔线 */
+  font-size: 18px; /* Menu item font size */
+  color: #333; /* Menu item text color */
+  border-bottom: 1px solid #E0E0E0; /* Separator line */
   cursor: pointer;
 }
 
@@ -488,16 +490,16 @@ body {
 }
 
 .mobile-side-menu li:hover {
-  background-color: #f0f0f0; /* 鼠标悬停背景色 */
+  background-color: #f0f0f0; /* Mouse hover background color */
 }
 
-/* 可选：当菜单打开时，给主内容区域添加遮罩 */
+/* Optional: When menu is open, add overlay to main content area */
 body.mobile-menu-open #mobile-main-app-view {
-  /* filter: blur(2px); */ /* 模糊效果，可选 */
-  /* pointer-events: none; */ /* 禁止主内容交互，可选 */
+  /* filter: blur(2px); */ /* Optional blur effect */
+  /* pointer-events: none; */ /* Optional to prevent main content interaction */
 }
 
-/* 遮罩层，如果需要的话 */
+/* Overlay, if needed */
 /*
 .mobile-menu-overlay {
   position: fixed;
@@ -514,49 +516,39 @@ body.mobile-menu-open #mobile-main-app-view {
 }
 */
 
-/* ---------- 新增：手机版 Cakes 页面样式 ---------- */
+/* ---------- New: Mobile Cakes Page Styles ---------- */
 #mobile-cakes-page-content {
-  /* 彻底解决方案：使用固定定位完全脱离文档流的影响 */
+  /* Complete solution: Use fixed positioning to completely break away from document flow */
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
   height: 100vh !important;
-  z-index: 500 !important; /* 确保在需要显示时位于其他内容之上 */
+  z-index: 500 !important; /* Ensure visible above other content when needed */
   
-  background-color: #EAE4DD; /* 主背景色，与Figma一致 */
-  color: #000000; /* 主要文字颜色 */
+  background-color: #EAE4DD; /* Main background color, consistent with Figma */
+  color: #000000; /* Primary text color */
   font-family: 'Poppins', sans-serif;
-  display: none; /* 由JS控制显示 */
+  display: none; /* Controlled by JS */
   flex-direction: column; 
-  padding-top: 0 !important; /* 强制 */
-  margin-top: 0 !important; /* 强制 */
-  overflow-y: auto; /* 允许内容滚动 */
+  padding-top: 0 !important; /* Force */
+  margin-top: 0 !important; /* Force */
+  overflow-y: auto; /* Allow content to scroll */
   box-sizing: border-box;
-  overflow-x: hidden; /* 防止水平滚动 */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  padding-bottom: 60px; /* Space for bottom nav bar if it overlays */
 }
 
-.mobile-cakes-page-top-bar {
-  /* 确保顶部栏无空白 */
-  margin-top: 0 !important;
-  padding: 15px 15px 10px 15px;
-  width: 100%;
-  box-sizing: border-box;
+.mobile-cakes-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky; /* 确保顶部栏在滚动时保持可见 */
+  padding: 15px 20px; /* Figma: approx 20px horizontal */
+  background-color: #EAE4DD; /* Match page background */
+  border-bottom: 1px solid #000000; /* Figma: Line 23, color #000000, 1px */
+  position: sticky;
   top: 0;
-  background-color: #EAE4DD; /* 与页面背景色相同 */
   z-index: 10;
-}
-
-.mobile-cakes-page-top-bar h1 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 24px; /* Figma: 24px */
-  color: #000000; /* Figma: #000000 */
-  margin: 0;
 }
 
 .mobile-cakes-back-btn,
@@ -564,109 +556,193 @@ body.mobile-menu-open #mobile-main-app-view {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
+  width: 30px; /* Adjust based on actual icon size needed */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mobile-cakes-back-btn img,
 .mobile-cakes-location-btn img {
-  width: 24px;
+  width: 24px; /* Figma icon size appears to be around 24x24 or 18x18 */
   height: 24px;
-  /* Icon color for SVGs can be controlled by stroke/fill in SVG or CSS filter */
 }
 
-.mobile-cakes-page-description {
-  padding: 0 20px 20px 20px; /* 上方已有top-bar的padding, 这里调整左右和底部 */
+.mobile-cakes-title {
+  font-family: 'Poppins', sans-serif; /* Figma: Poppins SemiBold */
+  font-weight: 600;
+  font-size: 24px; /* Figma: 24px */
+  color: #000000; /* Figma: #000000 */
+  margin: 0;
   text-align: center;
+}
+
+.mobile-cakes-description-container {
+  padding: 20px; /* Figma: approx 20px around text */
+  text-align: center;
+  border-bottom: 1px solid #000000; /* Figma: Line 24 */
+}
+
+.mobile-cakes-description-container p {
   font-family: 'Abhaya Libre Medium', serif; /* Figma: Abhaya Libre Medium */
   font-weight: 500;
   font-size: 14px; /* Figma: 14px */
-  line-height: 1.18; /* Figma: line-height approx 16.5px for 14px font */
+  line-height: 1.18; /* Figma: 16.5px line height / 14px font size */
   color: #000000; /* Figma: #000000 */
+  margin: 0;
 }
 
 .mobile-cakes-grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 两列布局 */
-  gap: 15px;
-  padding: 0 15px; /* 左右内边距 */
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 15px; /* Figma: spacing between cards, e.g., 215 (start of R card) - (30 (start of L card) + 152 (width of L card)) = 33px. Average gap might be smaller. */
+  padding: 20px; /* Padding around the grid */
+  flex-grow: 1; /* Allow grid to take available space */
 }
 
-.mobile-cake-item {
-  /* 每个卡片项的容器 */
+.mobile-cake-card {
+  background-color: #FFFFFF; /* Figma: card background */
+  border-radius: 10px; /* Figma: borderRadius 10px */
+  padding: 10px; /* Padding inside the card */
   display: flex;
   flex-direction: column;
+  align-items: center; /* Center content horizontally in the card */
+  text-align: center; /* Center text */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+  cursor: pointer;
 }
 
-.mobile-cake-image-background {
-  background-color: #FFFFFF; /* Figma: 卡片背景为白色 #FFFFFF */
-  border-radius: 10px; /* Figma: 10px */
-  padding: 10px; /* 给图片和白色背景之间留出一些空间，模拟Figma效果 */
-  margin-bottom: -5px; /* 轻微重叠文字背景，如果需要的话，或调整 */
-  position: relative; /* 使图片能良好定位 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.mobile-cake-item img {
+.mobile-cake-image-container {
   width: 100%;
-  height: auto; /* 高度自适应，或设定固定高度 */
-  max-height: 150px; /* 示例最大高度，根据实际图片和设计调整 */
-  object-fit: contain; /* 保持图片完整性，或用 cover */
-  border-radius: 5px; /* 图片本身也可以有轻微圆角，如果Figma设计如此 */
+  /* height: 150px; */ /* Let image define height based on aspect ratio for now */
+  margin-bottom: 8px;
+  border-radius: 8px; /* Slightly smaller radius for image if desired */
+  overflow: hidden;
+}
+
+.mobile-cake-image {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 160px; /* Figma image height 176px, card padding reduces available space */
+  object-fit: cover;
+  display: block;
 }
 
 .mobile-cake-info {
-  background-color: #FFFFFF; /* 文字部分的背景也是白色 */
-  padding: 10px 15px 15px 15px; /* 文字区域内边距 */
-  border-radius: 0 0 10px 10px; /* 确保底部圆角与图片背景的顶部圆角衔接 */
-  text-align: left;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  /* Container for name and price, if needed for specific layout */
 }
 
-.mobile-cake-info h3 {
-  font-family: 'Poppins', sans-serif;
+.mobile-cake-name {
+  font-family: 'Poppins', sans-serif; /* Figma: Poppins Medium */
   font-weight: 500;
   font-size: 14px; /* Figma: 14px */
-  color: #51393A; /* Figma: #51393A */
-  margin: 0 0 5px 0;
-  line-height: 1.2; /* 调整行高以容纳两行文字 */
-  min-height: 2.4em; /* 确保至少两行的高度 */
+  color: #51393A; /* Figma: text color #51393A */
+  margin: 0 0 4px 0;
+  line-height: 1.3;
 }
 
-.mobile-cake-info .price {
-  font-family: 'Poppins', sans-serif; /* Figma用的是Poppins Medium (500) for price too */
+.mobile-cake-price {
+  font-family: 'Poppins', sans-serif; /* Figma: Poppins Medium */
   font-weight: 500;
   font-size: 14px; /* Figma: 14px */
-  color: #51393A; /* Figma: #51393A */
+  color: #51393A; /* Figma: text color #51393A */
   margin: 0;
 }
 
-.mobile-cakes-page-footer {
-  padding: 30px 20px 20px 20px; /* 上下左右内边距 */
+.mobile-cakes-footer {
+  padding: 20px 15px;
+  margin-top: auto; /* Push to bottom if content is short */
+  background-color: #EAE4DD; /* Figma: page background, not distinct footer color */
+  border-top: 1px solid #000000; /* Figma: Line 25 */
   text-align: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600; /* Figma: Poppins Bold (但截图看起来像semibold/600) */
-  font-size: 11px; /* Figma: 11px */
-  line-height: 1.3; /* Figma: line-height approx 14.3px */
-  color: #000000; /* Figma: #000000 */
-  margin-top: auto; /* 如果内容不足，将页脚推到底部 */
 }
 
-/* 微调：确保 #mobile-main-app-view 的直接子内容区域 (首页的各个section) 在切换时正确隐藏 */
+.mobile-cakes-footer p {
+  font-family: 'Poppins', sans-serif; /* Figma: Poppins SemiBold */
+  font-weight: 600;
+  font-size: 10px; /* Figma: 11px, adjusted slightly */
+  line-height: 1.3; /* Figma: 14.3px / 11px */
+  color: #000000; /* Figma: #000000 */
+  margin: 0;
+  text-transform: uppercase; /* Figma text is all caps */
+}
+
+/* Adjustments for the bottom nav bar potentially overlapping */
+body.mobile-view #mobile-cakes-page-content {
+  padding-bottom: 65px; /* Height of bottom nav bar */
+}
+
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #FFFFFF; /* Figma: #FFFFFF */
+  height: 60px; /* Figma: Height approx 60-65px */
+  border-top: 1px solid #E0E0E0; /* Subtle top border */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 5px 0;
+  text-decoration: none;
+  color: #A0A0A0; /* Default icon/text color */
+}
+
+.mobile-nav-item.active img {
+  /* Assuming active state might change icon color, handled by SVG or different image source if needed */
+  /* For now, let's rely on the provided active class on the <a> tag if it affects text or background */
+}
+
+.mobile-nav-item img {
+  width: 24px; /* Adjust as per Figma */
+  height: 24px;
+  margin-bottom: 2px;
+}
+
+/* Ensure mobile-view specific styling for category items if needed */
+.mobile-category-item {
+  /* ... any existing styles ... */
+  cursor: pointer; /* Add pointer for better UX */
+}
+
+.mobile-top-products-section .mobile-product-card {
+  /* ... any existing styles ... */
+  cursor: pointer; /* Add pointer for better UX */
+}
+
+/* Ensure global styles for hidden pages are respected */
+.hidden-page {
+  display: none !important;
+}
+
+/* Fine-tune: Ensure direct child content area of #mobile-main-app-view (homepage sections) hides correctly on switch */
 #mobile-main-app-view > section {
-  /* 默认情况下应该是 block 或 flex, JS会添加 .hidden class */
+  /* Default should be block or flex, JS will add .hidden class */
 }
 
 .hidden {
   display: none !important;
 }
 
-/* 确保 #mobile-main-app-view (如果它是父级或同级，且影响布局) 没有问题 */
-/* 通常 #mobile-cakes-page-content 是 #mobile-main-app-view 的兄弟元素，由JS切换 */
-/* 但以防万一，确保 #mobile-main-app-view 在切换时不引入额外空白 */
+/* Ensure #mobile-main-app-view (if it's parent or sibling and affects layout) is not problematic */
+/* Usually #mobile-cakes-page-content is sibling to #mobile-main-app-view, controlled by JS */
+/* But in case, ensure #mobile-main-app-view does not introduce extra blank on switch */
 #mobile-main-app-view {
-    padding-top: 0 !important; /* 如果它在显示cakes page时仍然以某种方式影响布局 */
+    padding-top: 0 !important; /* If it still affects layout in some way when displaying cakes page */
 }
 
-/* 添加移动端产品详情页样式 */
+/* Add mobile product detail page styles */
 @media (max-width: 768px) {
   #product-detail-page {
     position: fixed !important;
@@ -675,9 +751,9 @@ body.mobile-menu-open #mobile-main-app-view {
     width: 100% !important;
     height: 100vh !important;
     z-index: 500 !important;
-    background-color: #A4DDD8; /* 使用设计稿中的浅蓝色背景 */
+    background-color: #A4DDD8; /* Use design draft's light blue background */
     overflow-y: auto;
-    padding: 0 0 60px 0 !important; /* 减少底部内边距 */
+    padding: 0 0 60px 0 !important; /* Reduce bottom padding */
     margin: 0 !important;
     box-sizing: border-box;
   }
@@ -687,7 +763,7 @@ body.mobile-menu-open #mobile-main-app-view {
     justify-content: space-between;
     align-items: center;
     padding: 12px;
-    background-color: transparent; /* 透明背景 */
+    background-color: transparent; /* Transparent background */
     position: sticky;
     top: 0;
     z-index: 10;
@@ -700,7 +776,7 @@ body.mobile-menu-open #mobile-main-app-view {
   }
   
   .pdp-logo {
-    /* 隐藏中间的logo，设计稿中顶部没有 */
+    /* Hide middle logo, design draft top does not have */
     display: none;
   }
   
@@ -738,9 +814,9 @@ body.mobile-menu-open #mobile-main-app-view {
   
   .pdp-info-container {
     padding: 15px;
-    background-color: #EAE4DD; /* 设计稿中的奶白色背景 */
-    border-radius: 15px 15px 0 0; /* 顶部圆角 */
-    margin-top: -5px; /* 使info容器与图片稍微重叠 */
+    background-color: #EAE4DD; /* Design draft's milk white background */
+    border-radius: 15px 15px 0 0; /* Top rounded corners */
+    margin-top: -5px; /* Make info container slightly overlap image */
   }
   
   .pdp-title {
@@ -786,7 +862,7 @@ body.mobile-menu-open #mobile-main-app-view {
     font-size: 12px;
     line-height: 1.3;
     margin: 5px 0 0 0;
-    color: #FF0000; /* 红色提示文字 */
+    color: #FF0000; /* Red text for tips */
     font-weight: 500;
   }
   
@@ -831,7 +907,7 @@ body.mobile-menu-open #mobile-main-app-view {
   }
   
   .pdp-add-to-cart-btn {
-    background-color: #51393A; /* 深棕色，与整体网站风格一致 */
+    background-color: #51393A; /* Deep brown, consistent with overall site theme */
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
@@ -848,7 +924,7 @@ body.mobile-menu-open #mobile-main-app-view {
   }
   
   .pdp-add-to-cart-btn:hover {
-    background-color: #694b4c; /* 稍微浅一点的棕色 */
+    background-color: #694b4c; /* Slightly lighter brown */
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.25);
   }
@@ -856,10 +932,10 @@ body.mobile-menu-open #mobile-main-app-view {
   .pdp-add-to-cart-btn:active {
     transform: translateY(1px);
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    background-color: #3e2c2d; /* 按下时更深的颜色 */
+    background-color: #3e2c2d; /* Darker color when pressed */
   }
   
-  /* 点击时添加波纹效果 */
+  /* Add ripple effect on click */
   .pdp-add-to-cart-btn::after {
     content: '';
     display: block;
@@ -884,7 +960,7 @@ body.mobile-menu-open #mobile-main-app-view {
   }
 } 
 
-/* 移动端About页面样式 */
+/* Mobile About Page Styles */
 #mobile-about-page-content {
   position: fixed !important;
   top: 0 !important;
@@ -895,23 +971,23 @@ body.mobile-menu-open #mobile-main-app-view {
   background-color: #EAE4DD;
   color: #000000;
   font-family: 'Poppins', sans-serif;
-  display: none; /* 默认隐藏，会被JS改为flex */
+  display: none; /* Hidden by default, will be changed to flex by JS */
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
-  padding-bottom: 40px; /* 减少整个内容区域的底部空间为40px */
-  min-height: 500px; /* 确保最小高度足够显示内容 */
+  padding-bottom: 40px; /* Reduce bottom space of entire content area to 40px */
+  min-height: 500px; /* Ensure minimum height is enough to display content */
 }
 
-/* 强制使 #mobile-about-page-content 下的所有子元素可见 */
+/* Force all child elements under #mobile-about-page-content to be visible */
 #mobile-about-page-content > * {
   visibility: visible !important;
   opacity: 1 !important;
   display: block !important;
 }
 
-/* 专门为 .mobile-about-page-top-bar 添加样式，确保它始终可见且处于页面顶部 */
+/* Special styles for .mobile-about-page-top-bar to ensure it's always visible and at the top of the page */
 .mobile-about-page-top-bar {
   display: flex !important;
   position: sticky !important;
@@ -964,8 +1040,8 @@ body.mobile-menu-open #mobile-main-app-view {
   background-color: #F5F5F5;
 }
 
-/* 移除所有与图片动画相关的复杂CSS */
-/* 所有图片样式现在由JS直接控制 */
+/* Remove all complex CSS related to image animations */
+/* All image styles now controlled directly by JS */
 
 .mobile-pagination {
   display: flex;
@@ -1003,30 +1079,30 @@ body.mobile-menu-open #mobile-main-app-view {
 
 .mobile-about-content h2 {
   font-family: 'Playfair Display SC', serif;
-  font-size: 20px; /* 减小标题字体大小 */
+  font-size: 20px; /* Reduce title font size */
   font-weight: 700;
-  margin: 0 0 5px 0; /* 减少底部间距 */
+  margin: 0 0 5px 0; /* Reduce bottom spacing */
   text-align: center;
 }
 
 .mobile-subtitle {
   font-family: 'Poppins', sans-serif;
-  font-size: 12px; /* 减小字体大小 */
+  font-size: 12px; /* Reduce font size */
   color: #666;
-  margin: 0 0 15px 0; /* 减少底部间距 */
+  margin: 0 0 15px 0; /* Reduce bottom spacing */
   text-align: center;
 }
 
 .mobile-about-intro p {
   font-family: 'Poppins', sans-serif;
-  font-size: 12px; /* 减小字体大小 */
-  line-height: 1.4; /* 减小行高 */
-  margin-bottom: 12px; /* 减少段落间距 */
+  font-size: 12px; /* Reduce font size */
+  line-height: 1.4; /* Reduce line height */
+  margin-bottom: 12px; /* Reduce paragraph spacing */
   color: #333;
 }
 
 .mobile-about-footer {
-  padding: 20px 15px 40px 15px; /* 减少底部内边距为40px，防止底部导航栏遮挡但不过宽 */
+  padding: 20px 15px 40px 15px; /* Reduce bottom padding to 40px to prevent bottom navigation bar from blocking but not too wide */
   margin-top: 20px;
   background-color: #D5CCC6;
 }

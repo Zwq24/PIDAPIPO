@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-# 方法二：使用 googletrans 库 (pip install googletrans==4.0.0-rc1)
+# Method 2: Using googletrans library (pip install googletrans==4.0.0-rc1)
 import sys
 from googletrans import Translator
 
 text = sys.stdin.read()
 
-# text = "你好"
+# text = "hello"
 translator = Translator()
 
 try:
     result = translator.translate(text, src='zh-cn', dest='en')
     sys.stdout.write(result.text)
 except Exception:
-    # 翻译异常时输出原文
+    # Output original text when translation fails
     sys.stdout.write(text)

@@ -1,5 +1,5 @@
 // js/cart.js
-// 处理购物车数据和UI
+// Handle shopping cart data and UI
 
 // 购物车数据结构 [{id, name, price, quantity, image}]
 let cartItems = [];
@@ -140,8 +140,8 @@ function calculateCartTotal() {
 
 // 更新购物车图标（已删除红色数量显示）
 function updateCartIcon() {
-  // 不再显示购物车数量图标，保持原始购物袋图标样式
-  console.log('购物车图标更新已禁用（无红色数量显示）');
+  // No longer displaying cart quantity badge, maintain original shopping bag icon style
+  console.log('Cart icon update disabled (no red quantity display)');
 }
 
 // 渲染购物车页面

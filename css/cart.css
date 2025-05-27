@@ -1,6 +1,6 @@
 /* css/cart.css */
 
-/* 桌面端购物车页面样式 */
+/* Desktop Cart Page Style */
 #cart-page-content {
   background-color: #EAE4DD;
   color: #000000;
@@ -264,15 +264,15 @@
   background-color: #c0b8b2;
 }
 
-/* 购物车图标样式 */
+/* Shopping Cart Icon Style */
 .icon-bag {
   position: relative;
   cursor: pointer;
 }
 
-/* 删除红色购物车数量图标样式 */
+/* Remove red cart quantity badge style */
 
-/* 移动端购物车样式 */
+/* Mobile Cart Style */
 #mobile-cart-page-content {
   position: fixed !important;
   top: 0 !important;
@@ -288,7 +288,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
-  padding-bottom: 60px; /* 为底部按钮留出空间 */
+  padding-bottom: 60px; /* Space for bottom buttons */
 }
 
 .mobile-cart-header {
