@@ -835,26 +835,34 @@ body.mobile-menu-open #mobile-main-app-view {
   background-color: #EAE4DD;
   color: #000000;
   font-family: 'Poppins', sans-serif;
-  display: none;
+  display: none; /* 默认隐藏，会被JS改为flex */
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
   padding-bottom: 40px; /* 减少整个内容区域的底部空间为40px */
+  min-height: 500px; /* 确保最小高度足够显示内容 */
 }
 
+/* 强制使 #mobile-about-page-content 下的所有子元素可见 */
+#mobile-about-page-content > * {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+/* 专门为 .mobile-about-page-top-bar 添加样式，确保它始终可见且处于页面顶部 */
 .mobile-about-page-top-bar {
-  margin-top: 0 !important;
-  padding: 15px;
+  display: flex !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background-color: #EAE4DD;
   width: 100%;
+  padding: 15px;
   box-sizing: border-box;
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: #EAE4DD;
 }
 
 .mobile-about-back-btn,
@@ -887,18 +895,17 @@ body.mobile-menu-open #mobile-main-app-view {
 
 .mobile-page-container {
   width: 100%;
-  height: 220px; /* 降低高度，更符合设计稿 */
+  height: 180px;
+  min-height: 150px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 15px;
+  margin: 10px 0;
+  border: 2px solid #999;
+  background-color: #F5F5F5;
 }
 
-.mobile-page-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+/* 移除所有与图片动画相关的复杂CSS */
+/* 所有图片样式现在由JS直接控制 */
 
 .mobile-pagination {
   display: flex;
@@ -906,18 +913,18 @@ body.mobile-menu-open #mobile-main-app-view {
   align-items: center;
   gap: 10px;
   padding: 10px 0;
-  margin-bottom: 0; /* 减少底部间距 */
-  background-color: #EAE4DD;
+  margin-top: 10px;
+  background-color: transparent;
 }
 
 .mobile-page-btn {
-  width: 24px; /* 减小按钮尺寸 */
-  height: 24px; /* 减小按钮尺寸 */
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid #000;
   background: none;
   font-family: 'Poppins', sans-serif;
-  font-size: 12px; /* 减小字体大小 */
+  font-size: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;

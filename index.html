@@ -331,50 +331,47 @@
     </div>
 
     <!-- 新增：移动版About页面内容容器 -->
-    <div id="mobile-about-page-content" style="display: none;">
+    <div id="mobile-about-page-content" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 500; background-color: #EAE4DD; color: #000; overflow-y: auto; padding-bottom: 40px;">
       <!-- 手机版About页面顶部栏 -->
-      <header class="mobile-about-page-top-bar">
-        <button class="mobile-about-back-btn">
-          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back">
+      <header class="mobile-about-page-top-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 15px; width: 100%; box-sizing: border-box; position: sticky; top: 0; z-index: 10; background-color: #EAE4DD;">
+        <button class="mobile-about-back-btn" style="width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer;">
+          <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" style="width: 100%; height: 100%;">
         </button>
-        <h1>ABOUT</h1>
-        <button class="mobile-about-location-btn">
-          <img src="mobile_images/location.svg" alt="Location">
+        <h1 style="margin: 0; font-family: 'Playfair Display SC', serif; font-size: 22px; font-weight: 700; color: #000;">ABOUT</h1>
+        <button class="mobile-about-location-btn" style="width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer;">
+          <img src="mobile_images/location.svg" alt="Location" style="width: 100%; height: 100%;">
         </button>
       </header>
 
-      <!-- 分页按钮在图片上方 -->
-      <nav class="mobile-pagination">
-        <button class="mobile-page-btn" data-page="0">1</button>
-        <button class="mobile-page-btn" data-page="1">2</button>
-        <button class="mobile-page-btn" data-page="2">3</button>
-        <button class="mobile-page-btn active" data-page="3">4</button>
-      </nav>
-
-      <!-- 图片轮播区域 -->
-      <div id="mobile-page-container" class="mobile-page-container">
-        <!-- 图片由JS动态渲染于此 -->
+      <!-- 静态图片展示 - 完全替换原有轮播 -->
+      <div style="width: 100%; height: 180px; position: relative; margin: 15px 0; background-color: #f5f5f5; border: 2px solid #999; overflow: hidden;">
+        <img src="mobile_images/image (22).png" alt="Easter Egg" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <div style="position: absolute; top: 10px; left: 10px; background-color: yellow; color: black; padding: 5px; font-size: 12px; z-index: 100;">测试图片显示</div>
       </div>
 
-      <!-- 内容区域 -->
-      <main class="mobile-about-content">
-        <h2>PIDAPIPO EASTER 2025</h2>
-        <p class="mobile-subtitle">Friday 28th March Chocolate, Events, Loves, News</p>
-        
-        <section class="mobile-about-intro">
-          <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
-          <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
-          <p>Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
-          <p>It wouldn't be a Pidapipo Easter without Gelato, and on offer at all stores is a variety of chocolate-focussed Gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate Gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio Gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate Gelato with caramel swirl, dipped in milk chocolate.</p>
-          <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte Gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
-          <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
-        </section>
-      </main>
+      <!-- 分页按钮 - 简化结构 -->
+      <div style="display: flex; justify-content: center; gap: 10px; margin: 10px 0;">
+        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: none; padding: 0; cursor: pointer;">1</button>
+        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: none; padding: 0; cursor: pointer;">2</button>
+        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: none; padding: 0; cursor: pointer;">3</button>
+        <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: #000; color: #fff; padding: 0; cursor: pointer;">4</button>
+      </div>
 
-      <!-- 页脚 -->
-      <footer class="mobile-about-footer">
-        <p>PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
-      </footer>
+      <!-- 内容区域 - 简化结构 -->
+      <div style="padding: 10px 15px;">
+        <h2 style="font-family: 'Playfair Display SC', serif; font-size: 20px; font-weight: 700; margin: 0 0 5px 0; text-align: center;">PIDAPIPO EASTER 2025</h2>
+        <p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #666; margin: 0 0 15px 0; text-align: center;">Friday 28th March Chocolate, Events, Loves, News</p>
+        
+        <div style="font-family: 'Poppins', sans-serif; font-size: 12px; line-height: 1.4; color: #333;">
+          <p style="margin-bottom: 12px;">Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
+          <p style="margin-bottom: 12px;">For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
+        </div>
+      </div>
+
+      <!-- 页脚 - 简化结构 -->
+      <div style="padding: 20px 15px; margin-top: 20px; background-color: #D5CCC6;">
+        <p style="font-family: 'Poppins', sans-serif; font-size: 10px; text-align: center; margin: 0; color: #333;">PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
+      </div>
     </div>
 
     <!-- 新主页内容容器 -->

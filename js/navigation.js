@@ -468,80 +468,212 @@ function setupNavigationListeners() {
 
 // 新增：显示移动端About页面的函数
 function showMobileAboutPage() {
+    console.log('=== 显示移动端About页面 (滑动版) ===');
+    
     hideAllPages();
-    const mobileAboutElement = document.getElementById('mobile-about-page-content');
-    if (mobileAboutElement) {
-        mobileAboutElement.style.display = 'flex';
-        console.log("显示移动端About页面");
+    
+    const oldAboutPage = document.getElementById('emergency-about-page');
+    if (oldAboutPage) {
+        document.body.removeChild(oldAboutPage);
+        console.log('移除旧的独立About页面');
     }
-    setActivePage('mobileAbout');
     
-    // 初始化移动端About页面的图片轮播
-    initializeMobileAboutPageSlider();
+    const images = [
+        'mobile_images/Rectangle 110 (1).jpg',
+        'mobile_images/Rectangle 114.jpg',
+        'mobile_images/Rectangle 114 (1).jpg',
+        'mobile_images/Rectangle 114 (2).jpg'
+    ];
+    let currentImageIndex = 3; // 默认显示第4张图片
     
-    // 设置返回按钮事件
-    const mobileAboutBackBtn = document.querySelector('.mobile-about-back-btn');
-    if (mobileAboutBackBtn && !mobileAboutBackBtn._clickHandlerAttached) {
-        mobileAboutBackBtn.addEventListener('click', () => {
+    const emergencyAboutPage = document.createElement('div');
+    emergencyAboutPage.id = 'emergency-about-page';
+    
+    const pageStyle = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: #EAE4DD; z-index: 9999; overflow-y: auto;
+        display: flex; flex-direction: column; padding: 0; margin: 0;
+        box-sizing: border-box; font-family: 'Poppins', sans-serif;
+        -webkit-overflow-scrolling: touch;
+    `;
+    emergencyAboutPage.style.cssText = pageStyle;
+
+    // --- 头部 --- (保持不变)
+    const headerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: #EAE4DD; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <button id="emergency-back-btn" style="width: 30px; height: 30px; background: none; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                <img src="mobile_images/back-arrow@2X 1 (1).png" alt="返回" style="width: 100%; height: 100%;">
+            </button>
+            <h1 style="margin: 0; font-size: 22px; color: #000; font-family: 'Playfair Display SC', serif;">ABOUT</h1>
+            <div style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                <img src="mobile_images/location.svg" alt="位置" style="width: 24px; height: 24px;">
+            </div>
+        </div>
+    `;
+
+    // --- 图片轮播区域 (重构以支持滑动) ---
+    let imageStripHTML = '';
+    images.forEach(src => {
+        imageStripHTML += `
+            <div class="slide-item" style="
+                flex: 0 0 100%; 
+                width: 100%; 
+                height: 180px; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                overflow: hidden;
+                background-color: #F5F5F5;
+                position: relative;
+            ">
+                <img src="${src}" alt="About Image" style="
+                    max-width: 100%; 
+                    max-height: 100%; 
+                    width: auto;
+                    height: auto;
+                    object-fit: contain;
+                    display: block !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                ">
+            </div>
+        `;
+    });
+
+    const imageSliderHTML = `
+        <div id="image-slider-viewport" style="
+            width: 100%; 
+            height: 180px; 
+            margin: 0; 
+            overflow: hidden; 
+            position: relative;
+            background-color: #F5F5F5;
+            display: flex;
+            align-items: center;
+        ">
+            <div id="image-strip" style="
+                display: flex; 
+                width: ${images.length * 100}%; 
+                height: 180px; 
+                transition: transform 0.5s ease-in-out;
+                align-items: center;
+            ">
+                ${imageStripHTML}
+            </div>
+        </div>
+    `;
+
+    // --- 分页按钮 --- (保持不变)
+    const paginationHTML = `
+        <div style="display: flex; justify-content: center; gap: 10px; margin: 10px 0; padding: 5px 0;">
+            ${images.map((_, index) => `<button id="page-btn-${index}" class="about-page-btn" data-index="${index}" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #000; background: ${index === currentImageIndex ? '#000' : 'none'}; color: ${index === currentImageIndex ? '#fff' : '#000'}; padding: 0; cursor: pointer;">${index + 1}</button>`).join('')}
+        </div>
+    `;
+
+    // --- 主要内容和页脚区域 --- (保持不变)
+    const contentHTML = `
+        <div style="padding: 15px; background-color: #EAE4DD; flex: 1;">
+            <h2 style="text-align: center; margin-bottom: 10px; color: #000; font-family: 'Playfair Display SC', serif; font-size: 20px;">PIDAPIPO EASTER 2025</h2>
+            <p style="text-align: center; margin-bottom: 15px; color: #666; font-size: 12px;">Friday 28th March Chocolate, Events, Loves, News</p>
+            <div style="font-size: 14px; line-height: 1.5; color: #333;">
+                <p style="margin-bottom: 15px;">Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
+                <p style="margin-bottom: 15px;">For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
+                <p style="margin-bottom: 15px;">Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
+                <p style="margin-bottom: 15px;">It wouldn't be a Pidapipo Easter without Gelato, and on offer at all stores is a variety of chocolate-focussed Gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate Gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio Gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate Gelato with caramel swirl, dipped in milk chocolate.</p>
+            </div>
+        </div>
+    `;
+    const footerHTML = `
+        <div style="padding: 20px 15px; margin-top: 10px; background-color: #D5CCC6;">
+            <p style="font-family: 'Poppins', sans-serif; font-size: 10px; text-align: center; margin: 0; color: #333;">PIDAPIPO ACKNOWLEDGES THE WUEUND JERI PEOPLE OF THE KULIN NATION,THE TRADITIONAL CUSTODIANS OF THIS LAND, AND PAY OUR RESPECT TO THE WURUND ELDERS, PAST, PRESENT, AND EMERGING.</p>
+        </div>
+    `;
+
+    emergencyAboutPage.innerHTML = headerHTML + imageSliderHTML + paginationHTML + contentHTML + footerHTML;
+    document.body.appendChild(emergencyAboutPage);
+    console.log('✅ 独立About页面(滑动版)创建成功');
+
+    const backBtn = document.getElementById('emergency-back-btn');
+    if (backBtn) {
+        backBtn.addEventListener('click', function() {
+            document.body.removeChild(emergencyAboutPage);
             showMobileHomePage();
         });
-        mobileAboutBackBtn._clickHandlerAttached = true;
     }
-    
-    window.scrollTo(0, 0);
-}
 
-// 初始化移动端About页面的图片轮播
-function initializeMobileAboutPageSlider() {
-    const mobilePageContainer = document.getElementById('mobile-page-container');
-    const mobilePageBtns = document.querySelectorAll('.mobile-page-btn');
-    
-    if (!mobilePageContainer || mobilePageBtns.length === 0) {
-        console.error('移动端About页面的轮播元素未找到');
-        return;
+    const imageStrip = document.getElementById('image-strip');
+    const pageButtons = document.querySelectorAll('.about-page-btn');
+
+    // 初始化第一张图片的位置
+    if (imageStrip) {
+        imageStrip.style.transform = `translateX(-${currentImageIndex * 100}%)`;
     }
-    
-    // 图片数据（使用移动端的图片）
-    const slidesData = [
-        { src: 'mobile_images/Rectangle 110 (1).jpg', alt: 'Easter Eggs 1' },
-        { src: 'mobile_images/Rectangle 114.jpg', alt: 'Easter Eggs 2' },
-        { src: 'mobile_images/Rectangle 114 (1).jpg', alt: 'Easter Eggs 3' },
-        { src: 'mobile_images/Rectangle 114 (2).jpg', alt: 'Easter Eggs 4' },
-    ];
-    
-    // 清空容器
-    mobilePageContainer.innerHTML = '';
-    
-    // 添加初始图片 - 使用第4张图片(index为3)
-    const initialPage = 3; // 设计稿显示第4张图片被激活
-    const img = document.createElement('img');
-    img.src = slidesData[initialPage].src;
-    img.alt = slidesData[initialPage].alt;
-    mobilePageContainer.appendChild(img);
-    
-    // 设置初始活动按钮
-    mobilePageBtns.forEach(btn => {
-        btn.classList.remove('active');
-        if (parseInt(btn.dataset.page) === initialPage) {
-            btn.classList.add('active');
-        }
-        
-        // 添加点击事件
-        btn.addEventListener('click', function() {
-            const pageIndex = parseInt(this.dataset.page);
-            
-            // 更新图片
-            mobilePageContainer.innerHTML = '';
-            const newImg = document.createElement('img');
-            newImg.src = slidesData[pageIndex].src;
-            newImg.alt = slidesData[pageIndex].alt;
-            mobilePageContainer.appendChild(newImg);
-            
-            // 更新按钮状态
-            mobilePageBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+
+    pageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const newIndex = parseInt(this.dataset.index);
+            if (newIndex === currentImageIndex) return; 
+
+            currentImageIndex = newIndex;
+            if (imageStrip) {
+                imageStrip.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+            }
+
+            pageButtons.forEach(btn => {
+                const btnIndex = parseInt(btn.dataset.index);
+                btn.style.background = btnIndex === currentImageIndex ? '#000' : 'none';
+                btn.style.color = btnIndex === currentImageIndex ? '#fff' : '#000';
+            });
+            console.log(`切换到图片 ${currentImageIndex + 1}`);
         });
     });
+    
+    // 强制确保图片容器和图片可见性
+    setTimeout(() => {
+        const viewport = document.getElementById('image-slider-viewport');
+        const strip = document.getElementById('image-strip');
+        const allImages = document.querySelectorAll('#image-strip img');
+        
+        if (viewport) {
+            viewport.style.display = 'flex';
+            viewport.style.visibility = 'visible';
+            viewport.style.opacity = '1';
+            viewport.style.minHeight = '180px';
+            console.log('强制显示轮播容器');
+        }
+        
+        if (strip) {
+            strip.style.display = 'flex';
+            strip.style.visibility = 'visible';
+            strip.style.opacity = '1';
+            console.log('强制显示图片条');
+        }
+        
+        allImages.forEach((img, index) => {
+            img.style.display = 'block';
+            img.style.visibility = 'visible';
+            img.style.opacity = '1';
+            img.style.minWidth = '50px';
+            img.style.minHeight = '50px';
+            
+            // 添加图片加载监听
+            img.onload = function() {
+                console.log(`图片 ${index + 1} 加载成功`);
+                this.style.display = 'block';
+                this.style.visibility = 'visible';
+            };
+            
+            img.onerror = function() {
+                console.log(`图片 ${index + 1} 加载失败，使用备用图片`);
+                this.src = 'mobile_images/image (22).png';
+            };
+        });
+        
+        console.log('强制显示所有图片元素');
+    }, 100);
+    
+    setActivePage('mobileAbout');
+    console.log('=== 独立About页面(滑动版)显示完成 ===');
 }
 
 // 显示移动端主页的函数
