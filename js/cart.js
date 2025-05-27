@@ -362,22 +362,26 @@ function initCart() {
   // 加载本地存储的购物车数据
   loadCartFromLocalStorage();
   
-  // 绑定购物车图标点击事件
-  const cartIcons = document.querySelectorAll('.icon-bag');
+  // 绑定购物车图标点击事件 (桌面端和移动端PDP)
+  const cartIcons = document.querySelectorAll('.icon-bag'); // 选择所有 .icon-bag
   cartIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      if (typeof showCartPage === 'function') {
-        showCartPage();
-      } else {
-        console.error('showCartPage function is not defined.');
-      }
-    });
+    // 检查是否已经绑定过事件，防止重复绑定
+    if (!icon.listenerAttached) {
+      icon.addEventListener('click', () => {
+        if (typeof showCartPage === 'function') {
+          showCartPage();
+        } else {
+          console.error('showCartPage function is not defined.');
+        }
+      });
+      icon.listenerAttached = true; // 标记已绑定
+    }
   });
   
   // 为移动端底部导航栏中的购物袋图标添加点击事件
-  const mobileCartIcon = document.querySelector('.mobile-nav-item:nth-child(3)');
-  if (mobileCartIcon) {
-    mobileCartIcon.addEventListener('click', (e) => {
+  const mobileNavCartIcon = document.querySelector('.mobile-bottom-nav .mobile-nav-item:nth-child(3)');
+  if (mobileNavCartIcon && !mobileNavCartIcon.listenerAttached) {
+    mobileNavCartIcon.addEventListener('click', (e) => {
       e.preventDefault();
       if (typeof showCartPage === 'function') {
         showCartPage();
@@ -385,18 +389,42 @@ function initCart() {
         console.error('showCartPage function is not defined.');
       }
     });
+    mobileNavCartIcon.listenerAttached = true;
   }
   
-  // 更新所有Add to Cart按钮
-  document.querySelectorAll('.pdp-add-to-cart-btn, .add-to-cart-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const productId = this.dataset.productId;
-      const quantityInput = document.getElementById('pdp-quantity-value');
-      const quantity = quantityInput ? parseInt(quantityInput.textContent) : 1;
-      
-      // 添加到购物车，不再显示弹窗提示
-      addToCart(productId, quantity);
-    });
+  // 更新所有添加到购物车按钮 (产品详情页、首页Top Products等)
+  // 选择器 '.pdp-add-to-cart-btn' 用于产品详情页
+  // 选择器 '.mobile-add-to-cart-btn' 用于移动端首页Top Products的加号按钮
+  // 选择器 '.new-buy-now-btn' 用于桌面版首页Top Products的 "buy now" 按钮
+  const allAddToCartButtons = document.querySelectorAll('.pdp-add-to-cart-btn, .mobile-add-to-cart-btn, .new-buy-now-btn');
+  
+  allAddToCartButtons.forEach(btn => {
+    if (!btn.listenerAttached) { // 防止重复绑定
+      btn.addEventListener('click', function(event) {
+        event.stopPropagation(); // 阻止事件冒泡，特别重要，如果按钮在可点击卡片内
+        const productId = this.dataset.productId;
+        
+        // 对于 .pdp-add-to-cart-btn (产品详情页), 我们需要获取数量
+        // 对于其他按钮 (首页Top Products), 数量默认为1
+        let quantity = 1;
+        if (this.classList.contains('pdp-add-to-cart-btn')) {
+          const quantityInput = document.getElementById('pdp-quantity-value');
+          quantity = quantityInput ? parseInt(quantityInput.textContent) : 1;
+        }
+        
+        if (productId) {
+          addToCart(productId, quantity);
+          // 可选：在这里添加一个简短的视觉反馈，比如按钮状态的改变
+          this.classList.add('item-added');
+          setTimeout(() => {
+            this.classList.remove('item-added');
+          }, 300); // 0.3秒后移除class (原为1000ms)
+        } else {
+          console.error('Product ID not found for this button:', this);
+        }
+      });
+      btn.listenerAttached = true;
+    }
   });
   
   // 初始更新购物车图标

@@ -1,157 +1,115 @@
-# Pidapipo Official Website Development Guide
 
-## 1. Project Overview
-This project is the official website for the Pidapipo brand. The page design is based on a Figma model and implemented using HTML5, CSS3, and native JavaScript. It currently has a basic Single Page Application (SPA) structure, dynamically displaying different page content via JavaScript, making it suitable for beginners to understand and maintain.
 
-## 2. Page Structure and Modules
-This website uses a Single Page Application (SPA) model. All "page" content is defined in the `index.html` file, and JavaScript controls its display and hiding.
+# Pidapipo Official Website
 
-### 2.1. Core HTML Structure (`index.html`)
-- **`<div id="product-detail-page">`**: Product Detail Page container, content dynamically populated by `js/productDetail.js`.
-- **`<div id="search-overlay">`**: Full-screen search overlay.
-- **`<div class="page-wrapper">`**: Wraps all main page content.
-    - **`<nav class="navbar">`**: Top navigation bar, usually visible on all pages.
-    - **`<div id="new-homepage-content">`**: New homepage content container.
-    - **`<div id="about-page-content">`**: "About" page content container (originally the homepage).
-    - **`<div id="cakes-page-content">`**: "Cakes" page content container.
-    - **`<div id="wishlist-page-content">`**: "Wishlist" page content container.
-    - **`<div id="payment-page-content">`**: "Payment/Confirm Order" page content container.
+## Overview
 
-### 2.2. Main Page Module Details
+This project is a modern, responsive website for the Pidapipo brand, designed to showcase products, facilitate shopping, and provide a smooth user experience on both desktop and mobile devices. The site is built using HTML5, CSS3, and vanilla JavaScript, following a modular and maintainable structure.
 
-#### 1. Navigation Bar (`<nav class="navbar">`)
-- **LOGO**: Click to return to the new homepage.
-- **Menu**: Includes links like "Shop", "Gelato", "Chocolate", "Cakes", "About", "The lab". Some links (e.g., Cakes, About) have navigation implemented.
-- **Icon Area**:
-    - **Heart Icon (Wishlist)**: Click to display the wishlist page; the icon's state changes based on whether there are items in the wishlist.
-    - **Shopping Bag Icon**: (Currently a static icon)
-    - **Search Icon**: Click to open the search overlay.
+## Features
 
-#### 2. New Homepage (`#new-homepage-content`)
-- **Hero Banner**: Contains a background image and date display.
-- **Top Products**: Displays featured products in a grid format. Each product has a "Buy Now" button that links to its product detail page.
-- **New Footer**: Contains social media links and an acknowledgment to Indigenous peoples.
+- **Single Page Application (SPA) style navigation**: All main content is loaded in a single HTML file, with JavaScript controlling which sections are visible.
+- **Responsive design**: Optimized for both desktop and mobile, with dedicated layouts and navigation for each.
+- **Product catalog and detail pages**: Users can browse products, view detailed information, and add items to their cart.
+- **Shopping cart**: Full cart management, including quantity adjustment and checkout.
+- **Wishlist**: Users can add/remove products to a wishlist for future reference.
+- **Search functionality**: Quick product search with live preview results.
+- **Order/payment flow**: Simulated checkout and order confirmation.
+- **Accessible and semantic HTML**: Designed for usability and future accessibility improvements.
+- **Separation of concerns**: CSS and JS are organized by feature/page for clarity.
 
-#### 3. About Page (`#about-page-content`)
-- **Hero Section**: Main title and subtitle.
-- **Image Carousel Area**: (Originally controlled by `uiElements.js` image slider).
-- **Pagination Component**: Navigation for the image carousel.
-- **Main Content Area**: Detailed brand and product information.
-- **Old Footer**: Contains social media links and an acknowledgment to Indigenous peoples.
+## Project Structure
 
-#### 4. Cakes Page (`#cakes-page-content`)
-- **Top Bar**: Contains a menu icon (temporary), LOGO, and map icon (temporary).
-- **Title Bar**: Contains a back button and "CAKES" main title.
-- **Description Area**: Introduction to the cake series.
-- **Cake Grid (`<div class="cake-grid">`)**: Displays different types of cakes with images, names, and prices.
-- **Footer**: Acknowledgment to Indigenous peoples.
+```
+pidapipo/
+│
+├── index.html                # Main HTML file, contains all page containers
+├── css/                      # All CSS files, organized by feature/page
+│   ├── global.css            # Global styles, fonts, color variables
+│   ├── navbar.css            # Navigation bar styles
+│   ├── homepage.css          # Homepage styles
+│   ├── about.css             # About page styles
+│   ├── cakes.css             # Cakes page styles
+│   ├── product-detail.css    # Product detail page styles
+│   ├── cart.css              # Cart page styles
+│   ├── wishlist.css          # Wishlist page styles
+│   ├── payment.css           # Payment/checkout page styles
+│   ├── thankyou.css          # Order confirmation page styles
+│   ├── search.css            # Search overlay styles
+│   ├── mobile-view.css       # Mobile-specific styles and overrides
+│   ├── animations.css        # CSS animations
+│   └── ...                   # Other CSS files as needed
+│
+├── js/                       # All JavaScript files, organized by feature
+│   ├── main.js               # App entry point, initializes event listeners
+│   ├── navigation.js         # SPA navigation and page state management
+│   ├── productData.js        # Product data array (id, name, price, image, etc.)
+│   ├── productDetail.js      # Product detail page logic and rendering
+│   ├── cart.js               # Cart logic and UI rendering
+│   ├── wishlist.js           # Wishlist logic and UI rendering
+│   ├── searchFunctionality.js# Search overlay and live search logic
+│   ├── uiElements.js         # Common UI utilities (e.g., image sliders)
+│   └── ...                   # Other JS files as needed
+│
+├── images/                   # Desktop images and SVG icons
+│   └── ...                   # Product images, icons, logos, etc.
+│
+├── mobile_images/            # Mobile-optimized images and icons
+│   └── ...                   # Mobile-specific assets
+│
+├── README.md                 # This documentation
+└── ...                       # Other files (e.g., .gitignore, etc.)
+```
 
-#### 5. Product Detail Page (`#product-detail-page`)
-- This page's content is dynamically generated by `js/productDetail.js` based on the selected product.
-- **Back Button**: Returns to the previous page.
-- **Product Image**: Displays a large image of the product.
-- **Product Information**: Name, description, price.
-- **Quantity Selector**: (In design, current version may be simplified).
-- **"Add to Cart" Button**: Click to add the item to the wishlist (current logic, can be separated into a cart in the future).
-- **Heart Icon**: Click to toggle the product's status in the wishlist.
+## Main Pages & Components
 
-#### 6. Wishlist Page (`#wishlist-page-content`)
-- **Top Bar**: Contains a back button, "My Wishlist" title, and shopping bag icon.
-- **Wishlist Items Container (`<div class="wishlist-items-container">`)**: Dynamically displays items added to the wishlist by the user, each including an image, name, price, and "Remove" button.
-- **Summary Area (`<div class="wishlist-summary">`)**:
-    - **Subtotal**: Dynamically calculated.
-    - **Total**: Dynamically calculated.
-    - **"Check out" Button**: Click to navigate to the payment page.
-- **Footer**: Contains a "Continue Shopping" button, which returns to the new homepage.
+- **Homepage**: Hero banner, featured products, and navigation to other sections.
+- **About Page**: Brand story, image carousel, and acknowledgments.
+- **Cakes Page**: Product grid for cakes, with images, names, and prices.
+- **Product Detail Page**: Large product image, description, price, quantity selector, add-to-cart button, and wishlist toggle.
+- **Cart Page**: List of cart items, quantity controls, subtotal/total calculation, and checkout button.
+- **Wishlist Page**: List of saved products, subtotal/total, and checkout option.
+- **Payment/Checkout Page**: Delivery address, payment method selection, order summary, and place order button.
+- **Order Confirmation Page**: Success message, satisfaction feedback, and navigation options.
+- **Search Overlay**: Full-screen search with live product filtering and quick links.
 
-#### 7. Payment/Confirm Order Page (`#payment-page-content`)
-- **Top Bar**: Contains a back button and "Confirm Order" title.
-- **Main Content Area**:
-    - **Delivery Address**: (Currently static content).
-    - **Payment Method**: (Currently static content).
-    - **Order Summary**:
-        - **Subtotal**: Passed from wishlist or recalculated.
-        - **Shipping**: (Currently hardcoded as $0.00).
-        - **Total**: Dynamically calculated.
-- **Footer**: Contains a "Place to order" button. Clicking it clears the wishlist, returns to the homepage, and shows a pop-up notification.
+## Technologies Used
 
-#### 8. Search Overlay (`#search-overlay`)
-- **Top Bar**: LOGO, heart icon (syncs with wishlist status), shopping bag icon, close button.
-- **Search Input Area**: Search icon, text input field, filter icon (temporary).
-- **Recommended Search Terms**: Preset quick search buttons.
-- **Search Results Preview Area (`#search-results-preview`)**: Dynamically displays matching product previews as the user types.
+- **HTML5**: Semantic markup for all content and structure.
+- **CSS3**: Flexbox, Grid, and media queries for responsive layouts. Organized by feature for maintainability.
+- **JavaScript (ES6+)**: Modular scripts for each major feature. No frameworks required.
+- **SVG & Optimized Images**: For crisp icons and fast loading.
 
-## 3. Design Specifications
-- **Main Colors**:
-  - `#EAE4DD` (Background)
-  - `#000000` (Text)
-  - `#FFFFFF` (Background for some elements)
-  - (Other colors are determined by the Figma designs for specific pages and components)
-- **Fonts**:
-  - `Playfair Display SC`, `Poppins`, `Abhaya Libre`, `Inter` (See `global.css` and component-specific CSS for application).
-- **Layout**:
-  - Primarily uses Flexbox and Grid for responsive and flexible page layouts.
-  - Refer to Figma designs for the specific design of each page and component.
-- **Images and Icons**:
-  - Images and SVG icons used in the project are located in the `images/` directory.
+## How It Works
 
-## 4. File Structure and Description
+- **SPA Navigation**: JavaScript shows/hides different page containers in `index.html` based on user actions, simulating page transitions.
+- **Dynamic Rendering**: Product and wishlist/cart content is generated dynamically from JavaScript data arrays.
+- **State Management**: Page state is tracked using `data-attributes` on the `<body>`, and in-memory arrays for cart/wishlist.
+- **Event-Driven UI**: All user interactions (clicks, input, etc.) are handled via event listeners in JS.
+- **Mobile Support**: Mobile-specific containers and styles are used for small screens, with touch-friendly controls and navigation.
 
-- **`index.html`**: The website's single HTML file, defining the skeleton for all page modules.
-- **`css/` (Directory)**: Contains all CSS style files.
-    - `global.css`: Defines global styles, fonts, color variables, etc.
-    - `animations.css`: Defines CSS animation effects.
-    - `navbar.css`: Styles for the top navigation bar.
-    - `homepage.css`: Specific styles for the new homepage (`#new-homepage-content`).
-    - `about.css`: Specific styles for the About page (`#about-page-content`).
-    - `search.css`: Styles for the search overlay (`#search-overlay`).
-    - `product-detail.css`: Styles for the Product Detail Page (`#product-detail-page`).
-    - `cakes.css`: Styles for the Cakes page (`#cakes-page-content`).
-    - `wishlist.css`: Styles for the Wishlist page (`#wishlist-page-content`).
-    - `payment.css`: Styles for the Payment page (`#payment-page-content`).
-- **`js/` (Directory)**: Contains all JavaScript script files.
-    - `main.js`: The main entry point for JavaScript. Responsible for initializing event listeners for various modules and the initial page state after `DOMContentLoaded`.
-    - `productData.js`: Contains a `productsData` array, storing detailed information for all products on the site (ID, name, price, image, etc.).
-    - `uiElements.js`: Contains some common UI interaction functions, such as the image slider for the old About page (`initializeAboutPageSlider`).
-    - `navigation.js`: Core navigation logic. Contains functions to show/hide different page content sections (e.g., `showNewHomepage`, `showAboutPage`, `showCakesPage`, `showProductDetail`, `showWishlistPage`, `showPaymentPage`, `goBackToPreviousPageOrHomepage`, `setActivePage`, `hideAllPages`) and the `setupNavigationListeners` function to set up event listeners for navigation links.
-    - `productDetail.js`: Handles the logic for the Product Detail Page. This includes fetching data from `productsData` based on product ID and dynamically rendering PDP content (`showProductDetailFromOtherPage`, `renderProductDetail`), as well as handling interactions on the PDP (like the add to cart button). The `setupProductLinkListeners` function initializes click events for product links on the homepage and cakes page.
-    - `searchFunctionality.js`: Manages the display/hiding of the search overlay, user input responses, and filtering and displaying search result previews from `productsData`. Includes functions like `setupSearchFunctionality`, `openSearchOverlay`, `closeSearchOverlay`, `handleSearchInput`.
-    - `wishlist.js`: Manages wishlist functionality. This includes adding (`addToWishlist`), removing (`removeFromWishlist`), and toggling (`toggleWishlistProduct`) items, rendering the product list and totals on the wishlist page (`renderWishlistPage`), updating the status of all heart icons (`updateAllWishlistIcons`), and calculating total prices (`calculateWishlistTotals`). The `initWishlist` function initializes wishlist-related event listeners.
-- **`images/` (Directory)**: Stores all image resources (JPG, PNG) and SVG icons required by the website.
-- **`README.md`**: This development guide.
+## Customization & Extensibility
 
-## 5. Core Feature Implementation
+- **Adding Products**: Update `js/productData.js` to add or modify products.
+- **Styling**: Adjust or extend CSS files in the `css/` directory for new themes or layouts.
+- **New Features**: Add new JS modules for additional functionality as needed.
+- **Assets**: Place new images or icons in the appropriate `images/` or `mobile_images/` directory.
 
-- **Single Page Application (SPA) Navigation**: Uses functions in `js/navigation.js` to control the display and hiding of different `div` content blocks, simulating page transitions. Uses `history.pushState` or `data-attributes` to manage page state and back navigation logic.
-- **Dynamic Content Loading**:
-    - Product Detail Page: Extracts data from `js/productData.js` and dynamically generates HTML based on the product clicked by the user.
-    - Wishlist Page: Dynamically generates the product list based on the `wishlistItems` array.
-    - Search Results Preview: Dynamically filters and displays products based on user input.
-- **State Management (Basic)**:
-    - **Current Page**: Tracked via `document.body.dataset.currentPage` and the `previousPage` variable (in `navigation.js`).
-    - **Wishlist**: Manages product IDs via the `wishlistItems` array (in `wishlist.js`).
-- **Event-Driven Interactions**: Extensive use of `addEventListener` to respond to user actions, such as button clicks, text input, etc.
-- **Modularity**:
-    - CSS is split into multiple files by page/component for easier management.
-    - JavaScript is split into multiple files by functionality for clearer responsibilities. Introduced sequentially via `<script>` tags in HTML; functions are mostly in the global scope (ES6 modules can be considered in the future).
+## Best Practices
 
-## 6. Development and Maintenance Suggestions
-- **Code Comments**: All HTML structures, CSS styles, and key JavaScript functions should include detailed English comments for easy understanding by beginners.
-- **W3C Standards**: Write HTML and CSS according to W3C standards to ensure good cross-browser compatibility.
-- **Resource Optimization**:
-    - Images: Compress image sizes, choose appropriate image formats (e.g., WebP).
-    - CSS/JS: Consider using tools for minification and concatenation in the future to reduce HTTP requests.
-- **Responsive Design**: Although currently focused on desktop, mobile device adaptation should be considered in subsequent iterations.
-- **Accessibility (A11y)**: Pay attention to using semantic HTML tags, adding `alt` attributes to images, ensuring keyboard navigation, etc.
+- **Code is commented** for clarity, especially in HTML structure, CSS, and key JS functions.
+- **W3C standards** are followed for maximum compatibility.
+- **Images are optimized** for web use; consider further compression for performance.
+- **Accessibility**: Semantic tags and alt attributes are used; further improvements are encouraged.
+- **Responsive design**: All pages are designed to work on both desktop and mobile devices.
 
-## 7. Future Optimizations and Feature Expansion
-- **Full Shopping Cart Functionality**: Separate wishlist and shopping cart, implement more complete cart management (quantity modification, independent cart page, etc.).
-- **User Account System**: Implement user registration, login, and persistent storage of wishlist and order information.
-- **Backend Integration**: Connect to a backend API for real product data management, inventory synchronization, order processing, and payment gateway integration.
-- **Advanced Search and Filtering**: Add more complex filtering conditions (e.g., price range, category) to the search functionality.
-- **ES6 Modules**: Migrate JavaScript code to the ES6 module system for better code organization and dependency management.
-- **Automated Testing**: Introduce unit tests and end-to-end tests to ensure code quality.
-- **Build Tools**: Use build tools like Webpack, Parcel, or Vite to automate the development workflow (code transpilation, bundling, hot reloading, etc.).
+## Notes
+
+- This project is intended as a learning and demonstration site. It does not include backend integration, user authentication, or real payment processing.
+- The codebase is modular and easy to extend, but you are free to adapt, refactor, or reorganize as your needs evolve.
+- No pop-up alerts are used for cart actions; all feedback is provided visually within the UI.
+- The README is intentionally broad and flexible to accommodate future changes without requiring constant updates.
 
 ---
-*This README was last updated after the development of the payment page functionality.*
+
+If you have any questions or want to extend the project, simply follow the modular structure and add your new features or styles in the appropriate place!

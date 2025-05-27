@@ -373,6 +373,38 @@ function showThankYouPage() {
         }
     });
 
+    // 在showThankYouPage函数末尾添加
+    const thankYouBackArrow = document.getElementById('thank-you-back-arrow-btn');
+    if (thankYouBackArrow && !thankYouBackArrow._backHandlerAttached) {
+        thankYouBackArrow.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                // Mobile: go to mobile home
+                if (typeof showMobileHomePage === 'function') {
+                    showMobileHomePage();
+                } else {
+                    // fallback: show mobile main view
+                    const mobileMainAppView = document.getElementById('mobile-main-app-view');
+                    if (mobileMainAppView) {
+                        hideAllPages();
+                        mobileMainAppView.style.display = 'flex';
+                        const sections = mobileMainAppView.querySelectorAll(':scope > section');
+                        sections.forEach(sec => sec.classList.remove('hidden'));
+                    }
+                }
+            } else {
+                // Desktop: go to desktop home
+                if (typeof showNewHomepage === 'function') {
+                    showNewHomepage();
+                } else {
+                    // fallback: show desktop homepage content
+                    const homepage = document.getElementById('new-homepage-content');
+                    if (homepage) homepage.style.display = 'block';
+                }
+            }
+        });
+        thankYouBackArrow._backHandlerAttached = true;
+    }
+
     window.scrollTo(0, 0);
 }
 

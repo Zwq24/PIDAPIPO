@@ -348,6 +348,7 @@ body {
   position: relative;
   margin-left: 8px; /* 与价格保持间距 */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微阴影效果 */
+  transition: transform 0.1s ease, background-color 0.2s ease; /* 添加过渡效果 */
 }
 
 /* 创建水平透明加号线 */
@@ -360,6 +361,7 @@ body {
   width: 14px; /* 加号宽度 */
   height: 2px; /* 加号厚度 */
   background-color: white; /* 白色加号 */
+  transition: background-color 0.2s ease; /* 过渡效果 */
 }
 
 /* 创建垂直透明加号线 */
@@ -372,6 +374,24 @@ body {
   width: 2px; /* 加号厚度 */
   height: 14px; /* 加号高度 */
   background-color: white; /* 白色加号 */
+  transition: background-color 0.2s ease; /* 过渡效果 */
+}
+
+/* 点击效果 */
+.mobile-add-to-cart-btn:active {
+  transform: scale(0.9); /* 点击时缩小 */
+  background-color: #51393A; /* 点击时背景变深一些 */
+}
+
+/* 添加成功后的临时效果 (JS会添加移除这个类) */
+.mobile-add-to-cart-btn.item-added {
+  background-color: #2A1A0F; /* 比激活状态更深一点的棕色，作为快速反馈 */
+  transform: scale(1.05); /* 轻微放大一下 */
+}
+
+.mobile-add-to-cart-btn.item-added::before,
+.mobile-add-to-cart-btn.item-added::after {
+  background-color: white; /* 确保加号在背景变化时仍然可见 */
 }
 
 /* 手机版底部导航栏 */
