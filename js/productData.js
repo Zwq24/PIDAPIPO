@@ -4,8 +4,8 @@
 const productsData = [
   {
     id: "pb-brownie",
-    name: "Peanut Butter & Caramel Brownie",
-    image: "images/Rectangle 145.jpg",
+    name: "A cake lover\'s paradise",
+    image: "images/Ellipse 1.jpg",
     description: "A caramel brownie base, filled with soft, salty caramel Gelato, peanut butter Gelato and milk chocolate Gelato, finished with a thin chocolate glaze and covered with peanut crunch.",
     price: "$78",
     category: "cake",
@@ -63,10 +63,10 @@ const productsData = [
     detailPageBgColor: "#B2EBF2"
   },
   {
-    id: "milk-chocolate-hazelnut",
-    name: "Milk Chocolate & Hazelnut",
-    image: "images/Rectangle 157.jpg",
-    description: "Our range of single origin chocolate celebrates the art and craftsmanship of the great Italian cioccolatieri. Handmade from scratch in Fitzroy, our chocolates are crafted in small batches using only the best, ethically-sourced ingredients – from Dominican Republic organic cacao to hazelnuts from Piemonte – and our own caramels, pralines and ganaches. Classic simplicity meets traditional technique and modern innovation. Delizioso.",
+    id: "chocolate-popular-tastes",
+    name: "Chocolate for popular tastes",
+    image: "images/Ellipse 2.jpg",
+    description: "46% Milk Chocolate & Hazelnut – 100g",
     price: "$13.50",
     category: "chocolate",
     dimensions: "DIMENSIONS:<br>46% Milk Chocolate & Hazelnut – 100g",
