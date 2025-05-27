@@ -138,31 +138,10 @@ function calculateCartTotal() {
   };
 }
 
-// 更新购物车图标（显示商品数量）
+// 更新购物车图标（已删除红色数量显示）
 function updateCartIcon() {
-  // 计算购物车内商品总数
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  
-  // 更新所有购物车图标
-  const cartIcons = document.querySelectorAll('.icon-bag, .mobile-nav-item:nth-child(3)');
-  
-  cartIcons.forEach(icon => {
-    // 如果已有数量指示器，更新它
-    let badge = icon.querySelector('.cart-badge');
-    
-    if (totalItems > 0) {
-      if (!badge) {
-        // 创建新的数量指示器
-        badge = document.createElement('span');
-        badge.className = 'cart-badge';
-        icon.appendChild(badge);
-      }
-      badge.textContent = totalItems;
-      badge.style.display = 'block';
-    } else if (badge) {
-      badge.style.display = 'none';
-    }
-  });
+  // 不再显示购物车数量图标，保持原始购物袋图标样式
+  console.log('购物车图标更新已禁用（无红色数量显示）');
 }
 
 // 渲染购物车页面

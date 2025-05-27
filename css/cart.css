@@ -270,21 +270,7 @@
   cursor: pointer;
 }
 
-.cart-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: #FF0000;
-  color: #FFFFFF;
-  font-size: 12px;
-  font-weight: bold;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* 删除红色购物车数量图标样式 */
 
 /* 移动端购物车样式 */
 #mobile-cart-page-content {
