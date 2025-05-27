@@ -62,7 +62,7 @@
 }
 
 /* Specifically target the bag icon in search if further refinement is needed */
-.search-overlay-topbar-icons img[src="images/购物袋.svg"] {
+.search-overlay-topbar-icons img[src="images/shopping_bag.svg"] {
     width: 24px; /* Ensure size consistency */
     height: 24px;
     opacity: 1; /* Explicitly set opacity to 1, overriding any other general rule if necessary */
@@ -98,17 +98,12 @@
 .search-overlay-input-area input[type="text"]::placeholder {
   color: #AAA; /* Figma placeholder颜色 */
 }
-.search-overlay-icon-search,
-.search-overlay-icon-sliders {
+.search-overlay-icon-search {
   margin: 0 10px;
 }
 .search-overlay-icon-search img {
   width: 24px;
   height: 24px;
-}
-.search-overlay-icon-sliders {
-  font-size: 24px; /* 假设与搜索图标大小一致 */
-  color: #51393A; /* Figma 图标颜色 */
 }
 
 /* 推荐搜索词 */

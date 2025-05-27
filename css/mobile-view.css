@@ -114,18 +114,6 @@ body {
   font-size: 16px;
 }
 
-.mobile-filter-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.mobile-filter-btn img {
-  width: 24px; /* 根据实际图标大小调整 */
-  height: 24px;
-}
-
 /* 新增：移动端搜索结果下拉菜单样式 */
 .mobile-search-results {
   position: absolute;
@@ -250,11 +238,15 @@ body {
 
 .mobile-category-item {
   text-align: center;
-  min-width: 98px; /* Figma Frame 14 width */
-  padding: 15px 0; /* 增加内边距让内容和边框有距离 */
+  min-width: 80px; /* 调整min-width以容纳更多项，或根据需要调整 */
+  padding: 15px 5px; /* 调整padding以适应更小的宽度 */
   background-color: #D5CCC6; /* 更新：Figma中分类卡片的背景色 */
   border-radius: 10px; /* Figma中分类卡片的圆角 */
   box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 轻微阴影 */
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列子元素 */
+  align-items: center; /* 水平居中子元素 */
+  justify-content: center; /* 垂直居中内容 */
 }
 
 .mobile-category-item img {
@@ -265,6 +257,9 @@ body {
   margin-bottom: 8px;
   background-color: #E0E0E0; /* 图片占位背景 */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: block; /* 确保图片是块级元素 */
+  margin-left: auto; /* 水平居中图片 */
+  margin-right: auto; /* 水平居中图片 */
 }
 
 .mobile-category-item span {
@@ -286,9 +281,10 @@ body {
 }
 
 .mobile-top-products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 响应式网格 */
+  display: flex; /* Changed from grid to flex for horizontal scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling */
   gap: 15px;
+  padding-bottom: 10px; /* Add some padding for the scrollbar if it appears */
   /* 去除背景色 */
 }
 
@@ -300,6 +296,8 @@ body {
   display: flex;
   flex-direction: column;
   position: relative; /* 新增：确保绝对定位的子元素相对于此元素定位 */
+  width: 200px; /* Set a fixed width for each card */
+  flex-shrink: 0; /* Prevent cards from shrinking */
 }
 
 .mobile-product-card img {

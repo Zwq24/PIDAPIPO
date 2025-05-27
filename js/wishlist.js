@@ -5,7 +5,7 @@
 let wishlistItems = []; // Array to store product IDs in the wishlist
 
 const WISHLIST_EMPTY_ICON_SRC = 'images/heart-outline.svg';
-const WISHLIST_FILLED_ICON_SRC = 'images/心.svg'; // Your specified filled heart icon
+const WISHLIST_FILLED_ICON_SRC = 'images/Heart.svg'; // Your specified filled heart icon
 
 // --- Helper Functions --- //
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pidapipo 官网</title>
+  <title>Pidapipó</title>
   <!-- <link rel="stylesheet" href="style.css"> -->
   <link rel="stylesheet" href="css/global.css"> 
   <link rel="stylesheet" href="css/animations.css">
@@ -31,7 +31,7 @@
     <button id="mobile-close-menu-btn" class="mobile-close-menu-btn">&times;</button>
     <ul>
       <li data-target="mobile-home-view">Shop</li>
-      <li data-target="mobile-gelato-page">gelato</li>
+      <li data-target="mobile-Gelato-page">Gelato</li>
       <li data-target="mobile-chocolate-page">Chocolate</li>
       <li data-target="mobile-cakes-page">Cakes</li>
       <li data-target="mobile-about-page">About</li>
@@ -50,15 +50,14 @@
       <div class="search-overlay-topbar-icons">
         <!-- <span class="icon-heart">♥</span> -->
         <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="overlay-header">
-        <img src="mobile_images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
+        <img src="mobile_images/shopping_bag.svg" alt="Shopping Bag" class="icon-bag">
         <span id="close-search-btn" class="icon-close-search">✖</span> <!-- 关闭按钮 -->
       </div>
     </div>
     <!-- 搜索输入区域 -->
     <div class="search-overlay-input-area">
-      <span class="search-overlay-icon-search"><img src="images/放大镜.svg" alt="搜索图标"></span>
+      <span class="search-overlay-icon-search"><img src="images/Magnifying_glass.svg" alt="搜索图标"></span>
       <input type="text" placeholder="What do you want?">
-      <span class="search-overlay-icon-sliders">📊</span> <!-- 假设是sliders图标 -->
     </div>
     <!-- 推荐搜索词 -->
     <div class="search-overlay-suggestions">
@@ -76,23 +75,23 @@
       <ul class="results-list">
         <!-- 单个结果项 - 更新为新产品 -->
         <li class="result-item" data-product-id="milk-chocolate-hazelnut">
-          <img src="images/放大镜.svg" alt="" class="result-item-icon"> <!-- 暂时用通用搜索图标替代产品图 -->
+          <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon"> <!-- 暂时用通用搜索图标替代产品图 -->
           <span class="result-item-name">Milk Chocolate & Hazelnut</span>
           <!-- 根据Figma，这里可能还有价格或其他信息，暂时省略 -->
         </li>
         <!-- 单个结果项 - 示例2 -->
         <li class="result-item">
-          <img src="images/放大镜.svg" alt="" class="result-item-icon">
+          <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon">
           <span class="result-item-name">The Great Rocher cake</span>
         </li>
         <!-- 单个结果项 - 示例3 -->
         <li class="result-item" data-product-id="pb-brownie">
-          <img src="images/放大镜.svg" alt="" class="result-item-icon">
+          <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon">
           <span class="result-item-name">Peanut Butter & Caramel Brownie</span>
         </li>
         <!-- 单个结果项 - 示例4 -->
         <li class="result-item" data-product-id="tiramisu-cake">
-          <img src="images/放大镜.svg" alt="" class="result-item-icon">
+          <img src="images/Magnifying_glass.svg" alt="" class="result-item-icon">
           <span class="result-item-name">Tiramisu' alla Pidapipó cake</span>
         </li>
       </ul>
@@ -108,7 +107,7 @@
       <!-- 菜单栏 -->
       <ul class="nav-menu">
         <li id="nav-link-shop">Shop</li>
-        <li id="nav-link-gelato">gelato</li>
+        <li id="nav-link-Gelato">Gelato</li>
         <li id="nav-link-chocolate">Chocolate</li>
         <li id="nav-link-cakes">Cakes</li>
         <li id="nav-link-about">About</li>
@@ -118,8 +117,8 @@
       <div class="nav-icons">
         <!-- <span class="icon-heart">♥</span> -->
         <img src="images/heart-outline.svg" alt="Wishlist" class="icon-heart wishlist-toggle-icon" data-icon-type="navbar">
-        <img src="mobile_images/购物袋.svg" alt="Shopping Bag" class="icon-bag">
-        <span id="open-search-btn" class="icon-search"><img src="images/放大镜.svg" alt="打开搜索" class="icon-search-img"></span> <!-- Ensure class for img -->
+        <img src="mobile_images/shopping_bag.svg" alt="Shopping Bag" class="icon-bag">
+        <span id="open-search-btn" class="icon-search"><img src="images/Magnifying_glass.svg" alt="打开搜索" class="icon-search-img"></span> <!-- Ensure class for img -->
       </div>
     </nav>
 
@@ -128,7 +127,7 @@
       <!-- 手机版顶部栏 -->
       <header class="mobile-top-bar">
         <button class="mobile-menu-btn">
-          <img src="mobile_images/菜单.svg" alt="Menu">
+          <img src="mobile_images/menu.svg" alt="Menu">
         </button>
         <div class="mobile-logo">
           <img src="mobile_images/logo_apple_black.svg" alt="Pidapipo Logo">
@@ -150,12 +149,9 @@
       <!-- 手机版搜索栏 -->
       <section class="mobile-search-bar-container">
         <div class="mobile-search-input-wrapper">
-          <img src="mobile_images/放大镜.svg" alt="Search" class="mobile-search-icon">
+          <img src="mobile_images/Magnifying_glass.svg" alt="Search" class="mobile-search-icon">
           <input type="text" placeholder="Cake" class="mobile-search-input">
         </div>
-        <button class="mobile-filter-btn">
-          <img src="mobile_images/filter.svg" alt="Filter">
-        </button>
         
         <!-- 添加移动端搜索结果下拉菜单容器 - 默认隐藏，只在输入时显示 -->
         <div class="mobile-search-results">
@@ -163,19 +159,19 @@
           <ul class="mobile-results-list">
             <!-- Fixed set of search results to match desktop version -->
             <li class="mobile-result-item" data-product-id="milk-chocolate-hazelnut">
-              <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
+              <img src="mobile_images/Magnifying_glass.svg" alt="" class="mobile-result-item-icon">
               <span class="mobile-result-item-name">Milk Chocolate & Hazelnut</span>
             </li>
             <li class="mobile-result-item" data-product-id="the-great-rocher">
-              <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
+              <img src="mobile_images/Magnifying_glass.svg" alt="" class="mobile-result-item-icon">
               <span class="mobile-result-item-name">The Great Rocher cake</span>
             </li>
             <li class="mobile-result-item" data-product-id="pb-brownie">
-              <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
+              <img src="mobile_images/Magnifying_glass.svg" alt="" class="mobile-result-item-icon">
               <span class="mobile-result-item-name">Peanut Butter & Caramel Brownie</span>
             </li>
             <li class="mobile-result-item" data-product-id="tiramisu-cake">
-              <img src="mobile_images/放大镜.svg" alt="" class="mobile-result-item-icon">
+              <img src="mobile_images/Magnifying_glass.svg" alt="" class="mobile-result-item-icon">
               <span class="mobile-result-item-name">Tiramisu' alla Pidapipó cake</span>
             </li>
           </ul>
@@ -197,6 +193,10 @@
           <div class="mobile-category-item">
             <img src="mobile_images/image (18).png" alt="Cake">
             <span>Cake</span>
+          </div>
+          <div class="mobile-category-item">
+            <img src="mobile_images/image (2).png" alt="Shop">
+            <span>Shop</span>
           </div>
         </div>
       </section>
@@ -221,6 +221,14 @@
               <button class="mobile-add-to-cart-btn"></button>
             </div>
           </div>
+          <div class="mobile-product-card">
+            <img src="mobile_images/Rectangle 111 (8).jpg" alt="Peanut Butter & Caramel Brownie cake" class="js-view-product-detail" data-product-id="pb-brownie-cake-2">
+            <div class="mobile-product-info">
+              <h3 class="js-view-product-detail" data-product-id="pb-brownie-cake-2">Peanut Butter & Caramel Brownie cake</h3>
+              <span class="mobile-product-price">$78</span>
+              <button class="mobile-add-to-cart-btn"></button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -233,7 +241,7 @@
           <img src="mobile_images/heart-outline.svg" alt="Wishlist">
         </a>
         <a href="#" class="mobile-nav-item">
-          <img src="mobile_images/购物袋.svg" alt="Bag">
+          <img src="mobile_images/shopping_bag.svg" alt="Bag">
         </a>
         <a href="#" class="mobile-nav-item">
           <img src="mobile_images/user.svg" alt="Profile">
@@ -256,7 +264,7 @@
 
       <div class="mobile-cakes-page-description">
         <p>
-          Our latest range of gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.
+          Our latest range of Gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.
         </p>
       </div>
 
@@ -357,8 +365,8 @@
           <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
           <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
           <p>Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
-          <p>It wouldn't be a Pidapipo Easter without gelato, and on offer at all stores is a variety of chocolate-focussed gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate gelato with caramel swirl, dipped in milk chocolate.</p>
-          <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
+          <p>It wouldn't be a Pidapipo Easter without Gelato, and on offer at all stores is a variety of chocolate-focussed Gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate Gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio Gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate Gelato with caramel swirl, dipped in milk chocolate.</p>
+          <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte Gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
           <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
         </section>
       </main>
@@ -390,7 +398,7 @@
             </div>
             <div class="new-product-info">
               <h3 class="new-product-title">A cake lover's paradise</h3>
-              <p class="new-product-description">A caramel brownie base, filled with soft, salty caramel gelato, peanut butter gelato and milk chocolate gelato, finished with a thin chocolate glaze and covered with peanut crunch.</p>
+              <p class="new-product-description">A caramel brownie base, filled with soft, salty caramel Gelato, peanut butter Gelato and milk chocolate Gelato, finished with a thin chocolate glaze and covered with peanut crunch.</p>
               <button class="new-buy-now-btn" data-product-id="pb-brownie">buy now</button>
             </div>
           </section>
@@ -449,8 +457,8 @@
           <p>Since launching its Cioccolato range in 2022, Pidapipo has become the go-to for artisan chocolate, and its Easter eggs are no different. This Easter Pidapipo will offer a range of artisan chocolate eggs made with Pidapipo single origin cacao, all handmade in the Fitzroy Laboratorio. Bags containing a mix of dark and milk chocolate eggs (three of each), perfect as a gift, for an Easter egg hunt, or of course, indulging for one.</p>
           <p>For those who want to surprise and delight their loved ones this Easter, Pidapipo's large Easter egg is the way to go, with handmade and wrapped mini chocolate eggs and a mystery gift inside. Available in both dark and milk chocolate, it's a classic gifting choice this season.</p>
           <p>Pidapipo's best-selling tins with praline filled-chocolates are also making a comeback. Encasing a trio of flavours, the selection includes dark chocolate filled with white chocolate peppermint ganache; milk chocolate filled with caramel and malt crumble; and white chocolate with white chocolate and hazelnut ganache.</p>
-          <p>It wouldn't be a Pidapipo Easter without gelato, and on offer at all stores is a variety of chocolate-focussed gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate gelato with caramel swirl, dipped in milk chocolate.</p>
-          <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
+          <p>It wouldn't be a Pidapipo Easter without Gelato, and on offer at all stores is a variety of chocolate-focussed Gelato cones inspired by the flavour trio in Pidapipo's mini eggs tin. Served in a waffle cone and dipped in chocolate, three indulgent flavours include peppermint chocolate Gelato with white chocolate fudge, covered in dark chocolate shards; white chocolate bacio Gelato with Nutella swirl, coated in hazelnut merengue; and malted milk chocolate Gelato with caramel swirl, dipped in milk chocolate.</p>
+          <p>NEW this year, Pidapipo is creating the ultimate 'non-hot cross bun'; – 'HOT CROSS DOUGHNUT – topped with fior di latte Gelato and spiced caramel sauce. Made fresh to order and available exclusively at the Fitzroy Laboratorio.</p>
           <p>Take the stress out of your Easter this year and let Pidapipo look after your gifting needs and dessert cravings.</p>
         </section>
       </main>
@@ -485,7 +493,7 @@
         </div>
         
         <p class="cakes-description">
-          Our latest range of gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.
+          Our latest range of Gelato cakes is a dreamily nostalgic homage to the beauty of classic Italian dolce. Inspired by the great pasticcerie of Milan, made with only the best and most authentic ingredients and techniques, these cakes are perfect for any occasion where you want to celebrate la dolce vita.
         </p>
       </header>
 
@@ -565,7 +573,7 @@
         <div class="wishlist-top-bar">
           <img src="images/back-arrow@2X 1 (1).png" alt="Back" class="wishlist-back-btn common-back-button-img" id="wishlist-back-btn">
           <h2>My Wishlist</h2>
-          <img src="images/购物袋.svg" alt="Shopping Bag" class="wishlist-shopping-bag-icon"> <!-- 假设有一个购物袋图标 -->
+          <img src="images/shopping_bag.svg" alt="Shopping Bag" class="wishlist-shopping-bag-icon"> <!-- 假设有一个购物袋图标 -->
         </div>
       </header>
       <main class="wishlist-main-content">
