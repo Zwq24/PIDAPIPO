@@ -367,13 +367,13 @@ function initCart() {
   cartIcons.forEach(icon => {
     // 检查是否已经绑定过事件，防止重复绑定
     if (!icon.listenerAttached) {
-      icon.addEventListener('click', () => {
-        if (typeof showCartPage === 'function') {
-          showCartPage();
-        } else {
-          console.error('showCartPage function is not defined.');
-        }
-      });
+    icon.addEventListener('click', () => {
+      if (typeof showCartPage === 'function') {
+        showCartPage();
+      } else {
+        console.error('showCartPage function is not defined.');
+      }
+    });
       icon.listenerAttached = true; // 标记已绑定
     }
   });
@@ -402,16 +402,16 @@ function initCart() {
     if (!btn.listenerAttached) { // 防止重复绑定
       btn.addEventListener('click', function(event) {
         event.stopPropagation(); // 阻止事件冒泡，特别重要，如果按钮在可点击卡片内
-        const productId = this.dataset.productId;
+      const productId = this.dataset.productId;
         
         // 对于 .pdp-add-to-cart-btn (产品详情页), 我们需要获取数量
         // 对于其他按钮 (首页Top Products), 数量默认为1
         let quantity = 1;
         if (this.classList.contains('pdp-add-to-cart-btn')) {
-          const quantityInput = document.getElementById('pdp-quantity-value');
+      const quantityInput = document.getElementById('pdp-quantity-value');
           quantity = quantityInput ? parseInt(quantityInput.textContent) : 1;
         }
-        
+      
         if (productId) {
           addToCart(productId, quantity);
           // 可选：在这里添加一个简短的视觉反馈，比如按钮状态的改变
@@ -421,8 +421,8 @@ function initCart() {
           }, 300); // 0.3秒后移除class (原为1000ms)
         } else {
           console.error('Product ID not found for this button:', this);
-        }
-      });
+      }
+    });
       btn.listenerAttached = true;
     }
   });

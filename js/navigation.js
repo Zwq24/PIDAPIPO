@@ -428,7 +428,7 @@ function goBackToPreviousPageOrHomepage() {
             if (previousPage === 'mobileCakes') {
                 showMobileCakesPage();
             } else {
-                showNewHomepage(); 
+             showNewHomepage(); 
             }
              break;
         case 'payment': showPaymentPage(); break;
