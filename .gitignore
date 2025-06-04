@@ -2,3 +2,4 @@
 *.zip
 ./.cursorrules
 ./translate.py
+*.py
