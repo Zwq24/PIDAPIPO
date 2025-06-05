@@ -1,4 +1,4 @@
-/* --- 新主页样式 (homepage1) --- */
+/* --- New homepage style (homepage1) --- */
 #new-homepage-content {
   background-color: #FCF9F4; /* Figma: Desktop Homepage frame background */
   display: block; /* Default to block, JS will handle actual showing/hiding */
@@ -77,8 +77,8 @@
 
 .new-product-card {
   background-color: #FFFFFF; /* Figma: Card background, e.g., Rectangle 130 */
-  border-radius: 20px; /* 根据用户图片，添加圆角 */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* 轻微阴影以增加层次感，参考用户图片 */
+  border-radius: 20px; /* Based on user images，Add rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Slight shadows to increase layering，Reference user image */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -144,14 +144,14 @@
   color: #FFFFFF; /* Figma: Text color */
   background-color: #51393A; /* Figma: Button background color - Using brand dark brown */
   border: none;
-  padding: 18px 30px; /* 调整内边距以适应圆角按钮的视觉效果，左右可以多一些 */
-  border-radius: 30px; /* 根据用户图片，添加较大的圆角使按钮看起来两端是圆的 */
+  padding: 18px 30px; /* Adjust the inner margin to fit the visual effect of the rounded button，There can be more left and right */
+  border-radius: 30px; /* Based on user images，Add larger rounded corners to make the button appear round at both ends */
   cursor: pointer;
   text-transform: uppercase; /* Figma: "buy now" */
   transition: background-color 0.3s ease, color 0.3s ease;
-  /* width: 100%; */ /* 移除width 100% 让按钮根据内容和padding自适应宽度 */
+  /* width: 100%; */ /* removewidth 100% Make the button based on its content andpaddingAdaptive width */
   text-align: center;
-  align-self: flex-start; /* 让按钮在信息区内左对齐，如果产品信息区是flex容器 */
+  align-self: flex-start; /* Align the buttons to the left within the information area，If the product information area isflexcontainer */
 }
 
 .new-buy-now-btn:hover {
@@ -197,20 +197,20 @@
   text-transform: uppercase; /* Figma shows uppercase text */
 }
 
-/* 响应式设计：针对小屏幕（例如手机） */
+/* Responsive Design：For small screens（For example, mobile phones） */
 @media (max-width: 768px) {
-  /* 导航栏调整 */
+  /* Navigation bar adjustment */
   .navbar {
-    flex-direction: column; /* 导航项垂直排列 */
-    align-items: flex-start; /* 左对齐logo和菜单按钮 */
+    flex-direction: column; /* Vertical arrangement of navigation items */
+    align-items: flex-start; /* Left alignedlogoAnd menu buttons */
   }
 
   .nav-menu {
-    display: none; /* 在小屏幕上默认隐藏菜单项，为汉堡菜单做准备 */
-    /* 实际项目中这里会用JS配合汉堡按钮来切换显示 */
-    flex-direction: column; /* 菜单项垂直排列 */
-    width: 100%; /* 展开时占满宽度 */
-    background-color: #fff; /* 背景色，避免透明 */
+    display: none; /* Hide menu items by default on the small screen，Preparing for the Burger Menu */
+    /* In actual projects, it will be used hereJSUse the hamburger button to switch displays */
+    flex-direction: column; /* Vertical arrangement of menu items */
+    width: 100%; /* Full width when unfolded */
+    background-color: #fff; /* background color，Avoid transparency */
     padding: 10px 0;
   }
 
@@ -221,77 +221,77 @@
   }
 
   .nav-icons {
-    /* 小屏幕上图标可能需要调整位置或大小，这里暂时保持原样，但可以按需修改 */
-    margin-top: 10px; /* 如果导航栏是flex-direction: column, 图标和菜单按钮之间可能需要间距 */
-    align-self: center; /* 让图标区域在折叠的导航栏中居中 */
+    /* Icons on the small screen may need to be adjusted in position or size，Keep it as it is for now，But it can be modified as needed */
+    margin-top: 10px; /* If the navigation bar isflex-direction: column, There may be a gap between icons and menu buttons */
+    align-self: center; /* Center the icon area in the folded navigation bar */
   }
   
-  /* 可以添加一个汉堡菜单按钮的样式，并用JS控制 .nav-menu 的显示/隐藏 */
+  /* Can add a style for a hamburger menu button，And useJScontrol .nav-menu Display of/hide */
   /* .hamburger-menu { display: block; } */
 
 
-  /* 新主页英雄区域调整 */
+  /* New homepage hero area adjustment */
   .new-hero-section {
-    height: auto; /* 高度自适应 */
-    padding-bottom: 20px; /* 底部留一些空间 */
+    height: auto; /* Highly adaptive */
+    padding-bottom: 20px; /* Leave some space at the bottom */
   }
 
   .new-hero-image {
-    max-height: 60vh; /* 限制图片最大高度，避免过长 */
+    max-height: 60vh; /* Limit the maximum height of images，Avoid being too long */
   }
 
   .new-hero-date {
-    font-size: 0.8em; /* 缩小日期字体 */
+    font-size: 0.8em; /* Reduce date font size */
     padding: 8px;
-    bottom: 10px; /* 调整位置 */
+    bottom: 10px; /* Adjust position */
     left: 10px;
-    right: auto; /* 确保在左侧 */
-    transform: none; /* 移除桌面端的居中转换 */
-    background-color: rgba(0,0,0,0.4); /* 增加一点背景确保可读性 */
+    right: auto; /* Ensure on the left side */
+    transform: none; /* Remove the centering conversion on the desktop */
+    background-color: rgba(0,0,0,0.4); /* Add some background to ensure readability */
   }
 
   .new-hero-date .date-day-name,
   .new-hero-date .date-month,
   .new-hero-date .date-day-number {
-    font-size: 1.8rem; /* 调整日期内部字体大小 */
+    font-size: 1.8rem; /* Adjust the font size within the date */
   }
    .new-hero-date .date-month {
     font-size: 1rem;
    }
 
 
-  /* "Top products"区域标题 */
+  /* "Top products"AREA TITLE */
   .new-section-title {
-    font-size: 2rem; /* 减小标题字号 */
+    font-size: 2rem; /* Reduce the font size of the title */
     margin-bottom: 20px;
   }
 
-  /* 产品网格容器 */
+  /* Product Grid Container */
   .new-product-grid {
-    flex-direction: column; /* 产品卡片垂直堆叠 */
-    gap: 20px; /* 卡片之间的间隙 */
+    flex-direction: column; /* Vertical stacking of product cards */
+    gap: 20px; /* Gap between cards */
   }
 
-  /* 产品卡片 */
+  /* Product card */
   .new-product-card {
-    width: 100%; /* 卡片宽度占满父容器 */
-    /* flex-direction: row; */ /* 如果希望图片在左，文字在右 */
-    /* align-items: center; */ /* 如果是row布局，垂直居中 */
+    width: 100%; /* The card width occupies the entire parent container */
+    /* flex-direction: row; */ /* If you want the image to be on the left，Text on the right */
+    /* align-items: center; */ /* If yesrowlayout，Vertically centered */
   }
   
-  /* 如果希望手机端图片在左，文字在右（类似Figma搜索结果的列表项）可以这样调整 */
+  /* If you want the mobile image to be on the left，Text on the right（similarFigmaList items of search results）You can adjust it like this */
   /*
   .new-product-card.left-card, .new-product-card.right-card {
     flex-direction: row;
   }
   .new-product-image-container {
-    width: 120px; // 固定图片宽度
-    height: 120px; // 固定图片高度
-    padding-top: 0; // 移除之前的百分比padding
-    flex-shrink: 0; // 防止图片容器被压缩
+    width: 120px; // Fixed image width
+    height: 120px; // Fixed image height
+    padding-top: 0; // Remove the previous percentagepadding
+    flex-shrink: 0; // Prevent image containers from being compressed
   }
   .new-product-info {
-    text-align: left; // 文字左对齐
+    text-align: left; // Left aligned text
     padding: 15px;
   }
   .new-product-title {
@@ -304,60 +304,60 @@
   .new-buy-now-btn {
     padding: 8px 15px;
     font-size: 0.8rem;
-    align-self: flex-start; // 按钮左对齐
+    align-self: flex-start; // Left aligned button
   }
   */
 
 
   .new-product-image-container {
-     padding-top: 65%; /* 调整图片容器宽高比以适应垂直卡片 */
+     padding-top: 65%; /* Adjust the aspect ratio of the image container to fit the vertical card */
   }
 
   .new-product-title {
-    font-size: 1.3rem; /* 调整产品标题字号 */
+    font-size: 1.3rem; /* Adjust the font size of the product title */
   }
 
   .new-product-description {
-    font-size: 0.85rem; /* 调整描述字号 */
+    font-size: 0.85rem; /* Adjust the font size of the description */
   }
 
   .new-buy-now-btn {
-    padding: 10px 20px; /* 调整按钮大小 */
+    padding: 10px 20px; /* Adjust button size */
     font-size: 0.85rem;
   }
 
-  /* 新页脚调整 */
+  /* New Footer Adjustment */
   .new-footer {
-    padding: 30px 15px; /* 减小页脚内边距 */
+    padding: 30px 15px; /* Reduce the inner margin of the footer */
   }
 
   .new-social-media span {
-    margin: 0 10px; /* 减小社交媒体图标间距 */
+    margin: 0 10px; /* Reduce the spacing between social media icons */
     font-size: 0.85rem;
   }
 
   .new-acknowledgement {
-    font-size: 0.7rem; /* 减小声明文字大小 */
+    font-size: 0.7rem; /* Reduce the size of the declaration text */
   }
 }
 
-/* 针对非常小的屏幕，可以进一步微调 */
+/* For very small screens，Can be further fine tuned */
 @media (max-width: 480px) {
   .new-hero-date .date-day-name,
   .new-hero-date .date-month,
   .new-hero-date .date-day-number {
-    font-size: 1.5rem; /* 在非常小的屏幕上进一步缩小日期字体 */
+    font-size: 1.5rem; /* Further reduce the date font on a very small screen */
   }
   .new-hero-date .date-month {
     font-size: 0.9rem;
    }
 
   .new-section-title {
-    font-size: 1.8rem; /* 进一步减小标题 */
+    font-size: 1.8rem; /* Further reduce the title */
   }
 
   .new-product-title {
-    font-size: 1.2rem; /* 进一步减小产品标题 */
+    font-size: 1.2rem; /* Further reduce the product title */
   }
 
   .new-product-description {
@@ -369,13 +369,13 @@
   }
 }
 
-/* 确保 #new-homepage-content 在默认情况下是显示的，而其他页面是隐藏的 */
-/* 这个逻辑主要由JS控制，但CSS可以设置初始状态 */
+/* ensure #new-homepage-content Displayed by default，And other pages are hidden */
+/* This logic is mainly composed ofJScontrol，onlyCSSCan set initial state */
 #new-homepage-content {
-  display: block; /* 或者 flex, grid, 取决于其内部结构需求 */
+  display: block; /* or flex, grid, Depending on its internal structural requirements */
 }
 
-/* 其他页面初始隐藏 */
+/* Initial hiding of other pages */
 #about-page-content,
 #cakes-page-content,
 #wishlist-page-content,

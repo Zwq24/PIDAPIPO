@@ -1,43 +1,43 @@
-/* 顶部导航栏样式 */
+/* Top navigation bar style */
 .navbar {
-  display: flex; /* 使用 Flexbox 布局 */
-  justify-content: space-between; /* LOGO 和菜单/图标区左右分布 */
-  align-items: center; /* 垂直居中对齐各项 */
-  padding: 15px 30px; /* 根据Figma调整内边距 */
-  background-color: #EAE4DD; /* Figma 背景色 */
-  border-bottom: 1px solid #D5CCC6; /* Figma 分隔线颜色 */
-  position: sticky; /* 固定导航栏 */
+  display: flex; /* use Flexbox layout */
+  justify-content: space-between; /* LOGO And menu/Left and right distribution of icon area */
+  align-items: center; /* Align items vertically in the center */
+  padding: 15px 30px; /* according toFigmaAdjust the inner margin */
+  background-color: #EAE4DD; /* Figma background color */
+  border-bottom: 1px solid #D5CCC6; /* Figma Separation line color */
+  position: sticky; /* Fixed navigation bar */
   top: 0;
   z-index: 900;
-  height: 80px; /* 根据Figma设置固定高度 */
+  height: 80px; /* according toFigmaSet a fixed height */
   box-sizing: border-box;
 }
 .logo {
   cursor: pointer;
-  display: flex; /* 添加 flex 以帮助对齐图片 */
-  align-items: center; /* 垂直居中图片 */
+  display: flex; /* add flex To help align images */
+  align-items: center; /* Vertically centered image */
 }
 .nav-menu {
-  list-style: none; /* 移除列表默认样式 */
-  display: flex; /* 菜单项横向排列 */
-  gap: 30px; /* Figma菜单项间距 */
+  list-style: none; /* Remove the default style from the list */
+  display: flex; /* Horizontal arrangement of menu items */
+  gap: 30px; /* FigmaMenu item spacing */
   margin: 0;
   padding: 0;
 }
 .nav-menu li {
-  font-family: 'Poppins', sans-serif; /* Figma 菜单字体 */
-  font-size: 16px; /* Figma 菜单字号 */
-  color: #000000; /* Figma 菜单文字颜色 */
+  font-family: 'Poppins', sans-serif; /* Figma Menu font */
+  font-size: 16px; /* Figma Menu font size */
+  color: #000000; /* Figma Menu Text Color */
   cursor: pointer;
   transition: color 0.3s ease;
 }
 .nav-menu li:hover {
-  color: #51393A; /* 鼠标悬停颜色，可自定义 */
+  color: #51393A; /* Mouse hover color，Customizable */
 }
 .nav-icons {
-  display: flex; /* 使用 Flexbox */
-  align-items: center; /* 确保所有图标垂直居中对齐 */
-  gap: 20px; /* Figma 图标间距 */
+  display: flex; /* use Flexbox */
+  align-items: center; /* Ensure that all icons are vertically centered and aligned */
+  gap: 20px; /* Figma Icon spacing */
 }
 /* General style for all icons in nav-icons for alignment */
 .nav-icons > * { /* Target direct children: span for search, img for heart and bag */
@@ -46,9 +46,9 @@
   justify-content: center;
 }
 .nav-icons img { /* Style for all img icons (heart, bag, and search if it becomes one) */
-  width: 24px; /* 根据Figma调整图标大小，确保与图片尺寸协调 */
-  height: 24px; /* 根据Figma调整图标大小，确保与图片尺寸协调 */
-  object-fit: contain; /* 确保图片内容完整显示 */
+  width: 24px; /* according toFigmaAdjust icon size，Ensure coordination with image size */
+  height: 24px; /* according toFigmaAdjust icon size，Ensure coordination with image size */
+  object-fit: contain; /* Ensure complete display of image content */
   cursor: pointer;
 }
 /* Specific class for search icon's image if needed, already covered by .nav-icons img */
@@ -57,13 +57,13 @@
 .nav-icons .icon-search {
     line-height: 1; /* Ensure span itself doesn't add extra height */
 }
-.nav-icons img.icon-heart, /* 特指心形图标 */
-.nav-icons img.icon-search-img /* 如果搜索图标是img */ {
-    width: 24px; /* 明确设置图片宽度 */
-    height: 24px; /* 明确设置图片高度 */
-    object-fit: contain; /* 确保图片内容完整显示 */
+.nav-icons img.icon-heart, /* Specifically referring to the heart-shaped icon */
+.nav-icons img.icon-search-img /* If the search icon isimg */ {
+    width: 24px; /* Clearly set the width of the image */
+    height: 24px; /* Clearly set the height of the image */
+    object-fit: contain; /* Ensure complete display of image content */
 }
 .nav-icons .icon-bag {
-    font-size: 28px; /* 购物袋emoji可能需要微调大小以与其他图标视觉上对齐 */
-    line-height: 1; /* 确保emoji不会有额外的行高导致不对齐 */
+    font-size: 28px; /* shopping bagemojiYou may need to fine tune the size to visually align with other icons */
+    line-height: 1; /* ensureemojiThere will be no additional row height causing misalignment */
 } 

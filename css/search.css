@@ -1,4 +1,4 @@
-/* 搜索浮层样式 */
+/* Search for floating layer styles */
 .search-overlay {
   position: fixed;
   top: 0;
@@ -7,7 +7,7 @@
   height: 100%;
   background-color: #EAE4DD;
   z-index: 1000;
-  display: none; /* 后续JS控制 */
+  display: none; /* follow-upJScontrol */
   flex-direction: column;
   align-items: center;
   padding: 30px;
@@ -22,28 +22,28 @@
   visibility: visible;
 }
 
-/* 搜索浮层顶部 */
+/* Search for the top of the floating layer */
 .search-overlay-topbar {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px; /* Figma 间距 */
+  margin-bottom: 40px; /* Figma spacing */
 }
 .search-overlay-topbar .logo {
-  /* font-size: 28px; */ /* 略小于主导航栏logo - 已被图片替代 */
-  /* font-weight: bold; */ /* - 已被图片替代 */
-  display: flex; /* 添加 flex 以帮助对齐图片 */
-  align-items: center; /* 垂直居中图片 */
+  /* font-size: 28px; */ /* Slightly smaller than the main navigation barrierlogo - Replaced by picture */
+  /* font-weight: bold; */ /* - Replaced by picture */
+  display: flex; /* add flex To help align images */
+  align-items: center; /* Vertically centered image */
 }
-/* 针对搜索浮层中的Logo图片，应用特定大小 */
+/* Regarding the search floating layerLogopicture，Application specific size */
 .search-overlay-topbar .site-logo {
     height: 30px;
 }
 .search-overlay-topbar-icons {
   display: flex;
   align-items: center; /* Vertically align icons */
-  gap: 20px; /* Figma 图标间距 */
+  gap: 20px; /* Figma Icon spacing */
 }
 
 /* General style for icons in search overlay top bar */
@@ -75,28 +75,28 @@
   line-height: 1; /* Helps with vertical alignment of text/span */
 }
 
-/* 搜索输入区域 */
+/* Search input area */
 .search-overlay-input-area {
   display: flex;
   align-items: center;
-  background-color: #FFFFFF; /* Figma 输入框背景色 */
-  border-radius: 10px; /* Figma 圆角 */
+  background-color: #FFFFFF; /* Figma Background color of input box */
+  border-radius: 10px; /* Figma rounded corners */
   padding: 15px 20px;
   width: 100%;
-  max-width: 700px; /* Figma 宽度 */
-  margin-bottom: 30px; /* Figma 间距 */
+  max-width: 700px; /* Figma width */
+  margin-bottom: 30px; /* Figma spacing */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .search-overlay-input-area input[type="text"] {
   flex-grow: 1;
   border: none;
   outline: none;
-  font-size: 20px; /* Figma 字体大小 */
+  font-size: 20px; /* Figma font size */
   font-family: 'Poppins', sans-serif;
   background-color: transparent;
 }
 .search-overlay-input-area input[type="text"]::placeholder {
-  color: #AAA; /* Figma placeholder颜色 */
+  color: #AAA; /* Figma placeholdercolour */
 }
 .search-overlay-icon-search {
   margin: 0 10px;
@@ -106,19 +106,19 @@
   height: 24px;
 }
 
-/* 推荐搜索词 */
+/* Recommended search terms */
 .search-overlay-suggestions {
   display: flex;
-  gap: 15px; /* Figma 按钮间距 */
-  margin-bottom: 40px; /* Figma 间距 */
+  gap: 15px; /* Figma Button spacing */
+  margin-bottom: 40px; /* Figma spacing */
 }
 .search-overlay-suggestions button {
-  background-color: #FFFFFF; /* Figma 按钮背景色 */
-  color: #000000; /* Figma 文字颜色 */
-  border: 1px solid #CCC; /* Figma 边框 */
-  border-radius: 20px; /* Figma 圆角 */
+  background-color: #FFFFFF; /* Figma Button background color */
+  color: #000000; /* Figma Text color */
+  border: 1px solid #CCC; /* Figma frame */
+  border-radius: 20px; /* Figma rounded corners */
   padding: 10px 20px;
-  font-size: 16px; /* Figma 字体大小 */
+  font-size: 16px; /* Figma font size */
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
@@ -129,15 +129,15 @@
   border-color: #51393A;
 }
 
-/* 搜索结果预览 */
+/* searchpreview for google  */
 .search-results-preview {
-  background-color: #FFFFFF; /* Figma 背景色 */
-  border-radius: 10px; /* Figma 圆角 */
+  background-color: #FFFFFF; /* Figma background color */
+  border-radius: 10px; /* Figma rounded corners */
   width: 100%;
-  max-width: 700px; /* 与输入框同宽 */
+  max-width: 700px; /* Same width as the input box */
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  display: none; /* 默认隐藏 */
+  display: none; /* Default Hide */
 }
 .search-results-preview.active {
   display: block;
@@ -145,11 +145,11 @@
 .results-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  font-size: 18px; /* Figma 字体大小 */
+  font-size: 18px; /* Figma font size */
   color: #000000;
-  margin: 0 0 15px 0; /* Figma 间距 */
+  margin: 0 0 15px 0; /* Figma spacing */
   padding-bottom: 10px;
-  border-bottom: 1px solid #EEE; /* Figma 分割线 */
+  border-bottom: 1px solid #EEE; /* Figma Dividing line */
 }
 .results-list {
   list-style: none;
@@ -159,8 +159,8 @@
 .result-item {
   display: flex;
   align-items: center;
-  padding: 15px 0; /* Figma 上下间距 */
-  border-bottom: 1px solid #EEE; /* Figma 分割线 */
+  padding: 15px 0; /* Figma Up and down spacing */
+  border-bottom: 1px solid #EEE; /* Figma Dividing line */
   cursor: pointer;
 }
 .result-item:last-child {
@@ -170,13 +170,13 @@
   background-color: #f9f9f9;
 }
 .result-item-icon {
-  width: 20px; /* Figma 图标大小 */
+  width: 20px; /* Figma size */
   height: 20px;
-  margin-right: 15px; /* Figma 图标与文字间距 */
-  opacity: 0.5; /* 图标可以淡一点 */
+  margin-right: 15px; /* Figma Icon to text spacing */
+  opacity: 0.5; /* The icon can be lighter */
 }
 .result-item-name {
   font-family: 'Poppins', sans-serif;
-  font-size: 16px; /* Figma 字体大小 */
+  font-size: 16px; /* Figma font size */
   color: #000000;
 } 

@@ -1,12 +1,12 @@
 // js/cart.js
 // Handle shopping cart data and UI
 
-// 购物车数据结构 [{id, name, price, quantity, image}]
+// Shopping cart data structure [{id, name, price, quantity, image}]
 let cartItems = [];
 
-// 添加商品到购物车
+// Add products to cart
 function addToCart(productId, quantity = 1) {
-  // 查找产品数据
+  // Search for product data
   const product = productsData.find(p => p.id === productId);
   
   if (!product) {
@@ -14,18 +14,18 @@ function addToCart(productId, quantity = 1) {
     return false;
   }
   
-  // 检查购物车中是否已有该商品
+  // Check if the item is already in the shopping cart
   const existingItem = cartItems.find(item => item.id === productId);
   
   if (existingItem) {
-    // 如果已存在，增加数量
+    // If it already exists，Increase quantity
     existingItem.quantity += quantity;
     console.log(`Updated ${product.name} quantity to ${existingItem.quantity}`);
   } else {
-    // 提取价格数字
+    // Extract price figures
     const priceValue = parseFloat(product.price.replace('$', ''));
     
-    // 添加新商品
+    // Add new product
     cartItems.push({
       id: product.id,
       name: product.name,
@@ -36,26 +36,26 @@ function addToCart(productId, quantity = 1) {
     console.log(`Added ${product.name} to cart`);
   }
   
-  // 更新购物车图标
+  // Update shopping cart icon
   updateCartIcon();
   
-  // 如果当前在购物车页面，刷新页面内容
+  // If currently on the shopping cart page，Refresh page content
   if (document.getElementById('cart-page-content').style.display !== 'none') {
     renderCartPage();
   }
   
-  // 如果当前在移动端购物车页面，刷新页面内容
+  // If currently on the mobile shopping cart page，Refresh page content
   if (document.getElementById('mobile-cart-page-content').style.display !== 'none') {
     renderMobileCartPage();
   }
   
-  // 本地存储购物车数据
+  // Local storage of shopping cart data
   saveCartToLocalStorage();
   
   return true;
 }
 
-// 从购物车中移除商品
+// Remove items from the shopping cart
 function removeFromCart(productId) {
   const index = cartItems.findIndex(item => item.id === productId);
   
@@ -64,20 +64,20 @@ function removeFromCart(productId) {
     cartItems.splice(index, 1);
     console.log(`Removed ${removedItem.name} from cart`);
     
-    // 更新购物车图标
+    // Update shopping cart icon
     updateCartIcon();
     
-    // 如果当前在购物车页面，刷新页面内容
+    // If currently on the shopping cart page，Refresh page content
     if (document.getElementById('cart-page-content').style.display !== 'none') {
       renderCartPage();
     }
     
-    // 如果当前在移动端购物车页面，刷新页面内容
+    // If currently on the mobile shopping cart page，Refresh page content
     if (document.getElementById('mobile-cart-page-content').style.display !== 'none') {
       renderMobileCartPage();
     }
     
-    // 本地存储购物车数据
+    // Local storage of shopping cart data
     saveCartToLocalStorage();
     
     return true;
@@ -86,7 +86,7 @@ function removeFromCart(productId) {
   return false;
 }
 
-// 更新购物车中商品数量
+// Update the quantity of items in the shopping cart
 function updateCartItemQuantity(productId, quantity) {
   if (quantity < 1) {
     return removeFromCart(productId);
@@ -98,20 +98,20 @@ function updateCartItemQuantity(productId, quantity) {
     item.quantity = quantity;
     console.log(`Updated ${item.name} quantity to ${quantity}`);
     
-    // 更新购物车图标
+    // Update shopping cart icon
     updateCartIcon();
     
-    // 如果当前在购物车页面，刷新页面内容
+    // If currently on the shopping cart page，Refresh page content
     if (document.getElementById('cart-page-content').style.display !== 'none') {
       renderCartPage();
     }
     
-    // 如果当前在移动端购物车页面，刷新页面内容
+    // If currently on the mobile shopping cart page，Refresh page content
     if (document.getElementById('mobile-cart-page-content').style.display !== 'none') {
       renderMobileCartPage();
     }
     
-    // 本地存储购物车数据
+    // Local storage of shopping cart data
     saveCartToLocalStorage();
     
     return true;
@@ -120,7 +120,7 @@ function updateCartItemQuantity(productId, quantity) {
   return false;
 }
 
-// 计算购物车总价
+// Calculate the total price of the shopping cart
 function calculateCartTotal() {
   let subtotal = 0;
   
@@ -128,7 +128,7 @@ function calculateCartTotal() {
     subtotal += item.price * item.quantity;
   });
   
-  // 暂时不计算运费
+  // Temporarily not calculating shipping fees
   const shipping = 0;
   
   return {
@@ -138,13 +138,13 @@ function calculateCartTotal() {
   };
 }
 
-// 更新购物车图标（已删除红色数量显示）
+// Update shopping cart icon（Deleted red quantity display）
 function updateCartIcon() {
   // No longer displaying cart quantity badge, maintain original shopping bag icon style
   console.log('Cart icon update disabled (no red quantity display)');
 }
 
-// 渲染购物车页面
+// Rendering the shopping cart page
 function renderCartPage() {
   const cartContainer = document.querySelector('#cart-page-content .cart-items-container');
   const subtotalEl = document.getElementById('cart-subtotal');
@@ -155,16 +155,16 @@ function renderCartPage() {
     return;
   }
   
-  // 清空当前内容
+  // Clear the current content
   cartContainer.innerHTML = '';
   
   if (cartItems.length === 0) {
-    // 购物车为空的提示
+    // Reminder that the shopping cart is empty
     cartContainer.innerHTML = '<p class="cart-empty-message">Your cart is currently empty.</p>';
     subtotalEl.textContent = '$0.00';
     totalEl.textContent = '$0.00';
     
-    // 禁用结账按钮
+    // Disable checkout button
     const checkoutBtn = document.getElementById('cart-checkout-btn');
     if (checkoutBtn) {
       checkoutBtn.disabled = true;
@@ -174,19 +174,19 @@ function renderCartPage() {
     return;
   }
   
-  // 计算总价
+  // Calculate the total price
   const totals = calculateCartTotal();
   subtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
   totalEl.textContent = `$${totals.total.toFixed(2)}`;
   
-  // 启用结账按钮
+  // Enable checkout button
   const checkoutBtn = document.getElementById('cart-checkout-btn');
   if (checkoutBtn) {
     checkoutBtn.disabled = false;
     checkoutBtn.classList.remove('disabled');
   }
   
-  // 渲染每个购物车项目
+  // Rendering each shopping cart item
   cartItems.forEach(item => {
     const itemHTML = `
       <div class="cart-item" data-product-id="${item.id}">
@@ -209,7 +209,7 @@ function renderCartPage() {
     cartContainer.insertAdjacentHTML('beforeend', itemHTML);
   });
   
-  // 为数量调整按钮添加事件监听
+  // Add event monitoring for quantity adjustment button
   document.querySelectorAll('.cart-quantity-decrease').forEach(btn => {
     btn.addEventListener('click', function() {
       const productId = this.dataset.productId;
@@ -232,7 +232,7 @@ function renderCartPage() {
     });
   });
   
-  // 为移除按钮添加事件监听
+  // Add event listener to remove button
   document.querySelectorAll('.cart-item-remove').forEach(btn => {
     btn.addEventListener('click', function() {
       const productId = this.dataset.productId;
@@ -241,7 +241,7 @@ function renderCartPage() {
   });
 }
 
-// 新增：渲染移动端购物车页面
+// newly added：Rendering the mobile shopping cart page
 function renderMobileCartPage() {
   const mobileCartContainer = document.querySelector('#mobile-cart-page-content .mobile-cart-items');
   const mobileSubtotalEl = document.getElementById('mobile-cart-subtotal');
@@ -253,17 +253,17 @@ function renderMobileCartPage() {
     return;
   }
   
-  // 清空当前内容
+  // Clear the current content
   mobileCartContainer.innerHTML = '';
   
   if (cartItems.length === 0) {
-    // 购物车为空的提示
+    // Reminder that the shopping cart is empty
     mobileCartContainer.innerHTML = '<p class="mobile-cart-empty">Your cart is currently empty.</p>';
     mobileSubtotalEl.textContent = '$0.00';
     mobileShippingEl.textContent = '$0.00';
     mobileTotalEl.textContent = '$0.00';
     
-    // 禁用结账按钮
+    // Disable checkout button
     const mobileCheckoutBtn = document.getElementById('mobile-cart-checkout-btn');
     if (mobileCheckoutBtn) {
       mobileCheckoutBtn.disabled = true;
@@ -273,20 +273,20 @@ function renderMobileCartPage() {
     return;
   }
   
-  // 计算总价
+  // Calculate the total price
   const totals = calculateCartTotal();
   mobileSubtotalEl.textContent = `$${totals.subtotal.toFixed(2)}`;
   mobileShippingEl.textContent = `$${totals.shipping.toFixed(2)}`;
   mobileTotalEl.textContent = `$${totals.total.toFixed(2)}`;
   
-  // 启用结账按钮
+  // Enable checkout button
   const mobileCheckoutBtn = document.getElementById('mobile-cart-checkout-btn');
   if (mobileCheckoutBtn) {
     mobileCheckoutBtn.disabled = false;
     mobileCheckoutBtn.classList.remove('disabled');
   }
   
-  // 渲染每个购物车项目
+  // Rendering each shopping cart item
   cartItems.forEach(item => {
     const itemHTML = `
       <div class="mobile-cart-item" data-product-id="${item.id}">
@@ -307,7 +307,7 @@ function renderMobileCartPage() {
     mobileCartContainer.insertAdjacentHTML('beforeend', itemHTML);
   });
   
-  // 为数量调整按钮添加事件监听
+  // Add event monitoring for quantity adjustment button
   document.querySelectorAll('.mobile-cart-quantity-decrease').forEach(btn => {
     btn.addEventListener('click', function() {
       const productId = this.dataset.productId;
@@ -330,7 +330,7 @@ function renderMobileCartPage() {
     });
   });
   
-  // 为移除按钮添加事件监听
+  // Add event listener to remove button
   document.querySelectorAll('.mobile-cart-item-remove').forEach(btn => {
     btn.addEventListener('click', function() {
       const productId = this.dataset.productId;
@@ -339,12 +339,12 @@ function renderMobileCartPage() {
   });
 }
 
-// 本地存储购物车数据
+// Local storage of shopping cart data
 function saveCartToLocalStorage() {
   localStorage.setItem('pidapipo-cart', JSON.stringify(cartItems));
 }
 
-// 从本地存储加载购物车数据
+// Load shopping cart data from local storage
 function loadCartFromLocalStorage() {
   const storedCart = localStorage.getItem('pidapipo-cart');
   if (storedCart) {
@@ -357,15 +357,15 @@ function loadCartFromLocalStorage() {
   }
 }
 
-// 初始化购物车
+// Initialize shopping cart
 function initCart() {
-  // 加载本地存储的购物车数据
+  // Load locally stored shopping cart data
   loadCartFromLocalStorage();
   
-  // 绑定购物车图标点击事件 (桌面端和移动端PDP)
-  const cartIcons = document.querySelectorAll('.icon-bag'); // 选择所有 .icon-bag
+  // Binding shopping cart icon click event (Desktop and mobile devicesPDP)
+  const cartIcons = document.querySelectorAll('.icon-bag'); // All .icon-bag
   cartIcons.forEach(icon => {
-    // 检查是否已经绑定过事件，防止重复绑定
+    // Check if the event has already been bound，Prevent duplicate binding
     if (!icon.listenerAttached) {
     icon.addEventListener('click', () => {
       if (typeof showCartPage === 'function') {
@@ -374,11 +374,11 @@ function initCart() {
         console.error('showCartPage function is not defined.');
       }
     });
-      icon.listenerAttached = true; // 标记已绑定
+      icon.listenerAttached = true; // Tag bound
     }
   });
   
-  // 为移动端底部导航栏中的购物袋图标添加点击事件
+  // Add click events to the shopping bag icon in the bottom navigation bar of mobile devices
   const mobileNavCartIcon = document.querySelector('.mobile-bottom-nav .mobile-nav-item:nth-child(3)');
   if (mobileNavCartIcon && !mobileNavCartIcon.listenerAttached) {
     mobileNavCartIcon.addEventListener('click', (e) => {
@@ -392,20 +392,20 @@ function initCart() {
     mobileNavCartIcon.listenerAttached = true;
   }
   
-  // 更新所有添加到购物车按钮 (产品详情页、首页Top Products等)
-  // 选择器 '.pdp-add-to-cart-btn' 用于产品详情页
-  // 选择器 '.mobile-add-to-cart-btn' 用于移动端首页Top Products的加号按钮
-  // 选择器 '.new-buy-now-btn' 用于桌面版首页Top Products的 "buy now" 按钮
+  // Update all add to cart buttons (Product Details Page、home pageTop Productsetc.)
+  // selector '.pdp-add-to-cart-btn' Used for product detail page
+  // selector '.mobile-add-to-cart-btn' Used for mobile homepageTop ProductsThe plus button
+  // selector '.new-buy-now-btn' Used for desktop homepageTop Productsof "buy now" button
   const allAddToCartButtons = document.querySelectorAll('.pdp-add-to-cart-btn, .mobile-add-to-cart-btn, .new-buy-now-btn');
   
   allAddToCartButtons.forEach(btn => {
-    if (!btn.listenerAttached) { // 防止重复绑定
+    if (!btn.listenerAttached) { // Prevent duplicate binding
       btn.addEventListener('click', function(event) {
-        event.stopPropagation(); // 阻止事件冒泡，特别重要，如果按钮在可点击卡片内
+        event.stopPropagation(); // Prevent event bubbling，Especially important，If the button is within the clickable card
       const productId = this.dataset.productId;
         
-        // 对于 .pdp-add-to-cart-btn (产品详情页), 我们需要获取数量
-        // 对于其他按钮 (首页Top Products), 数量默认为1
+        // regarding .pdp-add-to-cart-btn (Product Details Page), We need to obtain the quantity
+        // For other buttons (home pageTop Products), The default quantity is1
         let quantity = 1;
         if (this.classList.contains('pdp-add-to-cart-btn')) {
       const quantityInput = document.getElementById('pdp-quantity-value');
@@ -414,11 +414,11 @@ function initCart() {
       
         if (productId) {
           addToCart(productId, quantity);
-          // 可选：在这里添加一个简短的视觉反馈，比如按钮状态的改变
+          // optional：Add a brief visual feedback here，For example, changes in button status
           this.classList.add('item-added');
           setTimeout(() => {
             this.classList.remove('item-added');
-          }, 300); // 0.3秒后移除class (原为1000ms)
+          }, 300); // 0.3Remove in secondsclass (originally be1000ms)
         } else {
           console.error('Product ID not found for this button:', this);
       }
@@ -427,6 +427,6 @@ function initCart() {
     }
   });
   
-  // 初始更新购物车图标
+  // Initial update of shopping cart icon
   updateCartIcon();
 } 

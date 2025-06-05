@@ -1,19 +1,19 @@
 // js/productDetail.js
-// 负责生成和管理产品详情页的逻辑
+// Responsible for generating and managing the logic of product detail pages
 
-// (依赖 productData.js -> productsData 变量)
-// (依赖 navigation.js -> showNewHomepage, goBackToPreviousPageOrHomepage, setActivePage, showWishlistPage 函数)
-// (依赖 wishlist.js -> addToWishlist, updateAllWishlistIcons, toggleWishlistProduct 函数)
-// (依赖 uiElements.js -> closeSearchOverlay 函数)
+// (be dependent on productData.js -> productsData variable)
+// (be dependent on navigation.js -> showNewHomepage, goBackToPreviousPageOrHomepage, setActivePage, showWishlistPage function)
+// (be dependent on wishlist.js -> addToWishlist, updateAllWishlistIcons, toggleWishlistProduct function)
+// (be dependent on uiElements.js -> closeSearchOverlay function)
 
 let currentProduct = null; // Stores the currently displayed product data
 
 function createProductDetailHTML(product) {
   const productDetailPage = document.getElementById('product-detail-page');
-  // 将背景色设置为浅蓝色，与设计稿一致
+  // Set the background color to light blue，Consistent with the design draft
   productDetailPage.style.backgroundColor = "#A4DDD8";
   
-  // 使用 img 标签作为心愿单图标，并添加 data-product-id
+  // use img Tags as wishlist icons，And add data-product-id
   return `
     <div class="pdp-top-bar">
       <img src="mobile_images/back-arrow@2X 1 (1).png" alt="Back" class="pdp-back-btn" id="pdp-back-btn">
@@ -53,25 +53,25 @@ function createProductDetailHTML(product) {
 
 // Function to set up event listeners for product links
 function setupProductLinkListeners() {
-  // 获取所有可点击进入产品详情页的元素
+  // Get all the elements that can be clicked to enter the product details page
   const productLinks = document.querySelectorAll('.js-view-product-detail, .new-buy-now-btn, [data-product-id^="cake-"], .cake-item');
   
-  // 为每个产品链接添加点击事件
+  // Add click events for each product link
   productLinks.forEach(link => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       
-      // 获取产品ID - 首先尝试data-product-id属性
+      // Get productsID - First trydata-product-idattribute
       let productId = link.dataset.productId;
       
-      // 如果当前元素没有产品ID，尝试查找它的子元素或父元素
+      // If the current element does not have a productID，Try to find its child or parent elements
       if (!productId) {
-        // 向下查找子元素
+        // Search for sub elements downwards
         const childWithId = link.querySelector('[data-product-id]');
         if (childWithId) {
           productId = childWithId.dataset.productId;
         } else {
-          // 向上查找父元素
+          // Search for the parent element upwards
           let parent = link.closest('[data-product-id]');
           if (parent) {
             productId = parent.dataset.productId;
@@ -79,35 +79,35 @@ function setupProductLinkListeners() {
         }
       }
       
-      // 如果找到产品ID，则显示产品详情页
+      // If the product is foundID，Display the product details page
       if (productId) {
-        console.log("准备显示产品:", productId);
+        console.log("Prepare to display the product:", productId);
         
-        // 存储当前所在视图类型，以便后续返回
+        // Store the current view type，In order to return later
         let previousView = determinePreviousView();
         sessionStorage.setItem('previousProductView', previousView);
         
-        // 显示产品详情页
+        // Display product details page
         showProductDetail(productId);
       } else {
-        console.error("无法确定产品ID");
+        console.error("Unable to determine productID");
       }
     });
   });
 }
 
-// 辅助函数：确定用户当前所在的视图
+// auxiliary function ：Determine the current view where the user is located
 function determinePreviousView() {
-  // 检查各种可能的视图
+  // Check various possible views
   const mobileMainAppView = document.getElementById('mobile-main-app-view');
   const mobileCakesContent = document.getElementById('mobile-cakes-page-content');
   const newHomepageContent = document.getElementById('new-homepage-content');
   const cakesPageContent = document.getElementById('cakes-page-content');
   
-  // 检查元素是否存在并且可见
+  // Check if the element exists and is visible
   const isVisible = (element) => element && getComputedStyle(element).display !== 'none';
   
-  // 按优先级返回视图类型
+  // Return view type by priority
   if (isVisible(mobileCakesContent)) {
     return 'mobile-cakes';
   } else if (isVisible(mobileMainAppView)) {
@@ -118,7 +118,7 @@ function determinePreviousView() {
     return 'desktop-home';
   }
   
-  // 默认返回值
+  // Default return value
   return window.innerWidth <= 768 ? 'mobile-home' : 'desktop-home';
 }
 
@@ -184,7 +184,7 @@ function setupProductDetailPageEventListeners(product) {
       pdpWishlistIcon._wishlistClickHandler = newWishlistHandler;
   }
   
-  // 添加购物袋图标点击事件，跳转到购物车页面
+  // Add shopping bag icon click event，Jump to the shopping cart page
   const pdpCartIcon = document.querySelector('#product-detail-page .icon-bag');
   if (pdpCartIcon) {
     const cartIconHandler = () => {
@@ -195,17 +195,17 @@ function setupProductDetailPageEventListeners(product) {
       }
     };
     
-    // 移除可能存在的旧事件监听器
+    // Remove possible old event listeners
     if (pdpCartIcon._cartIconClickHandler) {
       pdpCartIcon.removeEventListener('click', pdpCartIcon._cartIconClickHandler);
     }
     
-    // 添加新的事件监听器
+    // Add a new event listener
     pdpCartIcon.addEventListener('click', cartIconHandler);
     pdpCartIcon._cartIconClickHandler = cartIconHandler;
   }
   
-  // 更新数量选择器事件处理
+  // Update quantity selector event handling
   const decreaseBtn = document.getElementById('pdp-qty-decrease');
   const increaseBtn = document.getElementById('pdp-qty-increase');
   const quantityVal = document.getElementById('pdp-quantity-value');
@@ -234,7 +234,7 @@ function setupProductDetailPageEventListeners(product) {
       const quantity = quantityVal ? parseInt(quantityVal.textContent) : 1;
       
       if (typeof addToCart === 'function') {
-        // 添加到购物车，不再显示弹窗
+        // add to cart，No longer display pop ups
         addToCart(product.id, quantity);
       } else {
         // fallback
@@ -251,19 +251,19 @@ function handleBackFromProductDetail() {
   if(productDetailPage) productDetailPage.style.display = 'none';
   document.body.classList.remove('product-detail-active');
 
-  // 确保所有页面容器都隐藏，以便只显示目标页面
+  // Ensure that all page containers are hidden，In order to display only the target page
   if (typeof hideAllPages === 'function') hideAllPages();
   
-  console.log("从产品详情页返回到:", previousView);
+  console.log("Return from the product details page to:", previousView);
 
-  // 基于存储的previousView决定返回到哪个视图
+  // Based on storagepreviousViewDecide which view to return to
   switch(previousView) {
     case 'mobile-home':
       const mobileMainAppView = document.getElementById('mobile-main-app-view');
       if (mobileMainAppView) {
-        // 显示移动主视图
+        // Display the mobile main view
         mobileMainAppView.style.display = 'flex';
-        // 显示其所有部分
+        // Display all its parts
         const sections = mobileMainAppView.querySelectorAll(':scope > section');
         sections.forEach(sec => sec.classList.remove('hidden'));
       }
@@ -293,7 +293,7 @@ function handleBackFromProductDetail() {
       break;
       
     default:
-      // 如果没有有效的previousView或无法确定，根据设备宽度决定返回到哪个主页
+      // If there is no effectivepreviousViewOr unable to determine，Determine which homepage to return to based on device width
       if (window.innerWidth <= 768) {
         const mobileMainAppView = document.getElementById('mobile-main-app-view');
         if (mobileMainAppView) {
@@ -310,10 +310,10 @@ function handleBackFromProductDetail() {
       }
   }
   
-  // 清除存储的previousView
+  // Clear stored datapreviousView
   sessionStorage.removeItem('previousProductView');
   
-  // 滚动到页面顶部
+  // Scroll to the top of the page
   window.scrollTo(0, 0);
 }
 
@@ -325,20 +325,20 @@ function handleBackFromProductDetail() {
 // Make sure the original setupProductDetailListeners is now setupProductDetailPageEventListeners
 // and that showProductDetail (previously showProductDetailFromOtherPage) calls it.
 
-// 更新所有心愿单图标状态 (包括PDP上的)
+// Update the status of all wishlist icons (includePDPUp there)
 if (typeof updateAllWishlistIcons === 'function') {
   updateAllWishlistIcons();
 } else {
   console.error("updateAllWishlistIcons function is not defined in wishlist.js");
 }
 
-// 从搜索结果跳转到产品详情页的函数
+// Function to jump from search results to product details page
 function showProductDetailFromOtherPage(productId) {
-  // 记录当前页面状态
+  // Record the current page status
   const currentPageId = document.body.dataset.currentPage || 'newHomepage';
   sessionStorage.setItem('previousProductView', determinePreviousViewFromId(currentPageId));
   
-  // 显示产品详情页
+  // Display product details page
   showProductDetail(productId);
 }
 

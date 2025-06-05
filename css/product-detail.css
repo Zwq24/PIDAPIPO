@@ -1,4 +1,4 @@
-/* --- 产品详情页 (PDP) 样式 --- */
+/* --- Product Details Page (PDP) style --- */
 .product-detail-page {
   position: fixed;
   top: 0;
@@ -6,11 +6,11 @@
   width: 100%;
   height: 100%;
   /* background-color set by JS */
-  z-index: 1100; /* 高于搜索浮层 */
-  display: none; /* 默认隐藏 */
+  z-index: 1100; /* Above the search floating layer */
+  display: none; /* Default Hide */
   flex-direction: column;
-  overflow-y: auto; /* 如果内容超长则允许滚动 */
-  color: #000; /* 默认文字颜色，背景色会变 */
+  overflow-y: auto; /* If the content is too long, scrolling is allowed */
+  color: #000; /* Default Text Color，The background color will change */
 }
 
 .pdp-top-bar {
@@ -20,13 +20,13 @@
   padding: 20px 30px;
   width: 100%;
   box-sizing: border-box;
-  position: absolute; /* 覆盖在图片之上 */
+  position: absolute; /* Overlay on top of the image */
   top:0;
   left:0;
   z-index: 10;
 }
 .pdp-back-btn {
-  width: 30px; /* 根据SVG大小调整 */
+  width: 30px; /* according toSVGSizing */
   height: 30px;
   cursor: pointer;
 }
@@ -49,43 +49,43 @@
 
 .pdp-main-image-container {
   width: 100%;
-  height: 60vh; /* 图片占据一定视口高度 */
-  max-height: 500px; /* 最大高度 */
+  height: 60vh; /* The image occupies a certain viewport height */
+  max-height: 500px; /* Maximum height */
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* 防止图片溢出 */
-  background-color: #ccc; /* 图片未加载时的占位背景 */
+  overflow: hidden; /* Prevent image overflow */
+  background-color: #ccc; /* Occupation background when the image is not loaded */
 }
 
 .pdp-main-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 覆盖容器 */
+  object-fit: cover; /* Cover container */
 }
 
 .pdp-info-container {
   padding: 30px;
-  background-color: #EAE4DD; /* 详情区域的背景，参照Figma */
-  border-top-left-radius: 30px; /* 左上圆角 */
-  border-top-right-radius: 30px; /* 右上圆角 */
-  margin-top: -30px; /* 与图片部分重叠形成圆角效果 */
-  position: relative; /* 确保在图片层之上 */
+  background-color: #EAE4DD; /* Background of the Details Area，refer toFigma */
+  border-top-left-radius: 30px; /* Top left corner */
+  border-top-right-radius: 30px; /* Top right corner */
+  margin-top: -30px; /* Overlap with the image to create a rounded corner effect */
+  position: relative; /* Ensure that it is on top of the image layer */
   z-index: 5;
-  flex-grow: 1; /* 占据剩余空间 */
+  flex-grow: 1; /* Occupy the remaining space */
 }
 
 .pdp-title {
   font-family: 'Poppins', sans-serif; /* Figma: Poppins SemiBold */
   font-weight: 600;
-  font-size: 36px; /* Figma: 48px, 可根据实际调整 */
+  font-size: 36px; /* Figma: 48px, Can be adjusted according to actual conditions */
   margin: 0 0 15px 0;
 }
 
 .pdp-description {
   font-family: 'Abhaya Libre Medium', serif; /* Figma */
   font-weight: 500;
-  font-size: 20px; /* Figma: 36px, 可根据实际调整 */
+  font-size: 20px; /* Figma: 36px, Can be adjusted according to actual conditions */
   line-height: 1.4;
   margin-bottom: 20px;
 }
@@ -93,13 +93,13 @@
 .pdp-price {
   font-family: 'Inter', sans-serif; /* Figma */
   font-weight: 700;
-  font-size: 32px; /* Figma: 48px, 可根据实际调整 */
+  font-size: 32px; /* Figma: 48px, Can be adjusted according to actual conditions */
   margin-bottom: 20px;
 }
 
 .pdp-divider {
   border: none;
-  border-top: 1px solid #000000; /* Figma 分割线 */
+  border-top: 1px solid #000000; /* Figma Dividing line */
   margin: 20px 0;
 }
 
@@ -109,7 +109,7 @@
   font-size: 16px; /* Figma: 20px */
   line-height: 1.5;
   margin-bottom: 30px;
-  white-space: pre-line; /* 保持换行符 */
+  white-space: pre-line; /* Keep line breaks */
 }
 
 .pdp-actions {
@@ -121,16 +121,16 @@
 .pdp-quantity-selector {
   display: flex;
   align-items: center;
-  background-color: #AEA19D; /* Figma 背景 */
-  border-radius: 25px; /* Figma 圆角 */
+  background-color: #AEA19D; /* Figma background */
+  border-radius: 25px; /* Figma rounded corners */
   padding: 5px;
 }
 
 .pdp-quantity-btn {
   background: none;
   border: none;
-  color: #000000; /* Figma 颜色 */
-  font-size: 28px; /* Figma 字体大小 */
+  color: #000000; /* Figma colour */
+  font-size: 28px; /* Figma font size */
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   padding: 10px 15px;
@@ -138,44 +138,44 @@
 
 .pdp-quantity-value {
   font-family: 'Inter', sans-serif;
-  font-size: 28px; /* Figma 字体大小 */
+  font-size: 28px; /* Figma font size */
   color: #000000;
   padding: 0 10px;
-  min-width: 40px; /* 保证两位数宽度 */
+  min-width: 40px; /* Ensure two digit width */
   text-align: center;
 }
 
 .pdp-add-to-cart-btn {
-  background-color: #51393A; /* 深棕色，与整体网站风格一致 */
-  color: #FFFFFF; /* 白色文字 */
+  background-color: #51393A; /* Dark brown，Consistent with the overall website style */
+  color: #FFFFFF; /* White text */
   font-family: 'Inter', sans-serif;
-  font-size: 22px; /* 适当减小字体大小 */
-  font-weight: 600; /* 稍微加粗 */
+  font-size: 22px; /* Reduce font size appropriately */
+  font-weight: 600; /* Slightly bolded */
   border: none;
-  border-radius: 12px; /* 适当减小圆角 */
+  border-radius: 12px; /* Reduce rounded corners appropriately */
   padding: 15px 30px;
   cursor: pointer;
-  flex-grow: 1; /* 占据剩余空间 */
+  flex-grow: 1; /* Occupy the remaining space */
   text-align: center;
-  transition: all 0.3s ease; /* 完整过渡效果 */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* 添加阴影 */
+  transition: all 0.3s ease; /* Complete transition effect */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Add Shadow */
   position: relative;
-  overflow: hidden; /* 用于波纹效果 */
+  overflow: hidden; /* Used for ripple effect */
 }
 
 .pdp-add-to-cart-btn:hover {
-  background-color: #694b4c; /* 稍微浅一点的棕色 */
-  transform: translateY(-3px); /* 悬停时上移 */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* 增强阴影 */
+  background-color: #694b4c; /* A slightly lighter brown color */
+  transform: translateY(-3px); /* Move up when hovering */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Enhance Shadow */
 }
 
 .pdp-add-to-cart-btn:active {
-  transform: translateY(1px); /* 点击时微微下移 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 减弱阴影 */
-  background-color: #3e2c2d; /* 点击时更深的颜色 */
+  transform: translateY(1px); /* Slightly move down when clicked */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Weaken shadows */
+  background-color: #3e2c2d; /* Deeper color when clicked */
 }
 
-/* 点击时添加波纹效果 */
+/* Add ripple effect when clicked */
 .pdp-add-to-cart-btn::after {
   content: '';
   display: block;

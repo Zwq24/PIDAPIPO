@@ -29,11 +29,11 @@
 }
 
 .payment-back-btn {
-    /* width: auto; */ /* 由 common-back-button-img 控制 */
-    /* height: 24px; */ /* 由 common-back-button-img 控制 */
-    /* cursor: pointer; */ /* 由 common-back-button-img 控制 */
-    /* 这些样式现在由 global.css 中的 .common-back-button-img 控制 */
-    display: inline-block; /* 确保 img 作为一个块级元素正确应用尺寸 */
+    /* width: auto; */ /* cause common-back-button-img control */
+    /* height: 24px; */ /* cause common-back-button-img control */
+    /* cursor: pointer; */ /* cause common-back-button-img control */
+    /* These styles are now created by global.css hit the target .common-back-button-img control */
+    display: inline-block; /* ensure img Apply dimensions correctly as a block level element */
 }
 
 .payment-header h2 { /* Page Title e.g., "Confirm Order" */
@@ -280,7 +280,7 @@
 
 /* Modal styles are removed from here */ 
 
-/* 移动端样式优化 */
+/* Mobile style optimization */
 @media (max-width: 768px) {
     #payment-page-content {
         position: fixed !important;
@@ -308,15 +308,15 @@
     .payment-footer {
         width: calc(100% - 30px);
         padding: 15px;
-        margin-bottom: 80px; /* 增加底部边距，避免被底部导航栏遮挡 */
+        margin-bottom: 80px; /* Increase bottom margin，Avoid being obscured by the bottom navigation bar */
     }
     
     .place-order-btn {
-        margin-bottom: 20px; /* 为按钮添加底部间距 */
+        margin-bottom: 20px; /* Add bottom spacing for buttons */
     }
 } 
 
-/* 信用卡表单样式 */
+/* Credit Card Form Style */
 .credit-card-form {
     display: none;
     flex-direction: column;
@@ -363,7 +363,7 @@
     border-color: #51393A;
 }
 
-/* 移动端表单样式 */
+/* Mobile form style */
 @media (max-width: 768px) {
     .form-group {
         min-width: 100%;

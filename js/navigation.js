@@ -334,7 +334,7 @@ function showThankYouPage() {
     const backHomeBtn = document.getElementById('thank-you-back-home-btn');
     if (backHomeBtn && !backHomeBtn._clickHandlerAttachedThankYouHome) {
         backHomeBtn.addEventListener('click', () => {
-            // 根据设备类型选择正确的首页
+            // Select the correct homepage based on device type
             if (window.innerWidth <= 768) {
                 showMobileHomePage();
             } else {
@@ -373,7 +373,7 @@ function showThankYouPage() {
         }
     });
 
-    // 在showThankYouPage函数末尾添加
+    // existshowThankYouPageAdd at the end of the function
     const thankYouBackArrow = document.getElementById('thank-you-back-arrow-btn');
     if (thankYouBackArrow && !thankYouBackArrow._backHandlerAttached) {
         thankYouBackArrow.addEventListener('click', function() {
@@ -412,7 +412,7 @@ function goBackToPreviousPageOrHomepage() {
     const pageToGo = previousPage || 'newHomepage'; 
     console.log("Going back. Previous page was:", previousPage, "Navigating to:", pageToGo);
     
-    // 如果pageToGo是newHomepage且在移动设备上，则显示mobileHome
+    // ifpageToGoyesnewHomepageAnd on mobile devices，Then displaymobileHome
     if (pageToGo === 'newHomepage' && window.innerWidth <= 768) {
         showMobileHomePage();
         return;
@@ -441,7 +441,7 @@ function goBackToPreviousPageOrHomepage() {
         case 'cart': showCartPage(); break;
         case 'mobileCart': showMobileHomePage(); break;
         default: 
-            // 如果是移动设备但没有找到对应页面，则返回移动端主页
+            // If it is a mobile device but the corresponding page cannot be found，Return to the mobile homepage
             if (window.innerWidth <= 768) {
                 showMobileHomePage();
             } else {
@@ -452,11 +452,11 @@ function goBackToPreviousPageOrHomepage() {
 }
 
 function setupNavigationListeners() {
-  // 使用最可靠的查询方式获取导航元素
+  // Use the most reliable query method to obtain navigation elements
   const navMenu = document.querySelector('.nav-menu');
   const logoBtn = document.querySelector('.logo');
   
-  // Logo 点击 => 主页
+  // Logo click => homepage
   if (logoBtn) {
     logoBtn.addEventListener('click', (e) => {
       console.log("Logo clicked");
@@ -465,12 +465,12 @@ function setupNavigationListeners() {
     });
   }
 
-  // 确保navMenu存在
+  // ensurenavMenuexist
   if (navMenu) {
-    // 获取所有导航项
+    // Get all navigation items
     const allNavLinks = navMenu.querySelectorAll('li');
     
-    // 为每个导航项绑定事件
+    // Bind events for each navigation item
     allNavLinks.forEach(link => {
       const linkText = link.textContent.trim().toLowerCase();
       
@@ -478,7 +478,7 @@ function setupNavigationListeners() {
         console.log(`Nav link clicked: ${linkText}`);
         e.preventDefault();
         
-        // 根据链接文本确定导航目标
+        // Determine navigation target based on link text
         if (linkText === 'about') {
           showAboutPage();
         } else if (linkText === 'cakes') {
@@ -486,7 +486,7 @@ function setupNavigationListeners() {
         } else if (linkText === 'shop') {
           showNewHomepage();
         } else {
-          // 其他链接默认显示主页或执行其他操作
+          // Other links default to displaying the homepage or performing other actions
           console.log(`Navigation to ${linkText} not yet implemented`);
           showNewHomepage();
         }

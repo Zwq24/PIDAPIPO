@@ -1,12 +1,12 @@
-/* --- 旧主页 (About页面) 样式 --- */
+/* --- Old homepage (Aboutpage) style --- */
 #about-page-content {
-  padding-top: 20px; /* 为navbar留出空间 */
+  padding-top: 20px; /* bynavbarLeave space */
 }
 
-/* 主视觉区样式 (About页) */
+/* Main visual area style (Aboutpage) */
 #about-page-content .hero {
   text-align: center;
-  margin: 20px 0; /* 调整间距 */
+  margin: 20px 0; /* Adjust Spacing */
 }
 #about-page-content .hero h1 {
   font-size: 48px;
@@ -21,7 +21,7 @@
   margin: 0;
 }
 
-/* 图片容器样式 (About页) */
+/* Image container style (Aboutpage) */
 #about-page-content #page-container {
   width: 100%;
   max-width: 700px;
@@ -38,7 +38,7 @@
   display: block;
 }
 
-/* 图片分页组件 (About页) */
+/* Image pagination component (Aboutpage) */
 #about-page-content .pagination {
   display: flex;
   justify-content: center;
@@ -66,10 +66,10 @@
   background: #EAE4DD;
 }
 
-/* 内容区样式 (About页) */
+/* Content area style (Aboutpage) */
 #about-page-content .content {
   max-width: 1106px;
-  margin: 20px auto; /* 调整间距 */
+  margin: 20px auto; /* Adjust Spacing */
   padding: 24px;
   background: #fff;
   border-radius: 24px;
@@ -82,9 +82,9 @@
   margin-bottom: 24px;
 }
 
-/* 底部社交媒体区样式 (About页) */
+/* Bottom Social Media Area Style (Aboutpage) */
 #about-page-content .footer {
-  margin: 48px 0 20px 0; /* 调整间距 */
+  margin: 48px 0 20px 0; /* Adjust Spacing */
   padding: 32px 0 16px 0;
   background: transparent;
   text-align: center;

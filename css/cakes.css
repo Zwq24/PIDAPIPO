@@ -27,12 +27,12 @@
     justify-content: center;
 }
 
-/* 针对 Cakes 页面顶栏中的Logo图片，应用特定大小 */
+/* be directed against Cakes In the top bar of the pageLogopicture，Application specific size */
 .cakes-top-bar .site-logo {
     height: 35px;
 }
 
-/* 新增：页面标题样式 */
+/* newly added：Page Title Style */
 .cakes-page-title {
     font-family: 'Inter', sans-serif;
     font-weight: 700;
@@ -50,7 +50,7 @@
 }
 
 .cakes-back-btn {
-    /* 由 common-back-button-img 控制基础样式 */
+    /* cause common-back-button-img Control basic styles */
 }
 
 .cakes-description {
@@ -174,7 +174,7 @@
     }
 }
 
-/* 同样为移动端cake-item添加可点击提示 */
+/* Similarly for mobile devicescake-itemAdd clickable prompts */
 .mobile-cake-item {
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
